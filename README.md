@@ -1,3 +1,5 @@
+Hi guys as the NODE MODULES file is too large please install yourselves in your versions before running. Thank You
+
 #### Using this instructions to run the codes ####
 
 To get started:
