@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Home Page</title>
+    <!-- Link to styles in main.css in the public folder  -->
+    <link rel="stylesheet" href="/main.css">
+    <!-- Link to the Bootstrap CSS for styling the page -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+    crossorigin="anonymous">
+    <!-- Link to the Font Awesome CSS for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- For bootstrap javascript libraries for carousel -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+</head>
+
+<body class="main-home-page">
+    <!-- Include the header -->
+     <%- include('../utils/header', { userName: userName }) %>
+
+    <!-- Carousel Section -->
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="3000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="d-block w-100 text-center" style="height: 300px; background-color: #a8d5ba;">
+                    <h1 class="display-4">BE THE HERO OF MENTAL HEALTH</h1>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-block w-100 text-center" style="height: 300px; background-color: #ff8c00;">
+                    <h1 class="display-4">Your Guide to Feeling Awesome Inside Out</h1>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-block w-100 text-center" style="height: 300px; background-color: #ffcc00;">
+                    <h1 class="display-4">Welcome to KinderBrain</h1>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-block w-100 text-center" style="height: 300px; background-color: #a8c5e0;">
+                    <h1 class="display-4">Join Us in Supporting Mental Health</h1>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <!-- Home page content -->
+    <div class="container-fluid welcome-section mt-5 text-center">
+        <h2 class="display-4">WELCOME TO KINDERBRAIN</h2>
+    </div>
+
+    <div class="container-fluid vision-mission-section text-center my-5">
+        <!-- Image with text section -->
+        <img src="/images/visionmission.png" alt="Mental Health" class="img-fluid">
+        <div class="vision">
+            <h3>OUR VISION</h3>
+            <p>Our vision is to create a world where every child's mental health is prioritized, nurtured, and celebrated. We aspire to empower children with the tools and resources they need to thrive emotionally and mentally, fostering a future where they grow into resilient, confident, and compassionate individuals</p>
+        </div>
+        <div class="mission">
+            <h3>OUR MISSION</h3>
+            <p>Our mission is to provide accessible, engaging, and innovative mental health resources tailored specifically for children. We strive to create a safe and nurturing environment where children can learn, grow, and overcome challenges with confidence. Through educational content, interactive tools, and community support, we are dedicated to enhancing the mental well-being of every child and ensuring they have the opportunity to flourish</p>
+        </div>
+    </div>
+
+    <div class="container-fluid testimonials-section bg-light p-5 rounded">
+        <!-- Testimonials section -->
+        <h3 class="text-center">It is OKAY to ASK FOR HELP</h3>
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/your-video-id" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>Testimonials</h4>
+                <p>Child 1: Lorum Ipsum</p>
+                <p>Child 2: Lorum Ipsum</p>
+                <p>Child 3: Lorum Ipsum</p>
+                <p>Child 4: Lorum Ipsum</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid call-to-action-section text-center my-5">
+        <!-- Calls to action section -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="p-3 bg-light rounded">
+                    <h4>DO OUR ASSESSMENT</h4>
+                    <a href="#assessment" class="btn btn-success">Start Now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 bg-light rounded">
+                    <h4>PLAY OUR GAMES</h4>
+                    <a href="#games" class="btn btn-success">Start Now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 bg-light rounded">
+                    <h4>READ YOUR MINDS</h4>
+                    <a href="#read" class="btn btn-success">Start Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the footer -->
+    <%- include('../utils/footer') %>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+    crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">KinderBrain</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <button class="nav-button home" onclick="location.href='/'">Home</button>
+                <button class="nav-button games" onclick="location.href='/games'">Games</button>
+                <button class="nav-button forum" onclick="location.href='/forum'">Forum</button>
+                <button class="nav-button assessment" onclick="location.href='/assessment'">Assessment</button>
+                <button class="nav-button dashboard" onclick="location.href='/dashboard'">Dashboard</button>
+                <% if (userName) { %>
+                    <span class="navbar-text">Welcome, <%= userName %></span>
+                <% } else { %>
+                    <button class="nav-button login" onclick="location.href='/login'">Log In</button>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+    
+</body>
+</html>

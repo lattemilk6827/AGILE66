@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+     <!-- Link to the Bootstrap CSS for styling the page -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+     <!-- Link to styles in main.css in the public folder  -->
+    <link rel="stylesheet" href="/main.css">
+    <style>
+    </style>
+</head>
+<body>
+    <div class="parent-container">
+        <div class="login-container">
+            <!-- Title of the form -->
+            <h1>Login</h1>
+            <form action="/login" method="post">
+                 <!-- Input field for email -->
+                <p>Email: <input type="email" name="email" required></p>
+                  <!-- Input field for password -->
+                <p>Password: <input type="password" name="password" required></p>
+                    <!-- Check if any validation errors-->
+                <% if (error && error.length > 0) { %>
+                      <!-- Loop through each error and display it at the bottom of the form-->
+                    <% error.forEach(err => { %>
+                        <p class="error"><%= err.msg %></p>
+                    <% }) %>
+                <% } %>
+                  <!-- Submit button for the login form -->
+                <button type="submit">Login</button>
+            </form>
+               <!-- Link to the registration page for users without an account -->
+            <p>Don't have an account? <a href="/register">Register here</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,390 @@
+/* START of login page */
+.login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.login-container h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container p {
+    margin: 10px 0;
+    width: 100%;
+    text-align: left;
+}
+
+/* input field sizing  */
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* login button */
+.login-container button {
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+/* button to show difference in colour when hovering */
+.login-container button:hover {
+    background-color: #587b58;
+}
+
+/* register hyperlink */
+.login-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* show underline to click during hover  */
+.login-container a:hover {
+    text-decoration: underline;
+}
+
+/* if any error msg it will appear in red colour */
+.login-container .error {
+    color: red;
+}
+/*  End of login page */
+
+/* START of register Page */
+.register-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* position and text colour of header */
+.register-container h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* container sizing */
+.register-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* text inside register form sizing and position */
+.register-container p {
+    margin: 10px 0;
+    width: 100%;
+    text-align: left;
+}
+
+.register-container input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* register button */
+.register-container button {
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 18px;
+}
+
+/* button to show difference in colour when hovering */
+.register-container button:hover {
+    background-color: #2e522e;
+}
+
+/* login hyperlink text */
+.register-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* show underline to click during hover  */
+.register-container a:hover {
+    text-decoration: underline;
+}
+
+/* show error messages in red if any */
+.register-container .error {
+    color: red;
+}
+/* END of register Page */
+
+/* Navigation header  */
+.navbar {
+    background-color: #7190e4; 
+}
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.navbar-brand {
+    color:antiquewhite;
+    font-weight: bold; 
+    font-size: 24px; 
+    
+}
+
+/* to replace log in to username */
+.navbar-text{
+    margin-left: auto;
+    color: #fcecee;
+    font-family: fantasy;
+}
+
+.nav-button {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 5px;
+}
+.nav-button img { 
+    margin-left: 5px; 
+    width: 20px; 
+    height: 20px; 
+}
+.nav-button.home { background-color: #db40d0; } /* Home button color */
+.nav-button.games { background-color: #4a4596; } /* Games button color */
+.nav-button.forum { background-color: #66bb6a; } /* Forum button color */
+.nav-button.assessment { background-color: #87aadf; } /* Assessment button color */
+.nav-button.dashboard { background-color: #ffa726; } /* Dashboard button color */
+.nav-button.login { color: #000; margin-left: auto; } /* Log In button color */
+.main-home-page{
+    background-color:#eee1ab;
+}
+
+/* ///// START OF HOME PAGE  //////// */
+
+/* Vision and Mission Section */
+.vision-mission-section {
+    position: relative;
+    text-align: center;
+    margin-bottom: 50px;
+   
+}
+.vision-mission-section .vision,
+.vision-mission-section .mission {
+    background-color: rgba(249, 123, 123, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) rotate(-15deg);
+}
+.vision-mission-section .vision {
+    left: 5%;
+    width: 40%;
+}
+.vision-mission-section .mission {
+    right: 5%;
+    width: 40%;
+    transform: translateY(-50%) rotate(15deg);
+}
+.vision-mission-section img {
+    width: 35%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Welcome Section */
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.welcome-section p.lead {
+    font-size: 1.5rem;
+    color: #666;
+}
+
+
+.welcome-section h2 {
+    font-size: 4.5rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #3608ec, #e31ca7, #d5540e);
+    background-size: 200% 200%;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text; 
+    animation: gradientAnimation 3s ease infinite, textGlow 1.2s ease-in-out infinite alternate;
+    -webkit-text-fill-color: transparent; 
+    text-shadow: 0 0 5px rgba(196, 232, 13, 0.5), 0 0 10px rgba(28, 203, 197, 0.3);
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+.vision-mission-section h3 {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.vision-mission-section p {
+    font-size: 1rem;
+}
+
+/* Image with Text Section */
+.image-text-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    background-color: #e1f5fe;
+    padding: 50px 0;
+}
+
+.testimonials-section h3 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.testimonials-section h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.testimonials-section p {
+    font-size: 1rem;
+}
+
+/* Calls to Action Section */
+.call-to-action-section {
+    background-color: #fff3e0;
+    padding: 50px 0;
+}
+
+.call-to-action-section h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.call-to-action-section .btn {
+    font-size: 1.25rem;
+    padding: 10px 20px;
+}
+
+/* Footer Section */
+.footer-section {
+    background-color: #fdf3e3;
+    padding: 40px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.footer-section .footer-column {
+    padding: 0 20px;
+}
+
+.footer-section h5 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #777;
+    margin-bottom: 40px;
+}
+
+.footer-section h6 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #555;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.footer-section .newsletter-input {
+    max-width: 100%;
+}
+
+.footer-section .newsletter-column {
+    border-left: 2px solid #333;
+    padding-left: 20px;
+}
+
+.footer-section .social-icons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.footer-section .social-icons a {
+    margin: 0 10px;
+    font-size: 1.5rem;
+    color: #555;
+}
+
+.footer-section .social-icons a:hover {
+    color: #007bff;
+}
+/* ///// END OF HOME PAGE  //////// */

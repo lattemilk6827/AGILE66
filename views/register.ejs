@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the page -->
+    <title>Register</title>
+    <!-- Link to the Bootstrap CSS for styling the page -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Link to styles in main.css in the public folder  -->
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <!-- Registration page content -->
+    <div class="parent-container">
+        <div class="register-container">
+            <!-- Form heading -->
+            <h1>Register</h1>
+            <!-- Form for user registration -->
+            <form action="/register" method="post">
+                <!-- Input field for username -->
+                <p>Username: <input type="text" name="user_name" required></p>
+                <!-- Input field for email -->
+                <p>Email: <input type="email" name="email" required></p>
+                <!-- Input field for password -->
+                <p>Password: <input type="password" name="password" required></p>
+                <!-- Conditional to display error messages if password requirements not fulfilled -->
+                <% if (error && error.length > 0) { %>
+                    <!-- Loop through each error and display them -->
+                    <% error.forEach(err => { %>
+                        <p class="error"><%= err.msg %></p>
+                    <% }) %>
+                <% } %>
+                <!-- Submit button for the registration form -->
+                <button type="submit">Register</button>
+            </form>
+            <!-- Link to the login page for users with an account -->
+            <p>Already have an account? <a href="/login">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>
