@@ -68,10 +68,11 @@ app.use(express.static('public'));
 // Import and use routes
 const authRoutes = require('./routes/authenticate');
 const usersRoutes = require('./routes/users');
-
+const dashboardRoutes = require('./routes/dashboard');
 
 app.use('/', authRoutes.router);
 app.use('/', usersRoutes);
+app.use('/', dashboardRoutes);
 
 
 // Make the web application listen for HTTP requests

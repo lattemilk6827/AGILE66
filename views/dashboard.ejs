@@ -19,6 +19,70 @@
     <!-- Include the header -->
     <%- include('../utils/header') %>
 
+    <div class="welcome-section">
+        <h1>Welcome, <span><%= userName %></span>!</h1>
+        <% if (completedActivities.length > 0) { %>
+            <p>You have completed these activities: <span><%= completedActivities.join(', ') %></span></p>
+        <% } else { %>
+            <p>You have not completed any activities.</p>
+        <% } %>
+        <button onclick="location.href='/edit-profile'">Edit Profile</button>
+    </div>
+    
+
+    <div class="achievements-section">
+        <h2>Achievements</h2>
+        <div class="badges">
+            <% achievements.forEach(function(achievement) { %>
+                <div class="badge">
+                    <img src="<%= achievement.badgeImage %>" alt="<%= achievement.name %>">
+                    <p><%= achievement.name %></p>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    
+
+    <div class="progress-section">
+        <h2>What is My Current Progress</h2>
+        <% if (activities && activities.length > 0) { %>
+            <% activities.forEach(function(activity) { %>
+                <div class="activity">
+                    <p><%= activity.name %></p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: <%= activity.progress %>"></div>
+                    </div>
+                    <p><%= activity.progress %>% complete</p>
+                    <p>Status: <%= activity.completed ? 'Completed' : 'Incomplete' %></p>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No current activities.</p>
+        <% } %>
+    </div>
+    
+    
+
+    <div class="goals-section">
+        <h2>My Goals</h2>
+        <form action="/update-goals" method="post" class="mb-3">
+            <textarea class="form-control mb-3" name="goals" placeholder="Enter your goals here..."><%= goalsText %></textarea>
+            <button type="submit" class="btn btn-success">Update Goals</button>
+        </form>
+
+        <!-- Display the current goals -->
+        <% if (goalsText && goalsText.trim().length > 0) { %>
+            <div class="goals-display mb-3">
+                <p><strong>Current Goals:</strong></p>
+                <p><%= goalsText %></p>
+            </div>
+        <% } else { %>
+            <p>No goals set yet.</p>
+        <% } %>
+
+    </div>
+    
+
  <!-- Include the footer -->
  <%- include('../utils/footer') %>
 </body>

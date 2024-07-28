@@ -38,12 +38,4 @@ router.get("/assessment", (req, res) => {
     });
 });
 
-// Render Dashboard Page
-router.get("/dashboard", requireAuth, (req, res) => {
-    res.render("dashboard.ejs", {
-        title: "Dashboard",
-        userName: req.session.userName || null // Pass the username to the template
-    });
-});
-
 module.exports = router;
