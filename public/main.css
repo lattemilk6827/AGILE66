@@ -495,5 +495,28 @@
     text-shadow: 1px 1px 2px rgba(149, 229, 28, 0.1);
 }
 
+/* carousel control prev */
+.games-page .carousel-control-prev {
+    background-color:rgb(6, 54, 88); /* Add a semi-transparent background */
+    border-radius: 50%; /* Make it circular */
+    width: 50px; /* Increase the width */
+    height: 50px; /* Increase the height */
+    top: 60%; /* Move it down */
+    transform: translateY(-50%);
+    margin-left: -70px; /* Push it more to the outside */
+}
+
+/* carousel control next */
+.games-page .carousel-control-next {
+    background-color: rgb(6, 54, 88); /* Add a semi-transparent background */
+    border-radius: 50%; /* Make it circular */
+    width: 50px; /* Increase the width */
+    height: 50px; /* Increase the height */
+    top: 60%; /* Move it down */
+    transform: translateY(-50%);
+    margin-right: -70px; /* Push it more to the outside */
+}
+
+
 
 /* ///// END OF GAMES PAGE  //////// */
