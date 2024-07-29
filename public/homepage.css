@@ -55,25 +55,7 @@
     border-radius: 15px;
 }
 
-/* Testimonials Section */
-.testimonials-section {
-    background-color: #e1f5fe;
-    padding: 50px 0;
-}
 
-.testimonials-section h3 {
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.testimonials-section h4 {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.testimonials-section p {
-    font-size: 1rem;
-}
 
 /* Calls to Action Section */
 .call-to-action-section {
@@ -89,4 +71,55 @@
 .call-to-action-section .btn {
     font-size: 1.25rem;
     padding: 10px 20px;
+}
+
+
+/* Testimonials Section */
+
+.testimonials-section {
+    padding: 2rem;
+}
+
+.testimonial-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.thought-bubble {
+    position: relative;
+    background: #fff;
+    border: 1px solid #c1e3ba;
+    border-radius: 15px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    max-width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    clear: both;
+}
+
+.thought-bubble:before {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-top-color: #fff;
+    border-bottom: 0;
+    margin-left: -20px;
+    border-radius: 30%;
+}
+
+.thought-bubble:nth-child(odd) {
+    align-self: flex-start;
+    margin-right: auto;
+}
+
+
+
+.thought-bubble:nth-child(even) {
+    align-self: flex-end;
+    margin-left: auto;
 }

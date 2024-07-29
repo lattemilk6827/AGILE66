@@ -40,13 +40,4 @@ CREATE TABLE goals (
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
--- Emotions Table
-CREATE TABLE Emotions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    userId INTEGER,
-    emotion TEXT,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (userId) REFERENCES Users(id)
-);
-
 COMMIT;
