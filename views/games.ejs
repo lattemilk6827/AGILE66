@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>KinderBrain</title>
     <!-- Link to styles in main.css in the public folder  -->
     <link rel="stylesheet" href="/main.css">
     <!-- Link to the Bootstrap CSS for styling the page -->
@@ -10,16 +10,328 @@
     crossorigin="anonymous">
     <!-- Link to the Font Awesome CSS for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- For bootstrap javascript libraries for carousel -->
+    <!-- Bootstrap JavaScript libraries -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 
-<body class="main-home-page">
+<body class="games-page">
     <!-- Include the header -->
     <%- include('../utils/header') %>
 
- <!-- Include the footer -->
- <%- include('../utils/footer') %>
+    <div class="container">
+        <div class="text-center my-5">
+            <h1>THE GAMES FUN FOR YOUR MIND</h1>
+            <button class="btn btn-primary">Login to view your dashboard</button>
+        </div>
+
+        <h2 class="text-center my-4">Top Games Of The Month</h2>
+        <div id="topGamesCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/game1.png" class="card-img-top" alt="Game 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 1</h5>
+                                    <p class="card-text">Progress bar</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/game2.png" class="card-img-top" alt="Game 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 2</h5>
+                                    <p class="card-text">Progress bar</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/game3.png" class="card-img-top" alt="Game 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 3</h5>
+                                    <p class="card-text">Progress bar</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/game4.png" class="card-img-top" alt="Game 4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 4</h5>
+                                    <p class="card-text">Progress bar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/game5.png" class="card-img-top" alt="Game 5">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 5</h5>
+                                    <p class="card-text">Progress bar</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/game6.png" class="card-img-top" alt="Game 6">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 6</h5>
+                                    <p class="card-text">Progress bar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#topGamesCarousel" role="button" data-slide="prev">
+                <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
+            </a>
+            <a class="carousel-control-next" href="#topGamesCarousel" role="button" data-slide="next">
+                <i class="fas fa-chevron-right carousel-control-next-icon" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div class="podium-container">
+            <h2>Top Players Of The Month</h2>
+            <div class="podium">
+                <div class="podium-item second-place">
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <img src="path/to/profile2.png" alt="Player 2">
+                    </div>
+                    <div class="podium-number">2</div>
+                </div>
+                <div class="podium-item first-place">
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <img src="/images/login.png" alt="Player 1">
+                    </div>
+                    <div class="podium-number">1</div>
+                </div>
+                <div class="podium-item third-place">
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <img src="" alt="Player 3">
+                    </div>
+                    <div class="podium-number">3</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="game-header">Mind Games</h2>
+        <div id="mindGamesCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/mindgame1.png" class="card-img-top" alt="Mind Game 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 1</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/mindgame2.png" class="card-img-top" alt="Mind Game 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 2</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/mindgame3.png" class="card-img-top" alt="Mind Game 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 3</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/mindgame4.png" class="card-img-top" alt="Mind Game 4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 4</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/mindgame5.png" class="card-img-top" alt="Mind Game 5">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 5</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/mindgame6.png" class="card-img-top" alt="Mind Game 6">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 6</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#mindGamesCarousel" role="button" data-slide="prev">
+                <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
+            </a>
+            <a class="carousel-control-next" href="#mindGamesCarousel" role="button" data-slide="next">
+                <i class="fas fa-chevron-right carousel-control-next-icon" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <h2 class="game-header">Relaxation Games</h2>
+        <div id="relaxationGamesCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/relaxationgame1.png" class="card-img-top" alt="Relaxation Game 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 1</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/relaxationgame2.png" class="card-img-top" alt="Relaxation Game 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 2</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/relaxationgame3.png" class="card-img-top" alt="Relaxation Game 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 3</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/relaxationgame4.png" class="card-img-top" alt="Relaxation Game 4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 4</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/relaxationgame5.png" class="card-img-top" alt="Relaxation Game 5">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 5</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/relaxationgame6.png" class="card-img-top" alt="Relaxation Game 6">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 6</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#relaxationGamesCarousel" role="button" data-slide="prev">
+                <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
+            </a>
+            <a class="carousel-control-next" href="#relaxationGamesCarousel" role="button" data-slide="next">
+                <i class="fas fa-chevron-right carousel-control-next-icon" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <h2 class="game-header">Educational Games</h2>
+        <div id="educationalGamesCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/educationalgame1.png" class="card-img-top" alt="Educational Game 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 1</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/educationalgame2.png" class="card-img-top" alt="Educational Game 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 2</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/educationalgame3.png" class="card-img-top" alt="Educational Game 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 3</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/educationalgame4.png" class="card-img-top" alt="Educational Game 4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 4</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/educationalgame5.png" class="card-img-top" alt="Educational Game 5">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 5</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="path/to/educationalgame6.png" class="card-img-top" alt="Educational Game 6">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Title 6</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#educationalGamesCarousel" role="button" data-slide="prev">
+                <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
+            </a>
+            <a class="carousel-control-next" href="#educationalGamesCarousel" role="button" data-slide="next">
+                <i class="fas fa-chevron-right carousel-control-next-icon" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Include the footer -->
+    <%- include('../utils/footer') %>
 </body>
 </html>
