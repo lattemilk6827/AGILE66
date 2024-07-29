@@ -21,6 +21,8 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "express-validator": "^7.1.0",
+    "install": "^0.13.0",
+    "npm": "^10.8.2",
     "save": "^2.9.0",
     "sqlite3": "^5.1.7"
   },
