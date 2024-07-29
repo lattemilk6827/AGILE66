@@ -43,7 +43,7 @@ CREATE TABLE goals (
 -- Emotions Table
 CREATE TABLE Emotions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    userId INTEGER,7
+    userId INTEGER,
     emotion TEXT,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (userId) REFERENCES Users(id)
