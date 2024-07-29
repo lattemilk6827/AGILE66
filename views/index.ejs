@@ -4,6 +4,7 @@
     <title>Main Home Page</title>
     <!-- Link to styles in main.css in the public folder  -->
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/homepage.css">
     <!-- Link to the Bootstrap CSS for styling the page -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
@@ -21,26 +22,26 @@
     <!-- Include the header -->
      <%- include('../utils/header', { userName: userName }) %>
 
-    <!-- Carousel Section -->
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="3000">
+
+     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="3000">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <div class="d-block w-100 text-center" style="height: 300px; background-color: #a8d5ba;">
-                    <h1 class="display-4">BE THE HERO OF MENTAL HEALTH</h1>
+                <div class="d-block w-100 text-center d-flex align-items-center justify-content-center" style="height: 300px; background-color: #a8d5ba;">
+                    <h1 class="display-4">Be the hero of mental health</h1>
                 </div>
             </div>
             <div class="carousel-item">
-                <div class="d-block w-100 text-center" style="height: 300px; background-color: #ff8c00;">
+                <div class="d-block w-100 text-center d-flex align-items-center justify-content-center" style="height: 300px; background-color: #ff8c00;">
                     <h1 class="display-4">Your Guide to Feeling Awesome Inside Out</h1>
                 </div>
             </div>
             <div class="carousel-item">
-                <div class="d-block w-100 text-center" style="height: 300px; background-color: #ffcc00;">
+                <div class="d-block w-100 text-center d-flex align-items-center justify-content-center" style="height: 300px; background-color: #ffcc00;">
                     <h1 class="display-4">Welcome to KinderBrain</h1>
                 </div>
             </div>
             <div class="carousel-item">
-                <div class="d-block w-100 text-center" style="height: 300px; background-color: #a8c5e0;">
+                <div class="d-block w-100 text-center d-flex align-items-center justify-content-center" style="height: 300px; background-color: #a8c5e0;">
                     <h1 class="display-4">Join Us in Supporting Mental Health</h1>
                 </div>
             </div>
@@ -54,6 +55,7 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+    
 
     <!-- Home page content -->
     <div class="container-fluid welcome-section mt-5 text-center">

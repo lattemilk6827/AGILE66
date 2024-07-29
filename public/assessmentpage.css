@@ -1,0 +1,84 @@
+/* General body styling */
+body.main-home-page {
+    color: #333; /* Dark text color for readability */
+}
+
+
+/* Welcome section styling */
+.text-center.my-5 h1 {
+    color: #2e277c; /* Matching header color */
+}
+
+/* Understanding Emotions Section */
+h2.text-center {
+    color: #6c63ff; /* Matching header color */
+}
+
+.emotion-image {
+    width: 100px; /* Set a fixed width */
+    height: 100px; /* Set a fixed height */
+    object-fit: cover; /* Ensure the image covers the container without distortion */
+    border-radius: 12px; /* Rounded corners for a soft look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+}
+
+.cloud {
+    background-color: #fff; /* White background */
+    border-radius: 12px; /* Rounded corners */
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-family: 'Rusty Hooks', cursive;
+    letter-spacing: 0.2em;
+}
+
+.btn-info {
+    background-color: #ff6f61; /* Soft coral color */
+    border-color: #ff6f61;
+    border-radius: 8px; /* Rounded corners */
+}
+
+.btn-info:hover {
+    background-color: #ff4d4d; /* Darker coral for hover effect */
+    border-color: #ff4d4d;
+}
+
+/* Carousel styling */
+.carousel-item {
+    border-radius: 12px; /* Rounded corners */
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.carousel-indicators li {
+    background-color: #6c63ff; /* Matching the primary color */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #6c63ff; /* Matching the primary color */
+}
+
+/* Questionnaire Form */
+form#questionnaireForm {
+    border-radius: 12px; /* Rounded corners */
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.btn-body-tertiary {
+    border-color: #d5d5d5;
+    border-radius: 8px; /* Rounded corners */
+}
+
+.btn-body-tertiary:hover {
+    border-color: #c4c4c4;
+}
+
+.form-range {
+    width: 100%; /* Full width for slider */
+}
+
+.form-label {
+    font-family: 'Patrick Hand', cursive; /* Cute font */
+}
