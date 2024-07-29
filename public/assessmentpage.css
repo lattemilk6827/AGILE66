@@ -9,6 +9,27 @@ body.main-home-page {
     color: #2e277c; /* Matching header color */
 }
 
+/* Style for the statistics boxes */
+.stat-box {
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    background-color: #f3f7d0;
+}
+
+/* Define the pop effect on hover */
+.stat-box:hover {
+    transform: scale(1.05);
+}
+
+/* Optional: Add a shadow for better effect */
+.stat-box {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.stat-box:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
 /* Understanding Emotions Section */
 h2.text-center {
     color: #6c63ff; /* Matching header color */
