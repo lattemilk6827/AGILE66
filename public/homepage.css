@@ -123,3 +123,107 @@
     align-self: flex-end;
     margin-left: auto;
 }
+
+/* Testimonials Section */
+.testimonials-section {
+    background-color: #e1f5fe;
+    padding: 50px 0;
+}
+
+.testimonials-section h3 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.testimonials-section h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.testimonials-section p {
+    font-size: 1rem;
+}
+
+/* Welcome Section */
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.welcome-section p.lead {
+    font-size: 1.5rem;
+    color: #666;
+}
+
+/* In main.css */
+@font-face {
+    font-family: 'Rusty Hooks';
+    src: url('/fonts/Candyful-rgdjx.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.main-home-page h1, .main-home-page h2, .main-home-page h3 {
+    font-family: 'Rusty Hooks', cursive;
+    color: #271e4c;
+}
+
+
+.welcome-section h2 {
+    font-size: 4.5rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #3608ec, #e31ca7, #d5540e);
+    background-size: 200% 200%;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text; 
+    animation: gradientAnimation 3s ease infinite, textGlow 1.2s ease-in-out infinite alternate;
+    -webkit-text-fill-color: transparent; 
+    text-shadow: 0 0 5px rgba(196, 232, 13, 0.5), 0 0 10px rgba(28, 203, 197, 0.3);
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.vision-mission-section h3 {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.vision-mission-section p {
+    font-size: 1rem;
+}
+
+/* Image with Text Section */
+.image-text-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+/* Calls to Action Section */
+.call-to-action-section {
+    background-color: #fff3e0;
+    padding: 50px 0;
+}
+
+.call-to-action-section h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.call-to-action-section .btn {
+    font-size: 1.25rem;
+    padding: 10px 20px;
+}
