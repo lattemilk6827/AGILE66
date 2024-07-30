@@ -189,63 +189,61 @@
     <!-- Include the footer -->
     <%- include('../utils/footer') %>
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    loadGames('all');
-
-    document.getElementById('categoryDropdown').addEventListener('change', function() {
-        const selectedCategory = this.value;
-        loadGames(selectedCategory);
-    });
-});
-
-function loadGames(category) {
-    fetch(`/games/category/${category}`)
-        .then(response => response.json())
-        .then(data => {
-            const sections = ['mind', 'relaxation', 'educational'];
-
-            sections.forEach(section => {
-                const gamesContainer = document.querySelector(`#${section}GamesCarousel .carousel-inner`);
-                gamesContainer.innerHTML = ''; // Clear existing games
-
-                let row = null;
-                let filteredGames = category === 'all' ? data.filter(game => game.section === section) : data.filter(game => game.category === category && game.section === section);
-
-                filteredGames.forEach((game, index) => {
-                    if (index % 4 === 0) {
-                        row = document.createElement('div');
-                        row.className = 'row';
-                        let carouselItem = document.createElement('div');
-                        carouselItem.className = 'carousel-item';
-                        if (index === 0) {
-                            carouselItem.classList.add('active');
-                        }
-                        carouselItem.appendChild(row);
-                        gamesContainer.appendChild(carouselItem);
-                    }
-                    let col = document.createElement('div');
-                    col.className = 'col-md-3';
-                    col.setAttribute('data-category', game.category);
-
-                    let card = `
-                        <div class="card">
-                            <img src="${game.image}" class="card-img-top" alt="${game.title}">
-                            <div class="card-body">
-                                <h5 class="card-title">${game.title}</h5>
-                                <p class="card-text">${game.description}</p>
-                            </div>
-                        </div>
-                    `;
-
-                    col.innerHTML = card;
-                    row.appendChild(col);
-                });
+        document.addEventListener('DOMContentLoaded', function() {
+            loadGames('all');
+    
+            document.getElementById('categoryDropdown').addEventListener('change', function() {
+                const selectedCategory = this.value;
+                loadGames(selectedCategory);
             });
-        })
-        .catch(error => console.error('Error fetching games:', error));
-}
-
+        });
+    
+        function loadGames(category) {
+            fetch(`/games/category/${category}`)
+                .then(response => response.json())
+                .then(data => {
+                    const sections = ['mind', 'relaxation', 'educational'];
+                    sections.forEach(section => {
+                        const gamesContainer = document.querySelector(`#${section}GamesCarousel .carousel-inner`);
+                        gamesContainer.innerHTML = '';
+                        let row = null;
+                        let filteredGames = data.filter(game => game.section === section && game.id <= 18);
+    
+                        // Ensure the games loop correctly
+                        let gamesToShow = [...filteredGames, ...filteredGames]; // Duplicate the array to ensure looping
+    
+                        gamesToShow.forEach((game, index) => {
+                            if (index % 4 === 0) {
+                                row = document.createElement('div');
+                                row.className = 'row';
+                                let carouselItem = document.createElement('div');
+                                carouselItem.className = 'carousel-item';
+                                if (index === 0) {
+                                    carouselItem.classList.add('active');
+                                }
+                                carouselItem.appendChild(row);
+                                gamesContainer.appendChild(carouselItem);
+                            }
+                            let col = document.createElement('div');
+                            col.className = 'col-md-3';
+                            col.innerHTML = `
+                                <div class="card" onclick="window.location.href='/games/play/${game.id}'">
+                                    <img src="${game.image}" class="card-img-top" alt="${game.title}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${game.title}</h5>
+                                        <p class="card-text">${game.description}</p>
+                                    </div>
+                                </div>
+                            `;
+                            row.appendChild(col);
+                        });
+                    });
+                })
+                .catch(error => console.error('Error fetching games:', error));
+        }
     </script>
+    
+    
     
 </body>
 </html>

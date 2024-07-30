@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Math Game</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container text-center mt-5">
+        <h1 class="mb-4">Simple Math Game</h1>
+        <p class="lead">Solve the math problems.</p>
+        <div id="mathGame" class="mt-4">
+            <button class="btn btn-primary btn-lg mb-3" onclick="generateProblem()">Generate Problem</button>
+            <div id="problem" class="mt-3 font-weight-bold" style="font-size: 24px;"></div>
+            <input type="number" id="answer" class="form-control mt-3" placeholder="Your answer">
+            <button class="btn btn-success btn-lg mt-3" onclick="checkAnswer()">Check Answer</button>
+            <div id="result" class="mt-3" style="font-size: 24px;"></div>
+        </div>
+    </div>
+
+    <script>
+        let correctAnswer;
+        function generateProblem() {
+            const num1 = Math.floor(Math.random() * 100);
+            const num2 = Math.floor(Math.random() * 100);
+            const operators = ['+', '-', '*', '/'];
+            const operator = operators[Math.floor(Math.random() * operators.length)];
+            
+            switch (operator) {
+                case '+':
+                    correctAnswer = num1 + num2;
+                    break;
+                case '-':
+                    correctAnswer = num1 - num2;
+                    break;
+                case '*':
+                    correctAnswer = num1 * num2;
+                    break;
+                case '/':
+                    correctAnswer = (num1 / num2).toFixed(2); // keeping two decimal places for division
+                    break;
+            }
+            
+            document.getElementById('problem').innerText = `${num1} ${operator} ${num2} = ?`;
+            document.getElementById('result').innerText = '';
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseFloat(document.getElementById('answer').value);
+            const resultText = userAnswer === parseFloat(correctAnswer) ? 'Correct!' : 'Wrong!';
+            document.getElementById('result').innerText = resultText;
+            document.getElementById('result').className = resultText === 'Correct!' ? 'text-success' : 'text-danger';
+        }
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</body>
+</html>
