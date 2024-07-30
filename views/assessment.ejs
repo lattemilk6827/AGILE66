@@ -175,156 +175,34 @@
 
     <div class="questionnaireHeader">
         <h2 class="text-center">Let's Check In: How Are You Feeling Today?</h2>
-    </div>
-
-    <!-- Form to submit responses -->
-    <form id="questionnaireForm" action="/submit-response" method="post">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Image Section -->
-                <div class="col-md-4 text-center mb-4 mb-md-0">
-                    <img src="images/recognising-emotions.png" alt="Recognising Emotions" class="wheel-of-emotion-image img-fluid" style="max-width: 250px;">
-                </div>
-
-                <!-- Carousel Section -->
-                <div class="col-md-8">
-                    <div id="carouselExampleIndicators" class="carousel slide">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <!-- Question 1 -->
-                            <div class="carousel-item active">
-                                <div class="text-center">
-                                    <p><strong>How are you feeling today?</strong></p>
-                                    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div class="btn-group me-2" role="group" aria-label="Rating group">
-                                            <button type="button" class="btn btn-body-tertiary">0</button>
-                                            <button type="button" class="btn btn-body-tertiary">1</button>
-                                            <button type="button" class="btn btn-body-tertiary">2</button>
-                                            <button type="button" class="btn btn-body-tertiary">3</button>
-                                            <button type="button" class="btn btn-body-tertiary">4</button>
-                                            <button type="button" class="btn btn-body-tertiary">5</button>
-                                            <button type="button" class="btn btn-body-tertiary">6</button>
-                                            <button type="button" class="btn btn-body-tertiary">7</button>
-                                            <button type="button" class="btn btn-body-tertiary">8</button>
-                                            <button type="button" class="btn btn-body-tertiary">9</button>
-                                            <button type="button" class="btn btn-body-tertiary">10</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Question 2 -->
-                            <div class="carousel-item">
-                                <div class="text-center">
-                                    <p><strong>On a scale from 0 to 10, how comfortable are you talking about your feelings with a trusted adult?</strong></p>
-                                    <input type="range" class="form-range" id="comfortLevel" min="0" max="10" step="1">
-                                    <label for="comfortLevel" class="form-label">Comfort Level: <span id="comfortValue">5</span></label>
-                                </div>
-                            </div>
-
-                            <!-- Question 3 -->
-                            <div class="carousel-item">
-                                <div class="text-center">
-                                    <p><strong>How often do you feel you have someone to talk to about your worries?</strong></p>
-                                    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div class="btn-group me-2" role="group" aria-label="Frequency group">
-                                            <button type="button" class="btn btn-body-tertiary">Always</button>
-                                            <button type="button" class="btn btn-body-tertiary">Often</button>
-                                            <button type="button" class="btn btn-body-tertiary">Sometimes</button>
-                                            <button type="button" class="btn btn-body-tertiary">Rarely</button>
-                                            <button type="button" class="btn btn-body-tertiary">Never</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Question 4 -->
-                            <div class="carousel-item">
-                                <div class="text-center">
-                                    <p><strong>How would you rate your overall mood over the past week?</strong></p>
-                                    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div class="btn-group me-2" role="group" aria-label="Mood group">
-                                            <button type="button" class="btn btn-body-tertiary">Very Happy</button>
-                                            <button type="button" class="btn btn-body-tertiary">Happy</button>
-                                            <button type="button" class="btn btn-body-tertiary">Neutral</button>
-                                            <button type="button" class="btn btn-body-tertiary">Sad</button>
-                                            <button type="button" class="btn btn-body-tertiary">Very Sad</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Question 5 -->
-                            <div class="carousel-item">
-                                <div class="text-center">
-                                    <p><strong>Do you feel you have enough support from your family and friends?</strong></p>
-                                    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div class="btn-group me-2" role="group" aria-label="Support group">
-                                            <button type="button" class="btn btn-body-tertiary">Strongly Agree</button>
-                                            <button type="button" class="btn btn-body-tertiary">Agree</button>
-                                            <button type="button" class="btn btn-body-tertiary">Neutral</button>
-                                            <button type="button" class="btn btn-body-tertiary">Disagree</button>
-                                            <button type="button" class="btn btn-body-tertiary">Strongly Disagree</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Carousel Controls -->
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
+        <div class="questionnairebutton">
+            <% if (userName) { %>
+                <button id="complete-questionnaire-btn" class="btn btn-primary">Complete Questionnaire</button>
+            <% } else { %>
+                <p>Please <a href="/login">login</a> to complete the questionnaire.</p>
+            <% } %>
         </div>
-    </form>
+    </div>
+    
+    <div id="questionnaire-section" style="display:none;">
+        <h1>Questions:</h1>
+        
+    </div>
+    
+    <div id="response-message"></div>
+    
+
+    <script>
+        // Show the questionnaire when the button is clicked
+        $("#complete-questionnaire-btn").click(function() {
+            $("#questionnaire-section").toggle();
+        });
+    
+    </script>
 
     <!-- Include the footer -->
     <%- include('../utils/footer') %>
 
-    <!-- Script to handle form submission -->
-    <script>
-        document.getElementById('questionnaireForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
 
-            // Collect form data
-            var formData = new FormData(this);
-
-            // Send form data using Fetch API
-            fetch('/submit-response', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle successful form submission
-                console.log('Success:', data);
-                alert('Thank you for your submission!');
-            })
-            .catch(error => {
-                // Handle errors
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
-        });
-    </script>
 </body>
 </html>
