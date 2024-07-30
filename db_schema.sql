@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS Games (
 );
 
 -- Questionnaire Responses table
-CREATE TABLE IF NOT EXISTS Responses (
+CREATE TABLE IF NOT EXISTS responses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
     question_id INTEGER,

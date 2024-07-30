@@ -186,7 +186,59 @@
     
     <div id="questionnaire-section" style="display:none;">
         <h1>Questions:</h1>
-        
+        <form id="questionnaire-form">
+            <div class="form-group">
+                <label for="question1">I feel happy most of the time.</label>
+                <div class="rating">
+                    <input type="radio" id="q1-1" name="question1" value="1" required><label for="q1-1">1</label>
+                    <input type="radio" id="q1-2" name="question1" value="2"><label for="q1-2">2</label>
+                    <input type="radio" id="q1-3" name="question1" value="3"><label for="q1-3">3</label>
+                    <input type="radio" id="q1-4" name="question1" value="4"><label for="q1-4">4</label>
+                    <input type="radio" id="q1-5" name="question1" value="5"><label for="q1-5">5</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="question2">I enjoy spending time with friends.</label>
+                <div class="rating">
+                    <input type="radio" id="q2-1" name="question2" value="1" required><label for="q2-1">1</label>
+                    <input type="radio" id="q2-2" name="question2" value="2"><label for="q2-2">2</label>
+                    <input type="radio" id="q2-3" name="question2" value="3"><label for="q2-3">3</label>
+                    <input type="radio" id="q2-4" name="question2" value="4"><label for="q2-4">4</label>
+                    <input type="radio" id="q2-5" name="question2" value="5"><label for="q2-5">5</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="question3">I feel comfortable talking to my family about my feelings.</label>
+                <div class="rating">
+                    <input type="radio" id="q3-1" name="question3" value="1" required><label for="q3-1">1</label>
+                    <input type="radio" id="q3-2" name="question3" value="2"><label for="q3-2">2</label>
+                    <input type="radio" id="q3-3" name="question3" value="3"><label for="q3-3">3</label>
+                    <input type="radio" id="q3-4" name="question3" value="4"><label for="q3-4">4</label>
+                    <input type="radio" id="q3-5" name="question3" value="5"><label for="q3-5">5</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="question4">I get along well with my classmates at school.</label>
+                <div class="rating">
+                    <input type="radio" id="q4-1" name="question4" value="1" required><label for="q4-1">1</label>
+                    <input type="radio" id="q4-2" name="question4" value="2"><label for="q4-2">2</label>
+                    <input type="radio" id="q4-3" name="question4" value="3"><label for="q4-3">3</label>
+                    <input type="radio" id="q4-4" name="question4" value="4"><label for="q4-4">4</label>
+                    <input type="radio" id="q4-5" name="question4" value="5"><label for="q4-5">5</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="question5">I feel safe and secure at home.</label>
+                <div class="rating">
+                    <input type="radio" id="q5-1" name="question5" value="1" required><label for="q5-1">1</label>
+                    <input type="radio" id="q5-2" name="question5" value="2"><label for="q5-2">2</label>
+                    <input type="radio" id="q5-3" name="question5" value="3"><label for="q5-3">3</label>
+                    <input type="radio" id="q5-4" name="question5" value="4"><label for="q5-4">4</label>
+                    <input type="radio" id="q5-5" name="question5" value="5"><label for="q5-5">5</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="submit-questionnaire-btn">Submit</button>
+        </form>
     </div>
     
     <div id="response-message"></div>
@@ -197,6 +249,37 @@
         $("#complete-questionnaire-btn").click(function() {
             $("#questionnaire-section").toggle();
         });
+
+        $("#questionnaire-form").submit(function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form data
+            const formData = $(this).serialize(); // Serialize form data
+
+            // Send form data to the server
+            $.ajax({
+                type: 'POST',
+                url: '/submit-questionnaire', // Endpoint to handle the form submission
+                data: formData,
+                success: function(response) {
+                    // Show the thank you message
+                    $("#response-message").html("<h2>Thank you for your submission!</h2>");
+                    // Optionally hide the questionnaire section
+                    $("#questionnaire-section").hide();
+                },
+                error: function(error) {
+                    // Handle errors
+                    console.log("An error occurred:", error);
+                    $("#response-message").html("<h2>There was an error submitting your response. Please try again.</h2>");
+                }
+            });
+        });
+        
+        $("#submit-questionnaire-btn").click(function() {
+            // Show the thank you message
+            $("#response-message").html("<h2>Thank you for your submission!</h2>");
+        });
+        
     
     </script>
 
