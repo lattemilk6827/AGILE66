@@ -135,6 +135,8 @@ router.post("/register", [
     });
 });
 
+
+
 module.exports = {
     requireAuth,
     router

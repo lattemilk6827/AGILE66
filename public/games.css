@@ -1,0 +1,219 @@
+/* ///// START OF GAMES PAGE  //////// */
+
+/* Body and Container */
+body.games-page {
+    margin: 0;
+    padding: 0;
+    background-color: #fff4f0; /* Light background color */
+}
+
+.gamescontainer {
+    width:90%; 
+    margin: 0 auto; 
+    padding: 20px;
+   
+}
+
+/* Header */
+.headerSection {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 2%;
+    background-color: #f8cb87;
+    font-family: 'Rusty Hooks', cursive;
+}
+
+.headerSection .btn {
+    margin-top: 5px;
+    font-size: 1.2rem; /* Font size for the button */
+    padding: 10px 20px; /* Padding inside the button */
+    border-radius: 5px; /* Rounded corners for the button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), /* Soft shadow */
+                0 6px 20px rgba(0, 0, 0, 0.19); /* Deeper shadow */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+    background-color: #04343f;
+}
+
+.headerSection .btn:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Dropdown */
+#categoryDropdown {
+    width: fit-content;
+    background-color: chartreuse;
+    color: rgb(13, 29, 150);
+    font-weight: bolder;
+    
+}
+
+/* Games Brief */
+.gamesBreif {
+    background-color: #4d0b3d; /* Light background color */
+    padding: 20px; /* Padding inside the div */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), /* Soft shadow */
+                0 6px 20px rgba(0, 0, 0, 0.19); /* Deeper shadow */
+    text-align: center; /* Center the text */
+    margin: 20px auto; /* Center the div horizontally with some vertical margin */
+    height: 300px; /* Increased height */
+    max-width: 100%; /* Max width for larger screens */
+    transform: perspective(1000px) rotateX(10deg) rotateY(5deg); /* 3D transform */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.gamesBreif:hover {
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg); /* Flatten on hover */
+}
+
+.gamesBreif h3 {
+    color: #f1d8d8; /* Text color */
+    font-family: 'Arial', sans-serif; /* Font style */
+    font-size: 2rem; /* Font size */
+    margin: 0; /* Remove default margin */
+    letter-spacing: 1px; /* Spacing between letters */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+}
+
+.gamesDescription {
+    color: #f6fdcb; /* Text color */
+    font-family: 'Arial', sans-serif; /* Font style */
+    font-size: 18px; /* Font size */
+    margin-top: 2%; /* Space between the heading and the paragraph */
+    line-height: 1.6; /* Line height for better readability */
+}
+
+/* Podium Section */
+.podium-container {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.podium-container h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #4b0c7f;
+    text-shadow: 1px 1px 2px rgba(229, 234, 150, 0.1);
+}
+
+.podium .podium-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    position: relative;
+    flex: 1;
+}
+
+.podium .podium-item .star {
+    width: 80px; /* Increased size of the star */
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0; /* Hide the font size */
+    position: relative;
+    top: -20px; /* Adjust to create gaps between stars and blocks */
+}
+
+.podium .podium-item .star i {
+    font-size: 80px;
+}
+
+.podium .first-place .star i {
+    color: #4CAF50; 
+}
+
+.podium .second-place .star i {
+    color: #e2f919; 
+}
+
+.podium .third-place .star i {
+    color:#FF5722; 
+}
+
+
+.podium .podium-item .star img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+   
+}
+
+.podium .podium-item .podium-number {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    height: 100px;
+    box-sizing: border-box;
+}
+
+.podium .first-place .podium-number {
+    height: 150px; /* Adjust height for the tallest block */
+    background-color: #4CAF50;
+}
+
+.podium .second-place .podium-number {
+    height: 130px; /* Adjust height for the second tallest block */
+    background-color: #FFC107;
+}
+
+.podium .third-place .podium-number {
+    height: 110px; /* Adjust height for the shortest block */
+    background-color: #FF5722;
+}
+
+
+/* Style for the game headers */
+.game-header {
+    text-align: left;
+    margin: 40px 0 20px 0;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #f9b7d9;
+    text-shadow: 1px 1px 2px rgba(149, 229, 28, 0.1);
+}
+
+/* Carousel controls */
+.games-page .carousel-control-prev,
+.games-page .carousel-control-next {
+    background-color: rgb(6, 54, 88); /* Add a semi-transparent background */
+    border-radius: 50%; /* Make it circular */
+    width: 40px; /* Reduce the width */
+    height: 40px; /* Reduce the height */
+    top: 50%; /* Move it down */
+    transform: translateY(-50%);
+}
+
+.games-page .carousel-control-prev {
+    margin-left: -50px; /* Push it more to the outside */
+}
+
+.games-page .carousel-control-next {
+    margin-right: -50px; /* Push it more to the outside */
+}
+
+.carousel {
+    margin-bottom: 40px;
+}
+
+
+
+
+
+

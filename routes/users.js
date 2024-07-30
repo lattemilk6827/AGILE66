@@ -33,34 +33,6 @@ router.get("/assessment", (req, res) => {
 });
 
 
-// Handle Form Submission
-router.post('/submit-response',
-    // Validate and sanitize inputs
-    [
-        check('question1').notEmpty().withMessage('Please answer Question 1'),
-        check('question2').notEmpty().withMessage('Please answer Question 2'),
-        check('question3').notEmpty().withMessage('Please answer Question 3'),
-    ],
-    (req, res) => {
-        // Extract validation errors
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-
-        // Extract form data
-        const { question1, question2, question3 } = req.body;
-
-        // Process form data (e.g., save to database)
-        console.log('Question 1:', question1);
-        console.log('Question 2:', question2);
-        console.log('Question 3:', question3);
-
-        // Send a JSON response
-        res.json({ success: true });
-    }
-);
 
 // Render all the games under each section and the selected games after category sorting
 router.get("/games/category/:category", (req, res) => {

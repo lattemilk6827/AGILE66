@@ -34,6 +34,13 @@ body.main-home-page {
     background-color: #218838; /* Darker shade for hover */
 }
 
+/* Past Questionnaire section styling */
+.responses-section {
+    margin: 2rem auto;
+    max-width: 800px;
+    text-align: center;
+}
+
 /* Achievements section styling */
 .achievements-section {
     margin: 2rem auto;

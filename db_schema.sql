@@ -106,6 +106,17 @@ CREATE TABLE IF NOT EXISTS Games (
     FOREIGN KEY(user_id) REFERENCES Users(id)
 );
 
+-- Questionnaire Responses table
+CREATE TABLE IF NOT EXISTS responses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    question_id INTEGER,
+    response_value INTEGER,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+
 -- Insert sample data into Games table
 INSERT INTO Games (title, image, description, category, section, progress, user_id) VALUES 
 ('Mind Game 1', 'path/to/mindgame1.png', 'Description for Mind Game 1', 'easy', 'mind', 0, 1),
