@@ -3,6 +3,7 @@ body.main-home-page {
     color: #333; /* Dark text color for readability */
 }
 
+
 .assessment-container {
     background-color: #ffb6c1; 
     padding: 10px;
@@ -10,6 +11,7 @@ body.main-home-page {
     display: flex;
     align-items: center;
     height: 40vh; 
+    font-family: 'Rusty Hooks', cursive;
 }
 
 
@@ -28,7 +30,7 @@ body.main-home-page {
     width: 65%;
     height: 20%;
     object-fit: cover; /* Ensure the image covers the full height and width without distortion */
-    margin-left:-48%;
+    margin-left:-40%;
 }
 
 /* Welcome section styling */
