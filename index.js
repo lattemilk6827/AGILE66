@@ -70,11 +70,13 @@ const authRoutes = require('./routes/authenticate');
 const usersRoutes = require('./routes/users');
 const dashboardRoutes = require('./routes/dashboard');
 const forumRoutes = require('./routes/forum');
+const gameRoutes = require('./routes/games');
 
 app.use('/', authRoutes.router);
 app.use('/', usersRoutes);
 app.use('/', dashboardRoutes);
 app.use('/', forumRoutes);
+app.use('/', gameRoutes);
 
 // Make the web application listen for HTTP requests
 app.listen(port, () => {
