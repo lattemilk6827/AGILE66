@@ -4,7 +4,7 @@
 body.games-page {
     margin: 0;
     padding: 0;
-    background-color: #238bab
+    background-color: #fff4f0; /* Light background color */
 }
 
 .gamescontainer {
@@ -21,7 +21,8 @@ body.games-page {
     margin-bottom: 20px;
     text-align: center;
     padding: 2%;
-    background-color: #f19c1d;
+    background-color: #f8cb87;
+    font-family: 'Rusty Hooks', cursive;
 }
 
 .headerSection .btn {
