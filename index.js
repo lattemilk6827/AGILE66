@@ -69,10 +69,12 @@ app.use(express.static('public'));
 const authRoutes = require('./routes/authenticate');
 const usersRoutes = require('./routes/users');
 const dashboardRoutes = require('./routes/dashboard');
+const forumRoutes = require('./routes/forum');
 
 app.use('/', authRoutes.router);
 app.use('/', usersRoutes);
 app.use('/', dashboardRoutes);
+app.use('/', forumRoutes);
 
 // Make the web application listen for HTTP requests
 app.listen(port, () => {

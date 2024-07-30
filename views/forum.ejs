@@ -1,25 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <!-- Link to styles in main.css in the public folder  -->
+    <title>Forum</title>
     <link rel="stylesheet" href="/main.css">
-    <!-- Link to the Bootstrap CSS for styling the page -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-    crossorigin="anonymous">
-    <!-- Link to the Font Awesome CSS for icons -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- For bootstrap javascript libraries for carousel -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
-
 <body class="main-home-page">
-    <!-- Include the header -->
-    <%- include('../utils/header') %>
 
- <!-- Include the footer -->
- <%- include('../utils/footer') %>
+<!--header-->
+<h1>FOOTER HEADER HAVE ERROR, omitted for the time being </h1>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-primary create-post-button"><i class="fas fa-plus"></i> Create New Post</button>
+        <div class="filter-dropdown">
+            <select class="form-control" onchange="filterCategory(this.value)">
+                <option value="" <%= selectedCategory === '' ? 'selected' : '' %>>All Categories</option>
+                <option value="General Discussion" <%= selectedCategory === 'General Discussion' ? 'selected' : '' %>>General Discussion</option>
+                <option value="Feedback" <%= selectedCategory === 'Feedback' ? 'selected' : '' %>>Feedback</option>
+                <option value="News" <%= selectedCategory === 'News' ? 'selected' : '' %>>News</option>
+                <option value="Announcements" <%= selectedCategory === 'Announcements' ? 'selected' : '' %>>Announcements</option>
+            </select>
+        </div>
+    </div>
+    <h1>Forum Entries</h1>
+    <div class="list-group">
+        <% forums.forEach(function(forum) { %>
+            <a href="/forum/<%= forum.forum_id %>" class="list-group-item list-group-item-action">
+                <h5 class="mb-1"><%= forum.forum_title %></h5>
+                <p class="mb-1"><%= forum.forum_subtitle %></p>
+                <small>Published on: <%= forum.forum_publishedtimestamp %></small>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <div>
+                        <i class="fas fa-heart"></i> <%= forum.forum_likes %>
+                    </div>
+                </div>
+            </a>
+        <% }); %>
+    </div>
+    <div class="mt-4">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <% if (currentPage > 1) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="/forum?page=<%= currentPage - 1 %>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                <% } %>
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                    <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                        <a class="page-link" href="/forum?page=<%= i %>"><%= i %></a>
+                    </li>
+                <% } %>
+                <% if (currentPage < totalPages) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="/forum?page=<%= currentPage + 1 %>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="welcome-forum">
+    <h1>Hello and welcome to our community!</h1>
+    <p>This forum is a place for you to connect with fellow learners, share your thoughts, ask questions, and support each other on your educational journey.</p>
+</div>
+
+<!--footer-->
+<script>
+    function filterCategory(category) {
+        window.location.href = '/forum?category=' + category;
+    }
+</script>
 </body>
 </html>

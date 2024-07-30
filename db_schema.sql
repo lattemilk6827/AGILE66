@@ -13,6 +13,59 @@ CREATE TABLE IF NOT EXISTS Users (
 -- Insert sample data into Users table
 INSERT OR IGNORE INTO Users (id, user_name, email, password) VALUES (1, 'John Doe', 'john.doe@example.com', 'password123');
 
+-- Forums Table
+CREATE TABLE IF NOT EXISTS Forum (
+    forum_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    forum_title VARCHAR(255),
+    forum_subtitle VARCHAR(255),
+    forum_body TEXT,
+    forum_likes INTEGER DEFAULT 0,
+    forum_publishedtimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    forum_category VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+-- Dummy Data for Forum Table
+INSERT INTO Forum (forum_id, user_id, forum_title, forum_subtitle, forum_body, forum_likes, forum_publishedtimestamp, forum_category) VALUES 
+(1, 1, 'Title 1', 'Subtitle 1', 'This is the body of the first forum post.', 10, CURRENT_TIMESTAMP, 'General Discussion'),
+(2, 1, 'Title 2', 'Subtitle 2', 'This is the body of the second forum post.', 5, CURRENT_TIMESTAMP, 'Feedback'),
+(3, 1, 'Title 3', 'Subtitle 3', 'This is the body of the third forum post.', 8, CURRENT_TIMESTAMP, 'News'),
+(4, 1, 'Title 4', 'Subtitle 4', 'This is the body of the fourth forum post.', 15, CURRENT_TIMESTAMP, 'Announcements'),
+(5, 1, 'Title 5', 'Subtitle 5', 'This is the body of the fifth forum post.', 7, CURRENT_TIMESTAMP, 'General Discussion'),
+(6, 1, 'Title 6', 'Subtitle 6', 'This is the body of the sixth forum post.', 12, CURRENT_TIMESTAMP, 'Feedback'),
+(7, 1, 'Title 7', 'Subtitle 7', 'This is the body of the seventh forum post.', 9, CURRENT_TIMESTAMP, 'News'),
+(8, 1, 'Title 8', 'Subtitle 8', 'This is the body of the eighth forum post.', 20, CURRENT_TIMESTAMP, 'Announcements'),
+(9, 1, 'Title 9', 'Subtitle 9', 'This is the body of the ninth forum post.', 11, CURRENT_TIMESTAMP, 'General Discussion'),
+(10, 1, 'Title 10', 'Subtitle 10', 'This is the body of the tenth forum post.', 3, CURRENT_TIMESTAMP, 'Feedback');
+
+-- Forums Comments Table
+CREATE TABLE IF NOT EXISTS Forum_Comments (
+    comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    forum_id INTEGER,
+    commenter_name TEXT NOT NULL,
+    comment_text TEXT,
+    comment_likes INTEGER DEFAULT 0,
+    comment_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (forum_id) REFERENCES Forum(forum_id)
+);
+-- Dummy Data for Forum_Comments Table
+INSERT INTO Forum_Comments (comment_id, forum_id, commenter_name, comment_text, comment_likes, comment_timestamp) VALUES 
+(1, 1, 'John Doe', 'This is a comment on the first forum post.', 3, CURRENT_TIMESTAMP),
+(2, 1, 'Jane Doe', 'This is another comment on the first forum post.', 2, CURRENT_TIMESTAMP),
+(3, 2, 'Alice', 'This is a comment on the second forum post.', 5, CURRENT_TIMESTAMP),
+(4, 3, 'Bob', 'This is a comment on the third forum post.', 1, CURRENT_TIMESTAMP),
+(5, 4, 'Charlie', 'This is a comment on the fourth forum post.', 4, CURRENT_TIMESTAMP),
+(6, 4, 'Eve', 'This is another comment on the fourth forum post.', 6, CURRENT_TIMESTAMP),
+(7, 5, 'Frank', 'This is a comment on the fifth forum post.', 7, CURRENT_TIMESTAMP),
+(8, 6, 'Grace', 'This is a comment on the sixth forum post.', 5, CURRENT_TIMESTAMP),
+(9, 7, 'Heidi', 'This is a comment on the seventh forum post.', 3, CURRENT_TIMESTAMP),
+(10, 8, 'Ivan', 'This is a comment on the eighth forum post.', 9, CURRENT_TIMESTAMP),
+(11, 9, 'Judy', 'This is a comment on the ninth forum post.', 2, CURRENT_TIMESTAMP),
+(12, 10, 'Mallory', 'This is a comment on the tenth forum post.', 4, CURRENT_TIMESTAMP),
+(13, 1, 'Niaj', 'Another comment on the first forum post.', 5, CURRENT_TIMESTAMP),
+(14, 2, 'Olivia', 'Another comment on the second forum post.', 6, CURRENT_TIMESTAMP),
+(15, 3, 'Peggy', 'Another comment on the third forum post.', 1, CURRENT_TIMESTAMP);
+
 -- Achievements Table
 CREATE TABLE IF NOT EXISTS achievements (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
