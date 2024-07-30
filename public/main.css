@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'Rusty Hooks';
+    src: url('/fonts/Candyful-rgdjx.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.main-home-page h1, .main-home-page h2, .main-home-page h3 {
+    font-family: 'Rusty Hooks', cursive;
+    color: #271e4c;
+}
+
+
+
+
 /* START of login page */
 .login-container {
     background-color: #fff;
