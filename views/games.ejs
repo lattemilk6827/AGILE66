@@ -4,6 +4,7 @@
     <title>KinderBrain</title>
     <!-- Link to styles in main.css in the public folder  -->
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/games.css">
     <!-- Link to the Bootstrap CSS for styling the page -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
@@ -19,9 +20,9 @@
     <!-- Include the header -->
     <%- include('../utils/header') %>
 
-    <div class="container">
-        <div class="text-center my-5">
-            <h1>THE GAMES FUN FOR YOUR MIND</h1>
+    <div class="gamescontainer">
+        <div class="headerSection">
+            <h1>THE GAMES <br> FUN FOR YOUR MIND</h1>
              <button class="btn btn-primary" onclick="location.href='/dashboard'">Login to view your dashboard</button>
         </div>
 
@@ -126,6 +127,14 @@
             </div>
         </div>
         
+        <div class="gamesBreif">
+            <h3>THE GAMES FUN FOR YOUR MIND</h3>
+            <p class="gamesDescription">
+                For your mental health, indulge in a world of games. Play these games to relax as well as learn something new. Our carefully curated selection of games not only provides entertainment but also helps in cognitive development, improves problem-solving skills, and enhances memory. Whether you are looking for a fun break or a challenging puzzle, our games offer a perfect balance to stimulate your mind and keep you engaged. Explore different categories and find the ones that suit your interests and skill level. Remember, a healthy mind is just a game away!
+            </p>
+            
+        </div>
+
         <div class="text-center my-4">
             <select id="categoryDropdown" class="form-control" onchange="filterGamesByCategory()">
                 <option value="all">All Categories</option>
@@ -180,22 +189,28 @@
     <!-- Include the footer -->
     <%- include('../utils/footer') %>
     <script>
-     document.addEventListener('DOMContentLoaded', function() {
-    fetch('/games/category/all')
+document.addEventListener('DOMContentLoaded', function() {
+    loadGames('all');
+
+    document.getElementById('categoryDropdown').addEventListener('change', function() {
+        const selectedCategory = this.value;
+        loadGames(selectedCategory);
+    });
+});
+
+function loadGames(category) {
+    fetch(`/games/category/${category}`)
         .then(response => response.json())
         .then(data => {
-            const sections = {
-                mind: 'mindGamesCarousel',
-                relaxation: 'relaxationGamesCarousel',
-                educational: 'educationalGamesCarousel'
-            };
+            const sections = ['mind', 'relaxation', 'educational'];
 
-            Object.keys(sections).forEach(section => {
-                const gamesContainer = document.querySelector(`#${sections[section]} .carousel-inner`);
+            sections.forEach(section => {
+                const gamesContainer = document.querySelector(`#${section}GamesCarousel .carousel-inner`);
                 gamesContainer.innerHTML = ''; // Clear existing games
-                
+
                 let row = null;
-                let filteredGames = data.filter(game => game.category === section);
+                let filteredGames = category === 'all' ? data.filter(game => game.section === section) : data.filter(game => game.category === category && game.section === section);
+
                 filteredGames.forEach((game, index) => {
                     if (index % 4 === 0) {
                         row = document.createElement('div');
@@ -211,7 +226,7 @@
                     let col = document.createElement('div');
                     col.className = 'col-md-3';
                     col.setAttribute('data-category', game.category);
-                    
+
                     let card = `
                         <div class="card">
                             <img src="${game.image}" class="card-img-top" alt="${game.title}">
@@ -221,14 +236,14 @@
                             </div>
                         </div>
                     `;
-                    
+
                     col.innerHTML = card;
                     row.appendChild(col);
                 });
             });
         })
         .catch(error => console.error('Error fetching games:', error));
-});
+}
 
     </script>
     

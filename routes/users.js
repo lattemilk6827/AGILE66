@@ -40,11 +40,18 @@ router.get("/assessment", (req, res) => {
 
 
 
-// Category route for games sorting
-router.get("/games/category/all", (req, res) => {
-    const query = "SELECT * FROM Games";
-    
-    db.all(query, [], (err, rows) => {
+// Render all the games under each section and the selected games after category sorting
+router.get("/games/category/:category", (req, res) => {
+    const category = req.params.category;
+    let allgamesquery = "SELECT * FROM Games";
+    let params = [];
+
+    if (category !== 'all') {
+        allgamesquery += " WHERE category = ?";
+        params.push(category);
+    }
+
+    db.all(allgamesquery, params, (err, rows) => {
         if (err) {
             console.error(err.message);
             res.status(500).send("Server Error");
