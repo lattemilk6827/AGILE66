@@ -22,13 +22,7 @@ router.get("/games", (req, res) => {
     });
 });
 
-// Render Forum Page
-router.get("/forum", (req, res) => {
-    res.render("forum.ejs", {
-        title: "Forum",
-        userName: req.session.userName || null // Pass the username to the template
-    });
-});
+
 
 // Render Assessment Page
 router.get("/assessment", (req, res) => {
