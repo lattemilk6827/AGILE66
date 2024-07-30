@@ -180,22 +180,28 @@
     <!-- Include the footer -->
     <%- include('../utils/footer') %>
     <script>
-     document.addEventListener('DOMContentLoaded', function() {
-    fetch('/games/category/all')
+document.addEventListener('DOMContentLoaded', function() {
+    loadGames('all');
+
+    document.getElementById('categoryDropdown').addEventListener('change', function() {
+        const selectedCategory = this.value;
+        loadGames(selectedCategory);
+    });
+});
+
+function loadGames(category) {
+    fetch(`/games/category/${category}`)
         .then(response => response.json())
         .then(data => {
-            const sections = {
-                mind: 'mindGamesCarousel',
-                relaxation: 'relaxationGamesCarousel',
-                educational: 'educationalGamesCarousel'
-            };
+            const sections = ['mind', 'relaxation', 'educational'];
 
-            Object.keys(sections).forEach(section => {
-                const gamesContainer = document.querySelector(`#${sections[section]} .carousel-inner`);
+            sections.forEach(section => {
+                const gamesContainer = document.querySelector(`#${section}GamesCarousel .carousel-inner`);
                 gamesContainer.innerHTML = ''; // Clear existing games
-                
+
                 let row = null;
-                let filteredGames = data.filter(game => game.category === section);
+                let filteredGames = category === 'all' ? data.filter(game => game.section === section) : data.filter(game => game.category === category && game.section === section);
+
                 filteredGames.forEach((game, index) => {
                     if (index % 4 === 0) {
                         row = document.createElement('div');
@@ -211,7 +217,7 @@
                     let col = document.createElement('div');
                     col.className = 'col-md-3';
                     col.setAttribute('data-category', game.category);
-                    
+
                     let card = `
                         <div class="card">
                             <img src="${game.image}" class="card-img-top" alt="${game.title}">
@@ -221,14 +227,14 @@
                             </div>
                         </div>
                     `;
-                    
+
                     col.innerHTML = card;
                     row.appendChild(col);
                 });
             });
         })
         .catch(error => console.error('Error fetching games:', error));
-});
+}
 
     </script>
     
