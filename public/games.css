@@ -4,7 +4,7 @@
 body.games-page {
     margin: 0;
     padding: 0;
-    background-color: #fff4f0; /* Light background color */
+    background-color: #ecb19c; /* Light background color */
 }
 
 .gamescontainer {
@@ -185,7 +185,7 @@ body.games-page {
     margin: 40px 0 20px 0;
     font-size: 2rem;
     font-weight: bold;
-    color: #f9b7d9;
+    color: #e860ba;
     text-shadow: 1px 1px 2px rgba(149, 229, 28, 0.1);
 }
 
