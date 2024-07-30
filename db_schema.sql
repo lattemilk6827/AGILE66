@@ -40,28 +40,37 @@ CREATE TABLE IF NOT EXISTS goals (
     FOREIGN KEY(user_id) REFERENCES Users(id)
 );
 
--- Survey Questions Table
-CREATE TABLE IF NOT EXISTS survey_questions (
+-- Create Games table
+CREATE TABLE IF NOT EXISTS Games (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    question_text TEXT NOT NULL
-);
-
--- Survey Responses Table
-CREATE TABLE IF NOT EXISTS survey_responses (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    image TEXT,
+    description TEXT,
+    category TEXT,
+    progress INTEGER DEFAULT 0,
     user_id INTEGER,
-    question_id INTEGER,
-    response INTEGER,
-    FOREIGN KEY(user_id) REFERENCES Users(id),
-    FOREIGN KEY(question_id) REFERENCES survey_questions(id)
-);
-
--- Survey Results Table
-CREATE TABLE IF NOT EXISTS survey_results (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    score INTEGER,
     FOREIGN KEY(user_id) REFERENCES Users(id)
 );
+
+-- Insert sample data into Games table
+INSERT INTO Games (title, image, description, category, progress, user_id) VALUES 
+('Mind Game 1', 'path/to/mindgame1.png', 'Description for Mind Game 1', 'mind', 0, 1),
+('Mind Game 2', 'path/to/mindgame2.png', 'Description for Mind Game 2', 'mind', 0, 1),
+('Mind Game 3', 'path/to/mindgame3.png', 'Description for Mind Game 3', 'mind', 0, 1),
+('Mind Game 4', 'path/to/mindgame4.png', 'Description for Mind Game 4', 'mind', 0, 1),
+('Mind Game 5', 'path/to/mindgame5.png', 'Description for Mind Game 5', 'mind', 0, 1),
+('Mind Game 6', 'path/to/mindgame6.png', 'Description for Mind Game 6', 'mind', 0, 1),
+('Relaxation Game 1', 'path/to/relaxationgame1.png', 'Description for Relaxation Game 1', 'relaxation', 0, 1),
+('Relaxation Game 2', 'path/to/relaxationgame2.png', 'Description for Relaxation Game 2', 'relaxation', 0, 1),
+('Relaxation Game 3', 'path/to/relaxationgame3.png', 'Description for Relaxation Game 3', 'relaxation', 0, 1),
+('Relaxation Game 4', 'path/to/relaxationgame4.png', 'Description for Relaxation Game 4', 'relaxation', 0, 1),
+('Relaxation Game 5', 'path/to/relaxationgame5.png', 'Description for Relaxation Game 5', 'relaxation', 0, 1),
+('Relaxation Game 6', 'path/to/relaxationgame6.png', 'Description for Relaxation Game 6', 'relaxation', 0, 1),
+('Educational Game 1', 'path/to/educationalgame1.png', 'Description for Educational Game 1', 'educational', 0, 1),
+('Educational Game 2', 'path/to/educationalgame2.png', 'Description for Educational Game 2', 'educational', 0, 1),
+('Educational Game 3', 'path/to/educationalgame3.png', 'Description for Educational Game 3', 'educational', 0, 1),
+('Educational Game 4', 'path/to/educationalgame4.png', 'Description for Educational Game 4', 'educational', 0, 1),
+('Educational Game 5', 'path/to/educationalgame5.png', 'Description for Educational Game 5', 'educational', 0, 1),
+('Educational Game 6', 'path/to/educationalgame6.png', 'Description for Educational Game 6', 'educational', 0, 1);
 
 COMMIT;

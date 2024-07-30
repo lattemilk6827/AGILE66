@@ -22,7 +22,7 @@
     <div class="container">
         <div class="text-center my-5">
             <h1>THE GAMES FUN FOR YOUR MIND</h1>
-            <button class="btn btn-primary">Login to view your dashboard</button>
+             <button class="btn btn-primary" onclick="location.href='/dashboard'">Login to view your dashboard</button>
         </div>
 
         <h2 class="text-center my-4">Top Games Of The Month</h2>
@@ -126,212 +126,111 @@
             </div>
         </div>
         
-        <h2 class="game-header">Mind Games</h2>
-        <div id="mindGamesCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/mindgame1.png" class="card-img-top" alt="Mind Game 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 1</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/mindgame2.png" class="card-img-top" alt="Mind Game 2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 2</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/mindgame3.png" class="card-img-top" alt="Mind Game 3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 3</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/mindgame4.png" class="card-img-top" alt="Mind Game 4">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 4</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/mindgame5.png" class="card-img-top" alt="Mind Game 5">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 5</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/mindgame6.png" class="card-img-top" alt="Mind Game 6">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 6</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#mindGamesCarousel" role="button" data-slide="prev">
-                <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
-            </a>
-            <a class="carousel-control-next" href="#mindGamesCarousel" role="button" data-slide="next">
-                <i class="fas fa-chevron-right carousel-control-next-icon" aria-hidden="true"></i>
-            </a>
+        <div class="text-center my-4">
+            <select id="categoryDropdown" class="form-control" onchange="filterGamesByCategory()">
+                <option value="all">All Categories</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="difficult">Difficult</option>
+            </select>
         </div>
 
-        <h2 class="game-header">Relaxation Games</h2>
-        <div id="relaxationGamesCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/relaxationgame1.png" class="card-img-top" alt="Relaxation Game 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 1</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/relaxationgame2.png" class="card-img-top" alt="Relaxation Game 2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 2</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/relaxationgame3.png" class="card-img-top" alt="Relaxation Game 3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 3</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/relaxationgame4.png" class="card-img-top" alt="Relaxation Game 4">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 4</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div id="gamesSections">
+            <h2 class="game-header">Mind Games</h2>
+            <div id="mindGamesCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Carousel items -->
                 </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/relaxationgame5.png" class="card-img-top" alt="Relaxation Game 5">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 5</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/relaxationgame6.png" class="card-img-top" alt="Relaxation Game 6">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 6</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a class="carousel-control-prev" href="#mindGamesCarousel" role="button" data-slide="prev">
+                    <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
+                </a>
+                <a class="carousel-control-next" href="#mindGamesCarousel" role="button" data-slide="next">
+                    <i class="fas fa-chevron-right carousel-control-next-icon" aria-hidden="true"></i>
+                </a>
             </div>
-            <a class="carousel-control-prev" href="#relaxationGamesCarousel" role="button" data-slide="prev">
-                <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
-            </a>
-            <a class="carousel-control-next" href="#relaxationGamesCarousel" role="button" data-slide="next">
-                <i class="fas fa-chevron-right carousel-control-next-icon" aria-hidden="true"></i>
-            </a>
-        </div>
 
-        <h2 class="game-header">Educational Games</h2>
-        <div id="educationalGamesCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/educationalgame1.png" class="card-img-top" alt="Educational Game 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 1</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/educationalgame2.png" class="card-img-top" alt="Educational Game 2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 2</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/educationalgame3.png" class="card-img-top" alt="Educational Game 3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 3</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/educationalgame4.png" class="card-img-top" alt="Educational Game 4">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 4</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <h2 class="game-header">Relaxation Games</h2>
+            <div id="relaxationGamesCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Carousel items -->
                 </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/educationalgame5.png" class="card-img-top" alt="Educational Game 5">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 5</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/educationalgame6.png" class="card-img-top" alt="Educational Game 6">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 6</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a class="carousel-control-prev" href="#relaxationGamesCarousel" role="button" data-slide="prev">
+                    <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
+                </a>
+                <a class="carousel-control-next" href="#relaxationGamesCarousel" role="button" data-slide="next">
+                    <i class="fas fa-chevron-right carousel-control-next-icon" aria-hidden="true"></i>
+                </a>
             </div>
-            <a class="carousel-control-prev" href="#educationalGamesCarousel" role="button" data-slide="prev">
-                <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
-            </a>
-            <a class="carousel-control-next" href="#educationalGamesCarousel" role="button" data-slide="next">
-                <i class="fas fa-chevron-right carousel-control-next-icon" aria-hidden="true"></i>
-            </a>
+
+            <h2 class="game-header">Educational Games</h2>
+            <div id="educationalGamesCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Carousel items -->
+                </div>
+                <a class="carousel-control-prev" href="#educationalGamesCarousel" role="button" data-slide="prev">
+                    <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
+                </a>
+                <a class="carousel-control-next" href="#educationalGamesCarousel" role="button" data-slide="next">
+                    <i class="fas fa-chevron-right carousel-control-next-icon" aria-hidden="true"></i>
+                </a>
+            </div>
         </div>
     </div>
 
     <!-- Include the footer -->
     <%- include('../utils/footer') %>
+    <script>
+     document.addEventListener('DOMContentLoaded', function() {
+    fetch('/games/category/all')
+        .then(response => response.json())
+        .then(data => {
+            const sections = {
+                mind: 'mindGamesCarousel',
+                relaxation: 'relaxationGamesCarousel',
+                educational: 'educationalGamesCarousel'
+            };
+
+            Object.keys(sections).forEach(section => {
+                const gamesContainer = document.querySelector(`#${sections[section]} .carousel-inner`);
+                gamesContainer.innerHTML = ''; // Clear existing games
+                
+                let row = null;
+                let filteredGames = data.filter(game => game.category === section);
+                filteredGames.forEach((game, index) => {
+                    if (index % 4 === 0) {
+                        row = document.createElement('div');
+                        row.className = 'row';
+                        let carouselItem = document.createElement('div');
+                        carouselItem.className = 'carousel-item';
+                        if (index === 0) {
+                            carouselItem.classList.add('active');
+                        }
+                        carouselItem.appendChild(row);
+                        gamesContainer.appendChild(carouselItem);
+                    }
+                    let col = document.createElement('div');
+                    col.className = 'col-md-3';
+                    col.setAttribute('data-category', game.category);
+                    
+                    let card = `
+                        <div class="card">
+                            <img src="${game.image}" class="card-img-top" alt="${game.title}">
+                            <div class="card-body">
+                                <h5 class="card-title">${game.title}</h5>
+                                <p class="card-text">${game.description}</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    col.innerHTML = card;
+                    row.appendChild(col);
+                });
+            });
+        })
+        .catch(error => console.error('Error fetching games:', error));
+});
+
+    </script>
+    
 </body>
 </html>

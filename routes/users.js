@@ -68,4 +68,19 @@ router.post('/submit-response',
     }
 );
 
+// Category route for games sorting
+router.get("/games/category/all", (req, res) => {
+    const query = "SELECT * FROM Games";
+    
+    db.all(query, [], (err, rows) => {
+        if (err) {
+            console.error(err.message);
+            res.status(500).send("Server Error");
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
+
 module.exports = router;
