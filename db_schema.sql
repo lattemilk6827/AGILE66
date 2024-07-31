@@ -140,4 +140,6 @@ INSERT OR REPLACE INTO Games (id, title, image, description, category, section, 
 (16, 'Educational Game 4', 'path/to/educationalgame4.png', 'Description for Educational Game 4', 'medium', 'educational', 0, 1),
 (17, 'Educational Game 5', 'path/to/educationalgame5.png', 'Description for Educational Game 5', 'difficult', 'educational', 0, 1),
 (18, 'Educational Game 6', 'path/to/educationalgame6.png', 'Description for Educational Game 6', 'difficult', 'educational', 0, 1);
+
+
 COMMIT;
