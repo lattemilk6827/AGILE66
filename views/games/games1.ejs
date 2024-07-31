@@ -85,7 +85,7 @@
                     $('#progress-bar').text('Completed');
                 } else {
                     const minutes = Math.floor(secondsRemaining / 60);
-                    const seconds = secondsRemaining % 60;
+                    const seconds = Math.round(secondsRemaining % 60); // Round off seconds to the nearest whole number
                     $('#time-remaining').text(`Time remaining: ${minutes} minutes ${seconds} seconds`);
                 }
             };

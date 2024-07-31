@@ -226,7 +226,8 @@
                             let col = document.createElement('div');
                             col.className = 'col-md-3';
                             const userId = '<%= userName %>';
-                            const elapsedMinutes = localStorage.getItem(`elapsedMinutes_${game.id}_${userId}`) || 0;
+                            const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${game.id}_${userId}`)) || 0;
+                            const roundedElapsedMinutes = elapsedMinutes.toFixed(2);
                             const progressPercentage = (elapsedMinutes / 15) * 100;
                             col.innerHTML = `
                             <div class="card" onclick="window.location.href='/games/play/${game.id}'">
@@ -237,7 +238,7 @@
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: ${progressPercentage}%;"
                                             aria-valuenow="${progressPercentage}" aria-valuemin="0" aria-valuemax="100">
-                                            ${elapsedMinutes} minutes played
+                                            ${roundedElapsedMinutes} minutes played
                                         </div>
                                     </div>
                                 </div>
