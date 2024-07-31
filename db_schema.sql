@@ -106,15 +106,18 @@ CREATE TABLE IF NOT EXISTS Games (
     FOREIGN KEY(user_id) REFERENCES Users(id)
 );
 
--- Questionnaire Responses table
-CREATE TABLE IF NOT EXISTS responses (
+CREATE TABLE Responses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    question_id INTEGER,
-    response_value INTEGER,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    user_id INTEGER NOT NULL,
+    question1 INTEGER,
+    question2 INTEGER,
+    question3 INTEGER,
+    question4 INTEGER,
+    question5 INTEGER,
+    responseDate DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+
 
 
 -- Insert sample data into Games table

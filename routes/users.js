@@ -24,5 +24,12 @@ router.get("/assessment", (req, res) => {
     });
 });
 
+// Render Assessment Page
+router.get("/past-responses", (req, res) => {
+    res.render("past-responses.ejs", {
+        title: "past-responses",
+        userName: req.session.userName || null // Pass the username to the template
+    });
+});
 
 module.exports = router;

@@ -178,6 +178,8 @@
         <div class="questionnairebutton">
             <% if (userName) { %>
                 <button id="complete-questionnaire-btn" class="btn btn-primary">Complete Questionnaire</button>
+                <br><br>
+                <p>View <a href="/past-responses">past</a> responses.</p>
             <% } else { %>
                 <p>Please <a href="/login">login</a> to complete the questionnaire.</p>
             <% } %>
@@ -186,7 +188,7 @@
     
     <div id="questionnaire-section" style="display:none;">
         <h1>Questions:</h1>
-        <form id="questionnaire-form">
+        <form id="questionnaire-form" method="POST" action="/submit-questionnaire">
             <div class="form-group">
                 <label for="question1">I feel happy most of the time.</label>
                 <div class="rating">
@@ -243,44 +245,54 @@
     
     <div id="response-message"></div>
     
-
     <script>
-        // Show the questionnaire when the button is clicked
-        $("#complete-questionnaire-btn").click(function() {
-            $("#questionnaire-section").toggle();
-        });
-
-        $("#questionnaire-form").submit(function(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            // Get form data
-            const formData = $(this).serialize(); // Serialize form data
-
-            // Send form data to the server
-            $.ajax({
-                type: 'POST',
-                url: '/submit-questionnaire', // Endpoint to handle the form submission
-                data: formData,
-                success: function(response) {
-                    // Show the thank you message
-                    $("#response-message").html("<h2>Thank you for your submission!</h2>");
-                    // Optionally hide the questionnaire section
-                    $("#questionnaire-section").hide();
-                },
-                error: function(error) {
-                    // Handle errors
-                    console.log("An error occurred:", error);
-                    $("#response-message").html("<h2>There was an error submitting your response. Please try again.</h2>");
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the button and questionnaire section elements
+            var button = document.getElementById('complete-questionnaire-btn');
+            var questionnaireSection = document.getElementById('questionnaire-section');
+            
+            // Function to toggle visibility
+            function toggleQuestionnaire() {
+                if (questionnaireSection.style.display === 'none' || questionnaireSection.style.display === '') {
+                    questionnaireSection.style.display = 'block';
+                } else {
+                    questionnaireSection.style.display = 'none';
                 }
-            });
+            }
+
+            // Add click event listener to the button
+            if (button) {
+                button.addEventListener('click', toggleQuestionnaire);
+            }
+            
+            // Handle form submission
+            var form = document.getElementById('questionnaire-form');
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Prevent the default form submission
+                    
+                    // Create a FormData object
+                    var formData = new FormData(form);
+                    
+                    // Send the form data using Fetch API
+                    fetch('/submit-questionnaire', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Display success message or handle response
+                        document.getElementById('response-message').innerText = 'Thank you for completing the questionnaire!';
+                        form.reset(); // Reset form fields
+                    })
+                    .catch(error => {
+                        // Handle errors
+                        console.error('Error:', error);
+                        document.getElementById('response-message').innerText = 'There was an error submitting your response. Please try again.';
+                    });
+                });
+            }
         });
-        
-        $("#submit-questionnaire-btn").click(function() {
-            // Show the thank you message
-            $("#response-message").html("<h2>Thank you for your submission!</h2>");
-        });
-        
-    
     </script>
 
     <!-- Include the footer -->
