@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS Forum (
     forum_category VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+
 -- Dummy Data for Forum Table
 INSERT INTO Forum (forum_id, user_id, forum_title, forum_subtitle, forum_body, forum_likes, forum_publishedtimestamp, forum_category) VALUES 
 (1, 1, 'Title 1', 'Subtitle 1', 'This is the body of the first forum post.', 10, CURRENT_TIMESTAMP, 'General Discussion'),
@@ -66,6 +67,15 @@ INSERT INTO Forum_Comments (comment_id, forum_id, commenter_name, comment_text, 
 (14, 2, 'Olivia', 'Another comment on the second forum post.', 6, CURRENT_TIMESTAMP),
 (15, 3, 'Peggy', 'Another comment on the third forum post.', 1, CURRENT_TIMESTAMP);
 
+-- Likes
+CREATE TABLE IF NOT EXISTS Likes (
+    user_id INTEGER,
+    forum_id INTEGER,
+    PRIMARY KEY (user_id, forum_id),
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (forum_id) REFERENCES Forum(forum_id)
+);
+
 -- Achievements Table
 CREATE TABLE IF NOT EXISTS achievements (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -106,7 +116,7 @@ CREATE TABLE IF NOT EXISTS Games (
     FOREIGN KEY(user_id) REFERENCES Users(id)
 );
 
-CREATE TABLE Responses (
+CREATE TABLE IF NOT EXISTS Responses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     question1 INTEGER,

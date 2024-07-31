@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forum</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+<body class="main-home-page">
+
+<!--header-->
+<!--header-->
+<%- include('../utils/header') %>
+
+<button onclick="window.location.href='/forum'" class="back_button">Back</button>
+<h1>Create a New Forum Post</h1>
+<form action="/newPost" method="post">
+    <div class="form_container">
+        <% if (errors && errors.length > 0) { %>
+            <div class="alert alert-danger">
+                <ul>
+                    <% errors.forEach(function(error) { %>
+                        <li><%= error %></li>
+                    <% }); %>
+                </ul>
+            </div>
+        <% } %>
+        <label for="forum_title">Title:</label>
+        <br>
+        <input type="text" id="forum_title" name="forum_title" value="<%= formData ? formData.forum_title : '' %>">
+        <br>
+        
+        <label for="forum_subtitle">Subtitle:</label>
+        <br>
+        <input type="text" id="forum_subtitle" name="forum_subtitle" value="<%= formData ? formData.forum_subtitle : '' %>">
+        <br>
+        
+        <label for="forum_body">Body:</label>
+        <br>
+        <textarea rows="5" cols="60" id="forum_body" name="forum_body"><%= formData ? formData.forum_body : '' %></textarea>
+        <br>
+        
+        <label for="forum_category">Category:</label>
+        <br>
+        <select id="forum_category" name="forum_category">
+            <option value="General Discussion" <%= formData && formData.forum_category === 'General Discussion' ? 'selected' : '' %>>General Discussion</option>
+            <option value="Feedback" <%= formData && formData.forum_category === 'Feedback' ? 'selected' : '' %>>Feedback</option>
+            <option value="News" <%= formData && formData.forum_category === 'News' ? 'selected' : '' %>>News</option>
+            <option value="Announcements" <%= formData && formData.forum_category === 'Announcements' ? 'selected' : '' %>>Announcements</option>
+        </select>
+        <br>
+    </div>
+    <br>
+    
+    <button type="submit" class="submit_button">Post</button>
+</form>
+<!--Footer-->
+<%- include('../utils/footer') %>
+
+</body>
+</html>

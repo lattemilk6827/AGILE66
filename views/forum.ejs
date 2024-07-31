@@ -11,10 +11,23 @@
 <body class="main-home-page">
 
 <!--header-->
-<h1>FOOTER HEADER HAVE ERROR, omitted for the time being </h1>
+<%- include('../utils/header') %>
+<div class="header_forum">
+    <h1>THE FORUM</h1>
+    <h2>Your Mental Health Community</h2>
+    <p>A Safe Space for Your Mental Health</p>
+    <nav>
+        <button>ALL Categories</button>
+        <button>ALL Posts</button>
+        <button>MY Posts</button>
+        <input type="text" placeholder="Search">
+        <button>🔍</button>
+    </nav>
+    <hr>
+</div>
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center">
-        <button class="btn btn-primary create-post-button"><i class="fas fa-plus"></i> Create New Post</button>
+        <button class="btn btn-primary create-post-button" onclick="window.location.href='/newPost'">+ Create New Post</button>
         <div class="filter-dropdown">
             <select class="form-control" onchange="filterCategory(this.value)">
                 <option value="" <%= selectedCategory === '' ? 'selected' : '' %>>All Categories</option>
@@ -25,7 +38,7 @@
             </select>
         </div>
     </div>
-    <h1>Forum Entries</h1>
+    <br>
     <div class="list-group">
         <% forums.forEach(function(forum) { %>
             <a href="/forum/<%= forum.forum_id %>" class="list-group-item list-group-item-action">
@@ -72,7 +85,12 @@
     <p>This forum is a place for you to connect with fellow learners, share your thoughts, ask questions, and support each other on your educational journey.</p>
 </div>
 
+<div class="latest-discussions">
+    <h4>CHECK OUT OUR LATEST DISCUSSIONS</h4>
+</div>
+
 <!--footer-->
+<%- include('../utils/footer') %>
 <script>
     function filterCategory(category) {
         window.location.href = '/forum?category=' + category;
