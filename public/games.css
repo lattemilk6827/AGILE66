@@ -213,3 +213,14 @@ body.games-page {
 }
 
 
+.progress {
+    height: 30px;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    background-color: #4caf50;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+}

@@ -191,13 +191,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             loadGames('all');
-    
+
             document.getElementById('categoryDropdown').addEventListener('change', function() {
                 const selectedCategory = this.value;
                 loadGames(selectedCategory);
             });
         });
-    
+
         function loadGames(category) {
             fetch(`/games/category/${category}`)
                 .then(response => response.json())
@@ -208,10 +208,9 @@
                         gamesContainer.innerHTML = '';
                         let row = null;
                         let filteredGames = data.filter(game => game.section === section && game.id <= 18);
-    
-                        // Ensure the games loop correctly
-                        let gamesToShow = [...filteredGames, ...filteredGames]; // Duplicate the array to ensure looping
-    
+
+                        let gamesToShow = [...filteredGames, ...filteredGames];
+
                         gamesToShow.forEach((game, index) => {
                             if (index % 4 === 0) {
                                 row = document.createElement('div');
@@ -226,15 +225,24 @@
                             }
                             let col = document.createElement('div');
                             col.className = 'col-md-3';
+                            const userId = '<%= userName %>';
+                            const elapsedMinutes = localStorage.getItem(`elapsedMinutes_${game.id}_${userId}`) || 0;
+                            const progressPercentage = (elapsedMinutes / 15) * 100;
                             col.innerHTML = `
-                                <div class="card" onclick="window.location.href='/games/play/${game.id}'">
-                                    <img src="${game.image}" class="card-img-top" alt="${game.title}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${game.title}</h5>
-                                        <p class="card-text">${game.description}</p>
+                            <div class="card" onclick="window.location.href='/games/play/${game.id}'">
+                                <img src="${game.image}" class="card-img-top" alt="${game.title}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${game.title}</h5>
+                                    <p class="card-text">${game.description}</p>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: ${progressPercentage}%;"
+                                            aria-valuenow="${progressPercentage}" aria-valuemin="0" aria-valuemax="100">
+                                            ${elapsedMinutes} minutes played
+                                        </div>
                                     </div>
                                 </div>
-                            `;
+                            </div>
+                        `;
                             row.appendChild(col);
                         });
                     });

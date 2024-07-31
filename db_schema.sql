@@ -138,5 +138,16 @@ INSERT OR REPLACE INTO Games (id, title, image, description, category, section, 
 (17, 'Educational Game 5', 'path/to/educationalgame5.png', 'Description for Educational Game 5', 'difficult', 'educational', 0, 1),
 (18, 'Educational Game 6', 'path/to/educationalgame6.png', 'Description for Educational Game 6', 'difficult', 'educational', 0, 1);
 
+-- Save time progress for games to show in progress bars
+CREATE TABLE IF NOT EXISTS game_progress (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    game_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    elapsed_minutes INTEGER DEFAULT 0,
+    UNIQUE(game_id, user_id)
+);
+
+
 
 COMMIT;
