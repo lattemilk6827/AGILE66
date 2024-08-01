@@ -72,21 +72,22 @@ router.post('/submit-assessment', express.json(), (req, res) => {
     const score = q1Value + q2Value + q3Value + q4Value + q5Value;
     const level = determineLevel(score);
     const description = getDescription(level);
+    const createdAt = new Date().toISOString(); // Save the current time in UTC
 
     console.log("Calculated score: ", score);  // Debugging line
     console.log("Determined level: ", level);  // Debugging line
     console.log("Generated description: ", description);  // Debugging line
 
     // Insert assessment into the database
-    const stmt = db.prepare("INSERT INTO assessments (userId, q1, q2, q3, q4, q5, score, level, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    stmt.run(userId, q1Value, q2Value, q3Value, q4Value, q5Value, score, level, description, function(err) {
+    const stmt = db.prepare("INSERT INTO assessments (userId, q1, q2, q3, q4, q5, score, level, description, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    stmt.run(userId, q1Value, q2Value, q3Value, q4Value, q5Value, score, level, description, createdAt, function(err) {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Failed to submit assessment' });
             return;
         }
         console.log("Assessment submitted with ID: ", this.lastID); // Debugging line
-        res.json({ message: 'Assessment submitted successfully', score, level, description, createdAt: new Date().toISOString() });
+        res.json({ message: 'Assessment submitted successfully', score, level, description, createdAt });
     });
 });
 
@@ -104,6 +105,7 @@ router.get('/assessments', (req, res) => {
         res.json(rows);
     });
 });
+
 
 module.exports = router;
 
