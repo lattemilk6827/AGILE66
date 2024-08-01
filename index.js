@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // Set up express-session
 // Set the cookie.secure flag to true in production to ensure cookies are only sent over HTTPS
 app.use(session({

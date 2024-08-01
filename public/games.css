@@ -4,7 +4,7 @@
 body.games-page {
     margin: 0;
     padding: 0;
-    background-color: #ecb19c; /* Light background color */
+    background-color: #ffa5a3; /* Light background color */
 }
 
 .gamescontainer {
@@ -43,7 +43,7 @@ body.games-page {
 /* Dropdown */
 #categoryDropdown {
     width: fit-content;
-    background-color: chartreuse;
+    background-color: rgb(251, 226, 194);
     color: rgb(13, 29, 150);
     font-weight: bolder;
     
@@ -51,26 +51,29 @@ body.games-page {
 
 /* Games Brief */
 .gamesBreif {
-    background-color: #4d0b3d; /* Light background color */
-    padding: 20px; /* Padding inside the div */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), /* Soft shadow */
-                0 6px 20px rgba(0, 0, 0, 0.19); /* Deeper shadow */
-    text-align: center; /* Center the text */
-    margin: 20px auto; /* Center the div horizontally with some vertical margin */
-    height: 300px; /* Increased height */
-    max-width: 100%; /* Max width for larger screens */
-    transform: perspective(1000px) rotateX(10deg) rotateY(5deg); /* 3D transform */
-    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+    position: relative;
+    width: 114%; /* Set a maximum width */
+    padding: 2%;
+    margin-left: -7%;
+    background: linear-gradient(120deg, #fcdcf4, #c9c4fc, #d6fcf4, #fcf6d9); /* Gradient background */
+    background-size: 300% 300%;
+    animation: colorChange 10s ease infinite; /* Color change animation */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+    color: #333; /* Text color */
+   
 }
 
-.gamesBreif:hover {
-    transform: perspective(1000px) rotateX(0deg) rotateY(0deg); /* Flatten on hover */
+@keyframes colorChange {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
+
 
 .gamesBreif h3 {
-    color: #f1d8d8; /* Text color */
-    font-family: 'Arial', sans-serif; /* Font style */
+    color: #4008f7; /* Text color */
+    font-family:monospace;/* Font style */
     font-size: 2rem; /* Font size */
     margin: 0; /* Remove default margin */
     letter-spacing: 1px; /* Spacing between letters */
@@ -78,7 +81,7 @@ body.games-page {
 }
 
 .gamesDescription {
-    color: #f6fdcb; /* Text color */
+    color: #076038; /* Text color */
     font-family: 'Arial', sans-serif; /* Font style */
     font-size: 18px; /* Font size */
     margin-top: 2%; /* Space between the heading and the paragraph */
@@ -185,7 +188,7 @@ body.games-page {
     margin: 40px 0 20px 0;
     font-size: 2rem;
     font-weight: bold;
-    color: #e860ba;
+    color: #4f0544;
     text-shadow: 1px 1px 2px rgba(149, 229, 28, 0.1);
 }
 
@@ -213,14 +216,5 @@ body.games-page {
 }
 
 
-.progress {
-    height: 30px;
-    margin-bottom: 20px;
-}
 
-.progress-bar {
-    background-color: #4caf50;
-    line-height: 30px;
-    color: white;
-    text-align: center;
-}
+
