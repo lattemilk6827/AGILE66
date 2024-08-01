@@ -177,7 +177,7 @@
                 <br><br>
                 
             <% } else { %>
-                <p>Please <a href="/login">login</a> to complete a new questionnaire or view your past view your past results.</p>
+                <p>Please <a href="/login">login</a> to complete a new questionnaire or view your past results.</p>
             <% } %>
         </div>
     </div>
@@ -240,56 +240,68 @@
                     <label><input type="radio" name="q5" value="Always"> Always</label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" id="submit-questionnaire-btn">Submit</button>
         </form>
+        
     </div>
+
+    <% if (userName) { %>
+    <div class="view-assessment-information" >
+        <div class="container mt-4">
+            <h2 class="text-center">Your Latest Assessment</h2>
+            <div id="latest-assessment"></div>
+        </div>
+
+        <br><br>
+        
+        <div class="container mt-4">
+            <h2 class="text-center">Past Assessments</h2>
+            <div id="view-assessments-container">
+                <button id="view-assessments-btn" class="btn btn-primary">View Past Assessments</button>
+            </div>
+            <br><br>
+            <div id="assessments-list" style="display: none;"></div>
+        </div>
+        
+        <div class="container mt-4">
+            <h2 class="text-center">Assessment Levels and Scores</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Score Range</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Low</td>
+                        <td>0-5</td>
+                        <td>Minimal mental health concerns.</td>
+                    </tr>
+                    <tr>
+                        <td>Moderate</td>
+                        <td>6-10</td>
+                        <td>Moderate mental health concerns.</td>
+                    </tr>
+                    <tr>
+                        <td>High</td>
+                        <td>11-15</td>
+                        <td>High mental health concerns, consider seeking help.</td>
+                    </tr>
+                    <tr>
+                        <td>Very High</td>
+                        <td>16-20</td>
+                        <td>Very high mental health concerns, professional help is recommended.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <% } %>
     
     
-    <div class="container mt-4">
-        <h2 class="text-center">Your Latest Assessment</h2>
-        <div id="latest-assessment"></div>
-    </div>
     
-    <div class="container mt-4">
-        <h2 class="text-center">Past Assessments</h2>
-        <button id="view-assessments-btn" class="btn btn-primary">View Past Assessments</button>
-        <div id="assessments-list" style="display: none;"></div>
-    </div>
-    
-    <div class="container mt-4">
-        <h2 class="text-center">Assessment Levels and Scores</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Level</th>
-                    <th>Score Range</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Low</td>
-                    <td>0-5</td>
-                    <td>Minimal mental health concerns.</td>
-                </tr>
-                <tr>
-                    <td>Moderate</td>
-                    <td>6-10</td>
-                    <td>Moderate mental health concerns.</td>
-                </tr>
-                <tr>
-                    <td>High</td>
-                    <td>11-15</td>
-                    <td>High mental health concerns, consider seeking help.</td>
-                </tr>
-                <tr>
-                    <td>Very High</td>
-                    <td>16-20</td>
-                    <td>Very high mental health concerns, professional help is recommended.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
     
     <script>
         document.getElementById('complete-questionnaire-btn').addEventListener('click', function() {
@@ -357,6 +369,7 @@
         });
 
         function displayLatestAssessment(data) {
+            
             const latestAssessment = document.getElementById('latest-assessment');
             latestAssessment.innerHTML = `
                 <p>Date: ${new Date(data.createdAt).toLocaleString()}</p>
