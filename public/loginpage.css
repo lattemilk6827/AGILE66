@@ -5,8 +5,6 @@
     font-style: normal;
 }
 
-
-
 /* Center the parent container */
 .parent-container {
     display: flex;
@@ -63,7 +61,7 @@
 }
 
 /* Style for error messages */
-.login-container.error , .register-container .error {
+.login-container.error , .register-container.error {
     color: #dc3545; /* Bootstrap danger color */
     margin-bottom: 1rem;
 }

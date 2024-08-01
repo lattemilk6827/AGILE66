@@ -64,7 +64,7 @@
     color: #341bb5; /* Text color */
     overflow: hidden; /* Hide overflow for the wave effect */
     z-index: 1;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Rusty Hooks', cursive;
 }   
 
 .exploremore span {
