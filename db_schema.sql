@@ -26,6 +26,24 @@ CREATE TABLE IF NOT EXISTS Forum (
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
+-- Create assessments table if it does not exist
+CREATE TABLE IF NOT EXISTS assessments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    userId INTEGER,
+    q1 INTEGER,
+    q2 INTEGER,
+    q3 INTEGER,
+    q4 INTEGER,
+    q5 INTEGER,
+    score INTEGER,
+    level TEXT,
+    description TEXT,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(userId) REFERENCES Users(id)
+);
+
+
+
 -- Dummy Data for Forum Table
 INSERT INTO Forum (forum_id, user_id, forum_title, forum_subtitle, forum_body, forum_likes, forum_publishedtimestamp, forum_category) VALUES 
 (1, 1, 'Title 1', 'Subtitle 1', 'This is the body of the first forum post.', 10, CURRENT_TIMESTAMP, 'General Discussion'),
@@ -115,20 +133,6 @@ CREATE TABLE IF NOT EXISTS Games (
     user_id INTEGER,
     FOREIGN KEY(user_id) REFERENCES Users(id)
 );
-
-CREATE TABLE IF NOT EXISTS Responses (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    question1 INTEGER,
-    question2 INTEGER,
-    question3 INTEGER,
-    question4 INTEGER,
-    question5 INTEGER,
-    responseDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(id)
-);
-
-
 
 -- Insert sample data into Games table
 INSERT OR REPLACE INTO Games (id, title, image, description, category, section, progress, user_id) VALUES 

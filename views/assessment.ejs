@@ -179,14 +179,198 @@
             <% if (userName) { %>
                 <button id="complete-questionnaire-btn" class="btn btn-primary">Complete Questionnaire</button>
                 <br><br>
-                <p>View <a href="/past-responses">past</a> responses.</p>
+                
             <% } else { %>
                 <p>Please <a href="/login">login</a> to complete the questionnaire.</p>
             <% } %>
         </div>
     </div>
     
-    <div id="questionnaire-section" style="display:none;">
+    <div class="container mt-4">
+        <h2 class="text-center">Mental Health Questionnaire</h2>
+        <form id="mental-health-form">
+            <div class="form-group">
+                <label for="q1">How often have you felt down, depressed, or hopeless in the last two weeks?</label>
+                <select class="form-control" id="q1" name="q1">
+                    <option>Not at all</option>
+                    <option>Rarely</option>
+                    <option>Sometimes</option>
+                    <option>Often</option>
+                    <option>Very Often</option>
+                    <option>Always</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="q2">How often have you had little interest or pleasure in doing things in the last two weeks?</label>
+                <select class="form-control" id="q2" name="q2">
+                    <option>Not at all</option>
+                    <option>Rarely</option>
+                    <option>Sometimes</option>
+                    <option>Often</option>
+                    <option>Very Often</option>
+                    <option>Always</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="q3">How often have you felt nervous, anxious, or on edge in the last two weeks?</label>
+                <select class="form-control" id="q3" name="q3">
+                    <option>Not at all</option>
+                    <option>Rarely</option>
+                    <option>Sometimes</option>
+                    <option>Often</option>
+                    <option>Very Often</option>
+                    <option>Always</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="q4">How often have you felt tired or had little energy in the last two weeks?</label>
+                <select class="form-control" id="q4" name="q4">
+                    <option>Not at all</option>
+                    <option>Rarely</option>
+                    <option>Sometimes</option>
+                    <option>Often</option>
+                    <option>Very Often</option>
+                    <option>Always</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="q5">How often have you had trouble concentrating on things in the last two weeks?</label>
+                <select class="form-control" id="q5" name="q5">
+                    <option>Not at all</option>
+                    <option>Rarely</option>
+                    <option>Sometimes</option>
+                    <option>Often</option>
+                    <option>Very Often</option>
+                    <option>Always</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    
+    <div class="container mt-4">
+        <h2 class="text-center">Your Latest Assessment</h2>
+        <div id="latest-assessment"></div>
+    </div>
+    
+    <div class="container mt-4">
+        <h2 class="text-center">Past Assessments</h2>
+        <button id="view-assessments-btn" class="btn btn-primary">View Past Assessments</button>
+        <div id="assessments-list"></div>
+    </div>
+    
+    <div class="container mt-4">
+        <h2 class="text-center">Assessment Levels and Scores</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Level</th>
+                    <th>Score Range</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Low</td>
+                    <td>0-5</td>
+                    <td>Minimal mental health concerns.</td>
+                </tr>
+                <tr>
+                    <td>Moderate</td>
+                    <td>6-10</td>
+                    <td>Moderate mental health concerns.</td>
+                </tr>
+                <tr>
+                    <td>High</td>
+                    <td>11-15</td>
+                    <td>High mental health concerns, consider seeking help.</td>
+                </tr>
+                <tr>
+                    <td>Very High</td>
+                    <td>16-20</td>
+                    <td>Very high mental health concerns, professional help is recommended.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <script>
+        document.getElementById('mental-health-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = {};
+            
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+        
+            console.log("Data being sent to server:", data);  // Debugging line to ensure data is correct
+        
+            fetch('/submit-assessment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Assessment submitted successfully.');
+                displayLatestAssessment(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting assessment.');
+            });
+        });
+        
+        document.getElementById('view-assessments-btn').addEventListener('click', function() {
+            fetch('/assessments')
+            .then(response => response.json())
+            .then(data => {
+                const assessmentsList = document.getElementById('assessments-list');
+                assessmentsList.innerHTML = '';
+                if (data.length === 0) {
+                    assessmentsList.innerHTML = '<p>No past assessments found.</p>';
+                } else {
+                    data.forEach(assessment => {
+                        const assessmentItem = document.createElement('div');
+                        assessmentItem.className = 'assessment-item';
+                        assessmentItem.innerHTML = `
+                            <p>Date: ${new Date(assessment.createdAt).toLocaleString()}</p>
+                            <p>Score: ${assessment.score}</p>
+                            <p>Level: ${assessment.level}</p>
+                            <p>Description: ${assessment.description}</p>
+                            <hr>
+                        `;
+                        assessmentsList.appendChild(assessmentItem);
+                    });
+                }
+                // Show the assessments and hide the button
+                assessmentsList.style.display = 'block';
+                document.getElementById('view-assessments-btn').style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error retrieving assessments.');
+            });
+        });
+        
+        function displayLatestAssessment(data) {
+            const latestAssessment = document.getElementById('latest-assessment');
+            latestAssessment.innerHTML = `
+                <p>Date: ${new Date(data.createdAt).toLocaleString()}</p>
+                <p>Score: ${data.score}</p>
+                <p>Level: ${data.level}</p>
+                <p>Description: ${data.description}</p>
+                <hr>
+            `;
+        }
+        </script>
+        
+        
+    <!-- <div id="questionnaire-section" style="display:none;">
         <h1>Questions:</h1>
         <form id="questionnaire-form" method="POST" action="/submit-questionnaire">
             <div class="form-group">
@@ -198,6 +382,7 @@
                     <input type="radio" id="q1-4" name="question1" value="4"><label for="q1-4">4</label>
                     <input type="radio" id="q1-5" name="question1" value="5"><label for="q1-5">5</label>
                 </div>
+                
             </div>
             <div class="form-group">
                 <label for="question2">I enjoy spending time with friends.</label>
@@ -238,6 +423,10 @@
                     <input type="radio" id="q5-4" name="question5" value="4"><label for="q5-4">4</label>
                     <input type="radio" id="q5-5" name="question5" value="5"><label for="q5-5">5</label>
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="detailedResponses">Please describe your feelings in more detail:</label>
+                <textarea id="detailedResponses" name="detailedResponses" class="form-control" rows="4" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary" id="submit-questionnaire-btn">Submit</button>
         </form>
@@ -293,7 +482,7 @@
                 });
             }
         });
-    </script>
+    </script> -->
 
     <!-- Include the footer -->
     <%- include('../utils/footer') %>
