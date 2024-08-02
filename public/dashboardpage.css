@@ -201,3 +201,27 @@ body.main-home-page {
     font-size: 18px;
 }
 
+.goal-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.goal-text {
+    flex-grow: 1;
+}
+
+.delete-goal-form {
+    margin: 0;
+}
+
+.delete-goal-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
