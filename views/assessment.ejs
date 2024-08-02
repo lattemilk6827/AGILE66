@@ -182,7 +182,7 @@
     </div>
     
     <div class="container mt-4" id="questionnaire-form-container" style="display: none;">
-        <h2 class="text-center">Mental Health Questionnaire</h2>
+        <h2 class="text-center" id="questionnaire-form-container-header">check your mental health level today!</h2>
         <form id="mental-health-form">
             <div class="form-group">
                 <label for="q1">How often have you felt down, depressed, or hopeless in the last two weeks?</label>
@@ -247,41 +247,70 @@
     <br><br>
 
     <% if (userName) { %>
-    <div class="view-assessment-information" >
-
-        <div class="container mt-4">
-            <h2 class="text-center">Assessment Levels and Scores</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Level</th>
-                        <th>Score Range</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Low</td>
-                        <td>0-5</td>
-                        <td>Minimal mental health concerns.</td>
-                    </tr>
-                    <tr>
-                        <td>Moderate</td>
-                        <td>6-10</td>
-                        <td>Moderate mental health concerns.</td>
-                    </tr>
-                    <tr>
-                        <td>High</td>
-                        <td>11-15</td>
-                        <td>High mental health concerns, consider seeking help.</td>
-                    </tr>
-                    <tr>
-                        <td>Very High</td>
-                        <td>16-20</td>
-                        <td>Very high mental health concerns, professional help is recommended.</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="view-assessment-information" >
+            <div class="container mt-4">
+                <h2 class="text-center">Assessment Levels and Scores</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Level</th>
+                            <th>Score Range</th>
+                            <th>Description</th>
+                            <th>Helpful Tips</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Low</td>
+                            <td><strong>0-5</strong></td>
+                            <td>Your child is showing healthy emotional and behavioral habits. They are able to manage stress and anxiety, and are likely to have a positive outlook on life.</td>
+                            <td>
+                                <ul>
+                                    <li>Encourage your child to continue practicing self-care activities, such as exercise, drawing, or spending time in nature.</li>
+                                    <li>Model healthy emotional regulation by expressing and managing your own emotions in a healthy way.</li>
+                                    <li>Support your child's social connections by encouraging playdates and friendships.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Moderate</td>
+                            <td><strong>6-10</strong></td>
+                            <td>Your child may be experiencing some emotional or behavioral challenges, such as anxiety, sadness, or difficulty sleeping. They may need some extra support to manage these feelings.</td>
+                            <td>
+                                <ul>
+                                    <li>Have open and honest conversations with your child about their feelings and concerns.</li>
+                                    <li>Help your child develop healthy coping strategies, such as deep breathing, journaling, or talking to a trusted adult.</li>
+                                    <li>Consider seeking support from a mental health professional if your child's challenges persist or worsen.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>High</td>
+                            <td><strong>11-15</strong></td>
+                            <td>Your child is showing signs of significant emotional or behavioral distress, such as frequent anxiety, depression, or behavioral outbursts. They may need immediate support to manage these feelings and develop healthy coping strategies.</td>
+                            <td>
+                                <ul>
+                                    <li>Seek support from a mental health professional as soon as possible.</li>
+                                    <li>Work with your child to develop a safety plan, including identifying trusted adults and safe places to go when feeling overwhelmed.</li>
+                                    <li>Consider seeking support from a therapist or counselor who specialises in working with children.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Very High</td>
+                            <td><strong>16-20</strong></td>
+                            <td>Your child is showing signs of severe emotional or behavioral distress, such as suicidal thoughts, self-harm, or extreme behavioral outbursts. They need immediate support and intervention to ensure their safety and well-being.</td>
+                            <td>
+                                <ul>
+                                    <li>Seek immediate support from a mental health professional or a crisis hotline.</li>
+                                    <li>Work with your child to develop a crisis plan, including identifying emergency contact numbers and safe places to go when feeling overwhelmed.</li>
+                                    <li>Consider seeking support from a therapist or counselor who specialises in working with children, as well as a psychiatrist or other medical professional if necessary.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <br><br>
@@ -374,14 +403,23 @@
         });
 
         function displayLatestAssessment(data) {
-            
             const latestAssessment = document.getElementById('latest-assessment');
             latestAssessment.innerHTML = `
-                <p>Date: ${new Date(data.createdAt).toLocaleString()}</p>
-                <p>Score: ${data.score}</p>
-                <p>Level: ${data.level}</p>
-                <p>Description: ${data.description}</p>
-                <hr>
+                <div class="latest-assessment-container">
+                <div class="latest-assessment-date">
+                    <p>Date: ${new Date(data.createdAt).toLocaleString()}</p>
+                </div>
+                <div class="latest-assessment-score">
+                    <p>Score: ${data.score}</p>
+                </div>
+                <div class="latest-assessment-level">
+                    <p>Level: ${data.level}</p>
+                </div>
+                <div class="latest-assessment-description">
+                    <p>Description: ${data.description}</p>
+                </div>
+                <hr class="latest-assessment-divider">
+                </div>
             `;
         }
 
@@ -390,11 +428,19 @@
             const assessmentItem = document.createElement('div');
             assessmentItem.className = 'assessment-item';
             assessmentItem.innerHTML = `
+                <div class="assessment-date">
                 <p>Date: ${new Date(assessment.createdAt).toLocaleString()}</p>
+                </div>
+                <div class="assessment-score">
                 <p>Score: ${assessment.score}</p>
+                </div>
+                <div class="assessment-level">
                 <p>Level: ${assessment.level}</p>
+                </div>
+                <div class="assessment-description">
                 <p>Description: ${assessment.description}</p>
-                <hr>
+                </div>
+                <hr class="assessment-divider">
             `;
             assessmentsList.appendChild(assessmentItem);
         }
@@ -402,122 +448,7 @@
 
 
         
-        
-    <!-- <div id="questionnaire-section" style="display:none;">
-        <h1>Questions:</h1>
-        <form id="questionnaire-form" method="POST" action="/submit-questionnaire">
-            <div class="form-group">
-                <label for="question1">I feel happy most of the time.</label>
-                <div class="rating">
-                    <input type="radio" id="q1-1" name="question1" value="1" required><label for="q1-1">1</label>
-                    <input type="radio" id="q1-2" name="question1" value="2"><label for="q1-2">2</label>
-                    <input type="radio" id="q1-3" name="question1" value="3"><label for="q1-3">3</label>
-                    <input type="radio" id="q1-4" name="question1" value="4"><label for="q1-4">4</label>
-                    <input type="radio" id="q1-5" name="question1" value="5"><label for="q1-5">5</label>
-                </div>
-                
-            </div>
-            <div class="form-group">
-                <label for="question2">I enjoy spending time with friends.</label>
-                <div class="rating">
-                    <input type="radio" id="q2-1" name="question2" value="1" required><label for="q2-1">1</label>
-                    <input type="radio" id="q2-2" name="question2" value="2"><label for="q2-2">2</label>
-                    <input type="radio" id="q2-3" name="question2" value="3"><label for="q2-3">3</label>
-                    <input type="radio" id="q2-4" name="question2" value="4"><label for="q2-4">4</label>
-                    <input type="radio" id="q2-5" name="question2" value="5"><label for="q2-5">5</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="question3">I feel comfortable talking to my family about my feelings.</label>
-                <div class="rating">
-                    <input type="radio" id="q3-1" name="question3" value="1" required><label for="q3-1">1</label>
-                    <input type="radio" id="q3-2" name="question3" value="2"><label for="q3-2">2</label>
-                    <input type="radio" id="q3-3" name="question3" value="3"><label for="q3-3">3</label>
-                    <input type="radio" id="q3-4" name="question3" value="4"><label for="q3-4">4</label>
-                    <input type="radio" id="q3-5" name="question3" value="5"><label for="q3-5">5</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="question4">I get along well with my classmates at school.</label>
-                <div class="rating">
-                    <input type="radio" id="q4-1" name="question4" value="1" required><label for="q4-1">1</label>
-                    <input type="radio" id="q4-2" name="question4" value="2"><label for="q4-2">2</label>
-                    <input type="radio" id="q4-3" name="question4" value="3"><label for="q4-3">3</label>
-                    <input type="radio" id="q4-4" name="question4" value="4"><label for="q4-4">4</label>
-                    <input type="radio" id="q4-5" name="question4" value="5"><label for="q4-5">5</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="question5">I feel safe and secure at home.</label>
-                <div class="rating">
-                    <input type="radio" id="q5-1" name="question5" value="1" required><label for="q5-1">1</label>
-                    <input type="radio" id="q5-2" name="question5" value="2"><label for="q5-2">2</label>
-                    <input type="radio" id="q5-3" name="question5" value="3"><label for="q5-3">3</label>
-                    <input type="radio" id="q5-4" name="question5" value="4"><label for="q5-4">4</label>
-                    <input type="radio" id="q5-5" name="question5" value="5"><label for="q5-5">5</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="detailedResponses">Please describe your feelings in more detail:</label>
-                <textarea id="detailedResponses" name="detailedResponses" class="form-control" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" id="submit-questionnaire-btn">Submit</button>
-        </form>
-    </div>
     
-    <div id="response-message"></div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the button and questionnaire section elements
-            var button = document.getElementById('complete-questionnaire-btn');
-            var questionnaireSection = document.getElementById('questionnaire-section');
-            
-            // Function to toggle visibility
-            function toggleQuestionnaire() {
-                if (questionnaireSection.style.display === 'none' || questionnaireSection.style.display === '') {
-                    questionnaireSection.style.display = 'block';
-                } else {
-                    questionnaireSection.style.display = 'none';
-                }
-            }
-
-            // Add click event listener to the button
-            if (button) {
-                button.addEventListener('click', toggleQuestionnaire);
-            }
-            
-            // Handle form submission
-            var form = document.getElementById('questionnaire-form');
-            if (form) {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault(); // Prevent the default form submission
-                    
-                    // Create a FormData object
-                    var formData = new FormData(form);
-                    
-                    // Send the form data using Fetch API
-                    fetch('/submit-questionnaire', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Display success message or handle response
-                        document.getElementById('response-message').innerText = 'Thank you for completing the questionnaire!';
-                        form.reset(); // Reset form fields
-                    })
-                    .catch(error => {
-                        // Handle errors
-                        console.error('Error:', error);
-                        document.getElementById('response-message').innerText = 'There was an error submitting your response. Please try again.';
-                    });
-                });
-            }
-        });
-    </script> -->
-
-    <!-- Include the footer -->
     <%- include('../utils/footer') %>
 
 

@@ -42,17 +42,18 @@ function mapResponseToValue(response) {
 function getDescription(level) {
     switch(level) {
         case 'Low':
-            return 'Minimal mental health concerns.';
+            return 'Your child is showing healthy emotional and behavioral habits. They are able to manage stress and anxiety, and are likely to have a positive outlook on life.';
         case 'Moderate':
-            return 'Moderate mental health concerns.';
+            return 'Your child may be experiencing some emotional or behavioral challenges, such as anxiety, sadness, or difficulty sleeping. They may need some extra support to manage these feelings.';
         case 'High':
-            return 'High mental health concerns, consider seeking help.';
+            return 'Your child is showing signs of significant emotional or behavioral distress, such as frequent anxiety, depression, or behavioral outbursts. They may need immediate support to manage these feelings and develop healthy coping strategies.';
         case 'Very High':
-            return 'Very high mental health concerns, professional help is recommended.';
+            return 'Your child is showing signs of severe emotional or behavioral distress, such as suicidal thoughts, self-harm, or extreme behavioral outbursts. They need immediate support and intervention to ensure their safety and well-being.';
         default:
             return '';
     }
 }
+
 
 // Route to handle questionnaire submission
 router.post('/submit-assessment',requireAuth, express.json(), (req, res) => {
@@ -110,63 +111,4 @@ router.get('/assessments',requireAuth, (req, res) => {
 
 
 module.exports = router;
-
-
-// // Route to handle form submission
-// router.post('/submit-questionnaire', (req, res) => {
-//     const userId = req.user ? req.user.id : null; // Get user ID from session or other authentication method
-//     const { question1, question2, question3, question4, question5 } = req.body;
-    
-//     if (!userId) {
-//         return res.status(400).json({ message: 'User not authenticated' });
-//     }
-
-//     const responseDate = new Date().toISOString(); // Current date and time
-
-//     // Insert response data into the database
-//     const query = `
-//         INSERT INTO Responses (user_id, question1, question2, question3, question4, question5, responseDate)
-//         VALUES (?, ?, ?, ?, ?, ?, ?)
-//     `;
-
-//     db.run(query, [userId, question1, question2, question3, question4, question5, responseDate], function(err) {
-//         if (err) {
-//             console.error('Error inserting response:', err);
-//             return res.status(500).json({ message: 'Internal server error' });
-//         }
-//         res.json({ message: 'Response submitted successfully' });
-//     });
-// });
-
-// // Promisify the db.all method for use with async/await
-// const getPastResponses = (userId) => {
-//     return new Promise((resolve, reject) => {
-//         const query = `SELECT * FROM Responses WHERE user_id = ?`;
-//         db.all(query, [userId], (err, rows) => {
-//             if (err) {
-//                 reject(err);
-//             } else {
-//                 resolve(rows);
-//             }
-//         });
-//     });
-// };
-
-// // Route to display past responses
-// router.get('/past-responses', async (req, res) => {
-//     const userId = req.user ? req.user.id : null; // Get user ID from session or other authentication method
-
-//     if (!userId) {
-//         return res.status(400).json({ message: 'User not authenticated' });
-//     }
-
-//     try {
-//         const responses = await getPastResponses(userId);
-//         res.render('past-responses', { responses });
-//     } catch (err) {
-//         console.error('Error retrieving responses:', err);
-//         res.status(500).json({ message: 'Internal server error' });
-//     }
-// });
-
 
