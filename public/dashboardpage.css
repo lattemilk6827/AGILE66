@@ -138,6 +138,22 @@ body.main-home-page {
     font-style: italic;
 }
 
+.completed-section {
+    margin-top: 2%;
+    background-color: #d1c4e9; 
+    font-weight:300;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.completed-section h2 {
+    font-size: 1.5rem;
+   
+}
+
+
+
+
 
 /* Goals section styling */
 .goals-section {

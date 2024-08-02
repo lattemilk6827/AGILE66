@@ -4,7 +4,9 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/dashboardpage.css">
-   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuP+VmmDGMN5t9UJ0Z"
+    crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -14,9 +16,14 @@
     <%- include('../utils/header') %>
 
     <div class="welcome-section">
-        <h1>Welcome, <span><%= userName %></span>!</h1>
+        <h1>Welcome,<%= userName %></span>!</h1>
         <button onclick="location.href='/edit-profile'">Edit Profile</button>
+        <div class="completed-section">
+            <h2>You Have Completed These Activities</h2>
+            <div id="completedActivities"></div>
+        </div>
     </div>
+
 
     <div class="achievements-section">
         <h2>Achievements</h2>
@@ -54,6 +61,7 @@
         </div>
     </div>
 
+
     <div class="goals-section">
         <h2>My Goals</h2>
         <form action="/update-goals" method="post" class="mb-3">
@@ -78,25 +86,28 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             updateGameProgress();
-    
+
             function updateGameProgress() {
                 const games = document.querySelectorAll('.game');
+                const completedActivities = document.getElementById('completedActivities');
+                const gamesProgress = document.getElementById('gamesProgress');
+
                 games.forEach(game => {
                     const gameId = game.getAttribute('data-game-id');
                     const userId = '<%= userName %>'; // Assuming userName is unique per user
                     const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${gameId}_${userId}`)) || 0;
                     const roundedElapsedMinutes = elapsedMinutes.toFixed(2);
                     const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100);
-    
+
                     const progressBar = game.querySelector('.progress-bar');
                     if (progressBar) {
                         progressBar.setAttribute('aria-valuenow', progressPercentage);
                         progressBar.style.width = `${progressPercentage}%`;
                         progressBar.textContent = `${progressPercentage.toFixed(2)}%`;
-    
+
                         // Remove existing colour classes to set custom colour classes 
                         progressBar.classList.remove('progress-bar-low', 'progress-bar-medium', 'progress-bar-high', 'progress-bar-very-high', 'progress-bar-completed');
-    
+
                         // Add colour class based on progress percentage
                         if (progressPercentage < 25) {
                             progressBar.classList.add('progress-bar-low');
@@ -106,17 +117,17 @@
                             progressBar.classList.add('progress-bar-high');
                         } else if (progressPercentage < 100) {
                             progressBar.classList.add('progress-bar-very-high');
-                        } else {
-                            progressBar.classList.add('progress-bar-completed');
-                        }
+                        } //else {
+                           // progressBar.classList.add('progress-bar-completed');
+                       // }
                     }
-    
+
                     const elapsedTimeElem = game.querySelector('.game-status');
                     if (elapsedTimeElem) {
                         const statusText = progressPercentage >= 100 ? 'Completed' : `${progressPercentage.toFixed(2)}% Completed`;
                         elapsedTimeElem.textContent = `Elapsed Time: ${roundedElapsedMinutes} minutes | Status: ${statusText}`;
                     }
-    
+
                     const gameMessageElem = game.querySelector('.game-message');
                     if (gameMessageElem) {
                         if (progressPercentage < 25) {
@@ -131,15 +142,23 @@
                             gameMessageElem.textContent = "Completed!";
                         }
                     }
-    
-                    // Hide games with 0% progress
-                    if (progressPercentage === 0) {
+
+                     // Move games with 100% progress to the completed section
+                     if (progressPercentage === 100) {
+                        // Remove game details except for the title
+                        const completedGame = game.cloneNode(true);
+                        completedGame.querySelector('.progress').remove();
+                        completedGame.querySelector('.game-details').remove();
+
+                        completedActivities.appendChild(completedGame);
+                        game.remove();
+                    } else if (progressPercentage === 0) {
+                        // Hide games with 0% progress
                         game.style.display = 'none';
                     }
                 });
             }
         });
     </script>
-    
 </body>
 </html>
