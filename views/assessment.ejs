@@ -173,9 +173,8 @@
         <h2 class="text-center">Let's Check In: How Are You Feeling Today?</h2>
         <div class="questionnairebutton">
             <% if (userName) { %>
-                <button id="complete-questionnaire-btn" class="btn btn-primary">Complete Questionnaire</button>
                 <br><br>
-                
+                <button id="complete-questionnaire-btn" class="btn btn-primary">Complete Questionnaire</button>
             <% } else { %>
                 <p>Please <a href="/login">login</a> to complete a new questionnaire or view your past questionnaire results.</p>
             <% } %>
@@ -245,24 +244,11 @@
         
     </div>
 
+    <br><br>
+
     <% if (userName) { %>
     <div class="view-assessment-information" >
-        <div class="container mt-4">
-            <h2 class="text-center">Your Latest Assessment</h2>
-            <div id="latest-assessment"></div>
-        </div>
 
-        <br><br>
-        
-        <div class="container mt-4">
-            <h2 class="text-center">Past Assessments</h2>
-            <div id="view-assessments-container">
-                <button id="view-assessments-btn" class="btn btn-primary">View Past Assessments</button>
-            </div>
-            <br><br>
-            <div id="assessments-list" style="display: none;"></div>
-        </div>
-        
         <div class="container mt-4">
             <h2 class="text-center">Assessment Levels and Scores</h2>
             <table class="table">
@@ -297,6 +283,25 @@
                 </tbody>
             </table>
         </div>
+
+        <br><br>
+
+        <div class="container mt-4">
+            <h2 class="text-center">Your Latest Assessment</h2>
+            <div id="latest-assessment"></div>
+        </div>
+        
+        <br><br>
+
+        <div class="container mt-4">
+            <h2 class="text-center">Past Assessments</h2>
+            <div id="view-assessments-container">
+                <button id="view-assessments-btn" class="btn btn-primary">View Past Assessments</button>
+            </div>
+            <br><br>
+            <div id="assessments-list" style="display: none;"></div>
+        </div>
+        
     </div>
     <% } %>
     

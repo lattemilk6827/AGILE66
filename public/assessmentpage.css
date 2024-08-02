@@ -240,4 +240,7 @@ h2.text-center {
     text-align: center;
 }
 
-
+#assessments-list {
+    background-color: #faf4e8;
+    padding: 40px;
+}
