@@ -153,8 +153,6 @@ CREATE TABLE IF NOT EXISTS game_progress (
     user_id INTEGER NOT NULL,
     start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     elapsed_minutes INTEGER DEFAULT 0,
-    completed_activities TEXT,
-    incomplete_activities TEXT,
     UNIQUE(game_id, user_id)
 );
 

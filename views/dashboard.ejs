@@ -4,9 +4,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/dashboardpage.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuP+VmmDGMN5t9UJ0Z"
-    crossorigin="anonymous">
+   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -38,16 +36,16 @@
             <% if (games && games.length > 0) { %>
                 <% games.forEach(function(game) { %>
                     <div class="game" data-game-id="<%= game.id %>">
-                        <h3><%= game.title %></h3>
-                        <!-- To ensure the correct format -->
-                        <p></p>
+                        <div class="game-title"><%= game.title %></div>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="<%= game.progress_percentage %>" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar <%= game.progress_class %>" role="progressbar" aria-valuenow="<%= game.progress_percentage %>" aria-valuemin="0" aria-valuemax="100">
                                 <%= game.progress_percentage %>%
                             </div>
                         </div>
-                        <p>Elapsed Time: <%= game.elapsed_minutes %> minutes</p>
-                        <p>Status: <%= game.progress_percentage >= 100 ? 'Completed' : game.progress_percentage.toFixed(2) + '% Completed' %></p>
+                        <div class="game-details">
+                            <div class="game-status">Elapsed Time: <%= game.elapsed_minutes %> minutes | Status: <%= game.progress_percentage >= 100 ? 'Completed' : game.progress_percentage.toFixed(2) + '% Completed' %></div>
+                            <div class="game-message"><%= game.progress_message %></div>
+                        </div>
                     </div>
                 <% }); %>
             <% } else { %>
@@ -55,50 +53,93 @@
             <% } %>
         </div>
     </div>
-    
-    
 
     <div class="goals-section">
         <h2>My Goals</h2>
-        <p>Setting goals can help you feel better and more balanced. Think about what you can do to take care of yourself and improve your mental health. Your goals might include practicing something you enjoy, talking to someone you trust, or trying out new activities. Here are some examples:</p>
-        <ul>
-            <li>Spend 10 minutes each day doing a fun hobby.</li>
-            <li>Practice deep breathing exercises when feeling stressed.</li>
-            <li>Talk to a friend or family member about how you’re feeling.</li>
-        </ul>
-        <p>Write down your goals below. Remember, your goals can be big or small – what matters is that they help you feel happier and healthier!</p>
-        <!-- Add more goals form with CSS -->
-        <form action="/add-more-goals" method="post" class="add-more-goals-form mb-3">
-            <input type="text" name="newGoal" placeholder="Enter new goal...">
-            <button type="submit" class="add-goal-btn">Add New Goal</button>
+        <form action="/update-goals" method="post" class="mb-3">
+            <textarea class="form-control mb-3" name="goals" placeholder="Enter your goals here..."><%= goalsText %></textarea>
+            <button type="submit" class="btn btn-success">Update Goals</button>
         </form>
-    
-        <!-- Display the current goals in a column -->
-        <% if (goalsText && goalsText.trim().length > 0) { %>
-          <div class="goals-display mb-3">
-            <p><strong>Current Goals:</strong></p>
-            <ul>
-              <% const goalsArray = goalsText.split("\n").filter(goal => goal.trim().length > 0).reverse(); %>
-              <% goalsArray.forEach((goal, index) => { %>
-                <li class="goal-item">
-                  <span class="goal-text"><%= goal %></span>
-                  <form action="/delete-goal" method="post" class="delete-goal-form">
-                    <input type="hidden" name="goalIndex" value="<%= goalsArray.length - 1 - index %>">
-                    <button type="submit" class="delete-goal-btn">
-                      🗑️
-                    </button>
-                  </form>
-                </li>
-              <% }); %>
-            </ul>
-          </div>
-        <% } else { %>
-          <p>No goals set yet.</p>
-        <% } %>
-    </div>
-    
 
- <!-- Include the footer -->
- <%- include('../utils/footer') %>
+        <!-- Display the current goals -->
+        <% if (goalsText && goalsText.trim().length > 0) { %>
+            <div class="goals-display mb-3">
+                <p><strong>Current Goals:</strong></p>
+                <p><%= goalsText %></p>
+            </div>
+        <% } else { %>
+            <p>No goals set yet.</p>
+        <% } %>
+
+    </div>
+
+    <!-- Include the footer -->
+    <%- include('../utils/footer') %>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateGameProgress();
+    
+            function updateGameProgress() {
+                const games = document.querySelectorAll('.game');
+                games.forEach(game => {
+                    const gameId = game.getAttribute('data-game-id');
+                    const userId = '<%= userName %>'; // Assuming userName is unique per user
+                    const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${gameId}_${userId}`)) || 0;
+                    const roundedElapsedMinutes = elapsedMinutes.toFixed(2);
+                    const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100);
+    
+                    const progressBar = game.querySelector('.progress-bar');
+                    if (progressBar) {
+                        progressBar.setAttribute('aria-valuenow', progressPercentage);
+                        progressBar.style.width = `${progressPercentage}%`;
+                        progressBar.textContent = `${progressPercentage.toFixed(2)}%`;
+    
+                        // Remove existing colour classes to set custom colour classes 
+                        progressBar.classList.remove('progress-bar-low', 'progress-bar-medium', 'progress-bar-high', 'progress-bar-very-high', 'progress-bar-completed');
+    
+                        // Add colour class based on progress percentage
+                        if (progressPercentage < 25) {
+                            progressBar.classList.add('progress-bar-low');
+                        } else if (progressPercentage < 50) {
+                            progressBar.classList.add('progress-bar-medium');
+                        } else if (progressPercentage < 75) {
+                            progressBar.classList.add('progress-bar-high');
+                        } else if (progressPercentage < 100) {
+                            progressBar.classList.add('progress-bar-very-high');
+                        } else {
+                            progressBar.classList.add('progress-bar-completed');
+                        }
+                    }
+    
+                    const elapsedTimeElem = game.querySelector('.game-status');
+                    if (elapsedTimeElem) {
+                        const statusText = progressPercentage >= 100 ? 'Completed' : `${progressPercentage.toFixed(2)}% Completed`;
+                        elapsedTimeElem.textContent = `Elapsed Time: ${roundedElapsedMinutes} minutes | Status: ${statusText}`;
+                    }
+    
+                    const gameMessageElem = game.querySelector('.game-message');
+                    if (gameMessageElem) {
+                        if (progressPercentage < 25) {
+                            gameMessageElem.textContent = "Come on, don't give up!";
+                        } else if (progressPercentage < 50) {
+                            gameMessageElem.textContent = "Soon to get a reward!";
+                        } else if (progressPercentage < 75) {
+                            gameMessageElem.textContent = "Almost there!";
+                        } else if (progressPercentage < 100) {
+                            gameMessageElem.textContent = "Don't stop now!";
+                        } else {
+                            gameMessageElem.textContent = "Completed!";
+                        }
+                    }
+    
+                    // Hide games with 0% progress
+                    if (progressPercentage === 0) {
+                        game.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+    
 </body>
 </html>
