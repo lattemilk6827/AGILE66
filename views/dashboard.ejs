@@ -1,35 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <!-- Link to styles in main.css in the public folder  -->
+    <title>Dashboard</title>
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/dashboardpage.css">
-    <!-- Link to the Bootstrap CSS for styling the page -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuP+VmmDGMN5t9UJ0Z"
     crossorigin="anonymous">
-    <!-- Link to the Font Awesome CSS for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- For bootstrap javascript libraries for carousel -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 
 <body class="main-home-page">
-    <!-- Include the header -->
     <%- include('../utils/header') %>
 
     <div class="welcome-section">
         <h1>Welcome, <span><%= userName %></span>!</h1>
-        <% if (completedActivities.length > 0) { %>
-            <p>You have completed these activities: <span><%= completedActivities.join(', ') %></span></p>
-        <% } else { %>
-            <p>You have not completed any activities.</p>
-        <% } %>
         <button onclick="location.href='/edit-profile'">Edit Profile</button>
     </div>
-    
 
     <div class="achievements-section">
         <h2>Achievements</h2>
@@ -42,27 +31,30 @@
             <% }); %>
         </div>
     </div>
-    
 
     <div class="progress-section">
-        <h2>What is My Current Progress</h2>
-        <% if (activities && activities.length > 0) { %>
-            <% activities.forEach(function(activity) { %>
-                <div class="activity">
-                    <p><%= activity.name %></p>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: <%= activity.progress %>"></div>
+        <h2>Games Progress</h2>
+        <div id="gamesProgress">
+            <% if (games && games.length > 0) { %>
+                <% games.forEach(function(game) { %>
+                    <div class="game" data-game-id="<%= game.id %>">
+                        <h3><%= game.title %></h3>
+                        <!-- To ensure the correct format -->
+                        <p></p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="<%= game.progress_percentage %>" aria-valuemin="0" aria-valuemax="100">
+                                <%= game.progress_percentage %>%
+                            </div>
+                        </div>
+                        <p>Elapsed Time: <%= game.elapsed_minutes %> minutes</p>
+                        <p>Status: <%= game.progress_percentage >= 100 ? 'Completed' : game.progress_percentage.toFixed(2) + '% Completed' %></p>
                     </div>
-                    <p><%= activity.progress %>% complete</p>
-                    <p>Status: <%= activity.completed ? 'Completed' : 'Incomplete' %></p>
-                </div>
-            <% }); %>
-        <% } else { %>
-            <p>No current activities.</p>
-        <% } %>
+                <% }); %>
+            <% } else { %>
+                <p>No games available.</p>
+            <% } %>
+        </div>
     </div>
-    
-    
 
     <div class="goals-section">
         <h2>My Goals</h2>
@@ -82,9 +74,40 @@
         <% } %>
 
     </div>
-    
 
- <!-- Include the footer -->
- <%- include('../utils/footer') %>
+    <!-- Include the footer -->
+    <%- include('../utils/footer') %>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateGameProgress();
+
+            function updateGameProgress() {
+                const games = document.querySelectorAll('.game');
+                games.forEach(game => {
+                    const gameId = game.getAttribute('data-game-id');
+                    const userId = '<%= userName %>'; // Assuming userName is unique per user
+                    const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${gameId}_${userId}`)) || 0;
+                    const roundedElapsedMinutes = elapsedMinutes.toFixed(2);
+                    const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100);
+
+                    const progressBar = game.querySelector('.progress-bar');
+                    progressBar.setAttribute('aria-valuenow', progressPercentage);
+                    progressBar.style.width = `${progressPercentage}%`;
+                    progressBar.textContent = `${progressPercentage.toFixed(2)}%`;
+
+                    const elapsedTimeElem = game.querySelector('p:nth-of-type(2)');
+                    elapsedTimeElem.textContent = `Elapsed Time: ${roundedElapsedMinutes} minutes`;
+
+                    const statusElem = game.querySelector('p:nth-of-type(3)');
+                    statusElem.textContent = `Status: ${progressPercentage >= 100 ? 'Completed' : `${progressPercentage.toFixed(2)}% Completed`}`;
+
+                    // Hide games with 0% progress
+                    if (progressPercentage === 0) {
+                        game.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

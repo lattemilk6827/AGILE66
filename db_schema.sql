@@ -104,15 +104,6 @@ CREATE TABLE IF NOT EXISTS achievements (
     FOREIGN KEY(user_id) REFERENCES Users(id)
 );
 
--- Activities Table
-CREATE TABLE IF NOT EXISTS activities (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    name TEXT NOT NULL,
-    progress INTEGER,
-    completed INTEGER DEFAULT 0,
-    FOREIGN KEY(user_id) REFERENCES Users(id)
-);
 
 -- Goals Table
 CREATE TABLE IF NOT EXISTS goals (
@@ -162,9 +153,10 @@ CREATE TABLE IF NOT EXISTS game_progress (
     user_id INTEGER NOT NULL,
     start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     elapsed_minutes INTEGER DEFAULT 0,
+    completed_activities TEXT,
+    incomplete_activities TEXT,
     UNIQUE(game_id, user_id)
 );
-
 
 
 COMMIT;

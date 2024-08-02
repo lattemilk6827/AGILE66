@@ -79,34 +79,9 @@ body.main-home-page {
 }
 
 /* Progress section styling */
-.progress-section {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 800px;
-}
 
-.progress-section h2 {
-    color: #007bff; /* Matching header color */
-}
 
-.progress-bar {
-    background-color: #e9ecef;
-    border-radius: 4px;
-    height: 1.5rem;
-    margin: 0.5rem 0;
-    position: relative;
-}
 
-.progress {
-    background-color: #28a745; /* Progress bar color */
-    height: 100%;
-    border-radius: 4px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
 
 /* Goals section styling */
 .goals-section {
@@ -139,4 +114,6 @@ textarea.form-control {
 .goals-display p {
     margin: 0;
 }
+
+
 
