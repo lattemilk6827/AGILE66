@@ -63,26 +63,30 @@
     </div>
     
     
-
     <div class="goals-section">
         <h2>My Goals</h2>
-        <form action="/update-goals" method="post" class="mb-3">
-            <textarea class="form-control mb-3" name="goals" placeholder="Enter your goals here..."><%= goalsText %></textarea>
-            <button type="submit" class="btn btn-success">Update Goals</button>
-        </form>
+        <!-- Add more goals form with CSS -->
+        <form action="/add-more-goals" method="post" class="add-more-goals-form mb-3">
+            <input type="text" name="newGoal" placeholder="Enter new goal...">
+            <button type="submit" class="add-goal-btn">Add New Goal</button>
+          </form>
 
-        <!-- Display the current goals -->
+        <!-- Display the current goals in a column -->
         <% if (goalsText && goalsText.trim().length > 0) { %>
-            <div class="goals-display mb-3">
-                <p><strong>Current Goals:</strong></p>
-                <p><%= goalsText %></p>
-            </div>
+          <div class="goals-display mb-3">
+            <p><strong>Current Goals:</strong></p>
+            <ul>
+              <% const goalsArray = goalsText.split("\n"); %>
+              <% goalsArray.forEach((goal) => { %>
+                <li><%= goal %></li>
+              <% }); %>
+            </ul>
+          </div>
         <% } else { %>
-            <p>No goals set yet.</p>
+          <p>No goals set yet.</p>
         <% } %>
-
+      
     </div>
-    
 
  <!-- Include the footer -->
  <%- include('../utils/footer') %>

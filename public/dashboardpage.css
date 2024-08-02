@@ -20,32 +20,31 @@ body.main-home-page {
 }
 
 .welcome-section button {
-    background-color: #28a745; /* Bootstrap success color */
+    margin-top: 10px;
+    background-color: #69afff;
     color: white;
+    padding: 10px 20px;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
+    border-radius: 50px;
     cursor: pointer;
-    font-size: 1rem;
-    margin-top: 1rem;
+    font-size: 16px;
 }
 
 .welcome-section button:hover {
-    background-color: #218838; /* Darker shade for hover */
+    background-color: #4369a1; /* Darker shade for hover */
 }
 
-/* Past Questionnaire section styling */
-.responses-section {
-    margin: 2rem auto;
-    max-width: 800px;
-    text-align: center;
-}
 
 /* Achievements section styling */
 .achievements-section {
+    background-color: #f9f1eb;
+    border-radius: 8px;
+    padding: 2rem;
     margin: 2rem auto;
-    max-width: 800px;
-    text-align: center;
+    max-width: 1100px;
+    border: 1px solid #ddd; /* light gray border */
+    border-radius: 10px; /* rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
 }
 
 .achievements-section h2 {
@@ -80,11 +79,14 @@ body.main-home-page {
 
 /* Progress section styling */
 .progress-section {
-    background-color: #fff;
+    background-color: #f0ebf9;
     border-radius: 8px;
     padding: 2rem;
     margin: 2rem auto;
-    max-width: 800px;
+    max-width: 1100px;
+    border: 1px solid #ddd; /* light gray border */
+    border-radius: 10px; /* rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
 }
 
 .progress-section h2 {
@@ -110,33 +112,92 @@ body.main-home-page {
 
 /* Goals section styling */
 .goals-section {
-    background-color: #fff;
+    background-color: #ebf9ed;
     border-radius: 8px;
     padding: 2rem;
     margin: 2rem auto;
-    max-width: 800px;
+    max-width: 1100px;
+    border: 1px solid #ddd; /* light gray border */
+    border-radius: 10px; /* rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
 }
 
 .goals-section h2 {
     color: #007bff; /* Matching header color */
 }
 
-textarea.form-control {
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    height: 100px;
+ /* Add some basic styling to the form */
+ .add-more-goals-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the input field */
+.add-more-goals-form input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 100%;
+}
+
+
+.add-goal-btn {
+    margin-top: 10px;
+    background-color: #ff69b4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-more-goals-form .add-goal-btn:hover {
+    background-color: #ff85c2;
 }
 
 .goals-display {
-    background-color: #f7f7f7;
-    border-radius: 4px;
-    padding: 1rem;
-    margin-top: 1rem;
-    border: 1px solid #ddd;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .goals-display p {
-    margin: 0;
+    color: #ff69b4;
+    font-size: 18px;
+}
+
+.goals-display ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.goals-display ul li {
+    padding: 10px;
+    background-color: #ffebf0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.goals-display ul li::before {
+    content: "🎯";
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.no-goals-message {
+    text-align: center;
+    color: #ff69b4;
+    font-size: 18px;
 }
 
