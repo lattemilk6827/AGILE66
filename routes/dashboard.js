@@ -109,6 +109,7 @@ router.post("/update-profile", requireAuth, (req, res) => {
 });
 
 
+
 // Route to handle the adding of more goals
 router.post("/add-more-goals", requireAuth, (req, res) => {
     const userId = req.session.userId;
@@ -177,6 +178,5 @@ router.post("/delete-goal", requireAuth, (req, res) => {
         }
     });
 });
-
 
 module.exports = router;
