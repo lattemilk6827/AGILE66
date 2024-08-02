@@ -84,24 +84,73 @@ router.post("/update-profile", requireAuth, (req, res) => {
 
 
 
-// Route to handle the updating of goals
-router.post("/update-goals", requireAuth, (req, res) => {
+// Route to handle the adding of more goals
+router.post("/add-more-goals", requireAuth, (req, res) => {
     const userId = req.session.userId;
-    const goalsText = req.body.goals;
+    const newGoalText = req.body.newGoal;
 
-    console.log("Updating goals for user:", userId, "with text:", goalsText);
+    console.log("Adding new goal for user:", userId, "with text:", newGoalText);
 
-    const updateGoalsQuery = "REPLACE INTO goals (user_id, goals_text) VALUES (?, ?)";
-    global.db.run(updateGoalsQuery, [userId, goalsText], function(err) {
+    const getExistingGoalsQuery = "SELECT goals_text FROM goals WHERE user_id = ?";
+    global.db.get(getExistingGoalsQuery, [userId], (err, row) => {
         if (err) {
             console.error("Database error:", err);
-            return res.status(500).send("Error updating goals");
+            return res.status(500).send("Error getting existing goals");
         }
-        console.log("Goals updated successfully, rows affected:", this.changes);
 
-        res.redirect("/dashboard"); // Redirect to the dashboard
+        let existingGoalsText = row ? row.goals_text : "";
+        const updatedGoalsText = existingGoalsText + "\n" + newGoalText;
+
+        const updateGoalsQuery = "REPLACE INTO goals (user_id, goals_text) VALUES (?, ?)";
+        global.db.run(updateGoalsQuery, [userId, updatedGoalsText], function(err) {
+            if (err) {
+                console.error("Database error:", err);
+                return res.status(500).send("Error updating goals");
+            }
+            console.log("Goals updated successfully, rows affected:", this.changes);
+
+            res.redirect("/dashboard"); // Redirect to the dashboard
+        });
     });
 });
 
+// Route to handle the deletion of a goal
+router.post("/delete-goal", requireAuth, (req, res) => {
+    const userId = req.session.userId;
+    const goalIndex = parseInt(req.body.goalIndex, 10);
+
+    console.log("Deleting goal for user:", userId, "at index:", goalIndex);
+
+    const getExistingGoalsQuery = "SELECT goals_text FROM goals WHERE user_id = ?";
+    global.db.get(getExistingGoalsQuery, [userId], (err, row) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).send("Error getting existing goals");
+        }
+
+        if (row) {
+            let goalsArray = row.goals_text.split("\n").filter(goal => goal.trim().length > 0);
+            if (goalIndex >= 0 && goalIndex < goalsArray.length) {
+                goalsArray.splice(goalIndex, 1);
+                const updatedGoalsText = goalsArray.join("\n");
+
+                const updateGoalsQuery = "REPLACE INTO goals (user_id, goals_text) VALUES (?, ?)";
+                global.db.run(updateGoalsQuery, [userId, updatedGoalsText], function(err) {
+                    if (err) {
+                        console.error("Database error:", err);
+                        return res.status(500).send("Error updating goals");
+                    }
+                    console.log("Goal deleted successfully, rows affected:", this.changes);
+
+                    res.redirect("/dashboard"); // Redirect to the dashboard
+                });
+            } else {
+                res.status(400).send("Invalid goal index");
+            }
+        } else {
+            res.status(400).send("No goals found for the user");
+        }
+    });
+});
 
 module.exports = router;

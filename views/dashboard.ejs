@@ -55,59 +55,50 @@
             <% } %>
         </div>
     </div>
+    
+    
 
     <div class="goals-section">
         <h2>My Goals</h2>
-        <form action="/update-goals" method="post" class="mb-3">
-            <textarea class="form-control mb-3" name="goals" placeholder="Enter your goals here..."><%= goalsText %></textarea>
-            <button type="submit" class="btn btn-success">Update Goals</button>
+        <p>Setting goals can help you feel better and more balanced. Think about what you can do to take care of yourself and improve your mental health. Your goals might include practicing something you enjoy, talking to someone you trust, or trying out new activities. Here are some examples:</p>
+        <ul>
+            <li>Spend 10 minutes each day doing a fun hobby.</li>
+            <li>Practice deep breathing exercises when feeling stressed.</li>
+            <li>Talk to a friend or family member about how you’re feeling.</li>
+        </ul>
+        <p>Write down your goals below. Remember, your goals can be big or small – what matters is that they help you feel happier and healthier!</p>
+        <!-- Add more goals form with CSS -->
+        <form action="/add-more-goals" method="post" class="add-more-goals-form mb-3">
+            <input type="text" name="newGoal" placeholder="Enter new goal...">
+            <button type="submit" class="add-goal-btn">Add New Goal</button>
         </form>
-
-        <!-- Display the current goals -->
+    
+        <!-- Display the current goals in a column -->
         <% if (goalsText && goalsText.trim().length > 0) { %>
-            <div class="goals-display mb-3">
-                <p><strong>Current Goals:</strong></p>
-                <p><%= goalsText %></p>
-            </div>
+          <div class="goals-display mb-3">
+            <p><strong>Current Goals:</strong></p>
+            <ul>
+              <% const goalsArray = goalsText.split("\n").filter(goal => goal.trim().length > 0).reverse(); %>
+              <% goalsArray.forEach((goal, index) => { %>
+                <li class="goal-item">
+                  <span class="goal-text"><%= goal %></span>
+                  <form action="/delete-goal" method="post" class="delete-goal-form">
+                    <input type="hidden" name="goalIndex" value="<%= goalsArray.length - 1 - index %>">
+                    <button type="submit" class="delete-goal-btn">
+                      🗑️
+                    </button>
+                  </form>
+                </li>
+              <% }); %>
+            </ul>
+          </div>
         <% } else { %>
-            <p>No goals set yet.</p>
+          <p>No goals set yet.</p>
         <% } %>
-
     </div>
+    
 
-    <!-- Include the footer -->
-    <%- include('../utils/footer') %>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            updateGameProgress();
-
-            function updateGameProgress() {
-                const games = document.querySelectorAll('.game');
-                games.forEach(game => {
-                    const gameId = game.getAttribute('data-game-id');
-                    const userId = '<%= userName %>'; // Assuming userName is unique per user
-                    const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${gameId}_${userId}`)) || 0;
-                    const roundedElapsedMinutes = elapsedMinutes.toFixed(2);
-                    const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100);
-
-                    const progressBar = game.querySelector('.progress-bar');
-                    progressBar.setAttribute('aria-valuenow', progressPercentage);
-                    progressBar.style.width = `${progressPercentage}%`;
-                    progressBar.textContent = `${progressPercentage.toFixed(2)}%`;
-
-                    const elapsedTimeElem = game.querySelector('p:nth-of-type(2)');
-                    elapsedTimeElem.textContent = `Elapsed Time: ${roundedElapsedMinutes} minutes`;
-
-                    const statusElem = game.querySelector('p:nth-of-type(3)');
-                    statusElem.textContent = `Status: ${progressPercentage >= 100 ? 'Completed' : `${progressPercentage.toFixed(2)}% Completed`}`;
-
-                    // Hide games with 0% progress
-                    if (progressPercentage === 0) {
-                        game.style.display = 'none';
-                    }
-                });
-            }
-        });
-    </script>
+ <!-- Include the footer -->
+ <%- include('../utils/footer') %>
 </body>
 </html>

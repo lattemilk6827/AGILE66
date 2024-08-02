@@ -103,10 +103,12 @@ h2.text-center {
 
 /* Questionnaire section styling */
 #questionnaire-section {
+    max-width: 800px;
+    margin: 40px auto;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    background-color: #fff; /* white background */
+    border: 1px solid #ddd; /* light gray border */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
 }
 
 #complete-questionnaire-btn {
@@ -127,7 +129,7 @@ h2.text-center {
 
 
 /* Container for the questionnaire section */
-#questionnaire-section {
+#questionnaire-form-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -137,58 +139,56 @@ h2.text-center {
 }
 
 /* Header for the questionnaire */
-#questionnaire-section h1 {
+#questionnaire-form-container-header {
     text-align: center;
-    color: #333;
+    color: #6ba1ff;
     margin-bottom: 20px;
 }
 
-/* Style for each form group */
+ /* Form styles */
+#mental-health-form {
+    margin-top: 20px;
+}
+
 .form-group {
-    padding: 25px;
-    padding-bottom: 0px;
+    margin-bottom: 20px;
 }
 
-/* Label styling */
-.form-group label {
+label {
     display: block;
+    margin-bottom: 10px;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 18px;
-    font-size: 15px;
+    color: #333; /* dark gray text */
+    font-size: 12px;
 }
 
-/* Input styling */
-.form-group input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
 
-/* Rating radio buttons *//* Container for radio buttons */
+/* Radio button styling */
+
 .radio-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    margin-bottom: 20px;
+    
 }
 
 .radio-group label {
     display: inline-block;
-    padding: 8px 12px;
-    border-radius: 4px;
-    background-color: #e0e0e0;
-    color: #555;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-right: 20px;
+    cursor: pointer; /* change cursor to hand on hover */
 }
 
-/* Hover effect for labels */
-.radio-group label:hover {
-    background-color: #d0d0d0;
+input[type="radio"] {
+	appearance: none;
+	width: 10px;
+	height: 10px;
+	border: 2px solid #507cbb;
+	border-radius: 100%;
+	background-clip: content-box;
+	padding: 3px;
 }
 
+input[type="radio"]:checked {
+	background-color: #4c85e0;
+}
 
 /* Submit button styling */
 #submit-questionnaire-btn {
@@ -220,7 +220,7 @@ h2.text-center {
     font-size: 16px;
     transition: background-color 0.3s ease;
     margin-top: 10px;
-    background-color: #f0b27f;
+    background-color: #9b6b43;
 }
 
 /* Hover effect for submit button */
@@ -240,4 +240,125 @@ h2.text-center {
     text-align: center;
 }
 
+
+/* Assessment Level and Scores table styling */
+.table {
+    border-collapse: separate;
+    border-spacing: 0 10px; /* add space between rows */
+    font-size: 12px;
+}
+  
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd; /* light gray border */
+    border-radius: 5px; /* rounded corners */
+}
+  
+th {
+    background-color: #de7a66; /* green background for headers */
+    color: #fff; /* white text */
+}
+  
+td {
+    background-color: #ebeaea; /* light gray background for cells */
+}
+  
+td ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+  
+td li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* light gray border */
+}
+  
+td li:last-child {
+    border-bottom: none; /* remove border from last item */
+}
+  
+td li:before {
+    content: "\2714"; /* checkmark icon */
+    font-size: 12px;
+    color: #4CAF50; /* green color */
+    margin-right: 10px;
+}
+  
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* light gray background for even rows */
+}
+
+/* Lastest Assessment Container and Content Styling */
+
+.latest-assessment-container {
+    background-color: #f7f7f7; /* light gray background */
+    padding: 20px;
+    border-radius: 10px; /* rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
+}
+  
+.latest-assessment-date {
+    font-weight: bold; /* bold font for date */
+    color: #333; /* dark gray text */
+}
+  
+.latest-assessment-score {
+    font-size: 13px; /* larger font for score */
+    color: #666; /* medium gray text */
+}
+  
+.latest-assessment-level {
+    font-weight: bold; /* bold font for level */
+    color: #333; /* dark gray text */
+}
+  
+.latest-assessment-description {
+    font-size: 12px; /* smaller font for description */
+    color: #999; /* light gray text */
+}
+  
+.latest-assessment-divider {
+    border: none; /* remove default border */
+    border-top: 1px solid #ddd; /* light gray border */
+    margin: 20px 0; /* add space above and below divider */
+}
+
+
+/* Past Assessment Container and Content Styling */
+
+.assessment-item {
+    background-color: #f7f7f7; /* light gray background */
+    padding: 20px;
+    border-radius: 10px; /* rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
+    margin-bottom: 20px; /* add space between items */
+}
+  
+.assessment-date {
+    font-weight: bold; /* bold font for date */
+    color: #333; /* dark gray text */
+}
+  
+.assessment-score {
+    font-size: 13px; /* larger font for score */
+    color: #666; /* medium gray text */
+}
+  
+.assessment-level {
+    font-weight: bold; /* bold font for level */
+    color: #333; /* dark gray text */
+}
+  
+.assessment-description {
+    font-size: 12px; /* smaller font for description */
+    color: #999; /* light gray text */
+}
+  
+.assessment-divider {
+    border: none; /* remove default border */
+    border-top: 1px solid #ddd; /* light gray border */
+    margin: 20px 0; /* add space above and below divider */
+}
 
