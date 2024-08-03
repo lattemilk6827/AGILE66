@@ -12,11 +12,12 @@ function requireAuth(req, res, next) {
         // Proceed to next route handler if authenticated
         next();
     } else {
-        // Go back to login page if not authenticated
+        // Store the original request URL in the session to allow user to see the respective pages after the logged in action
+        req.session.returnTo = req.originalUrl;
+        // Redirect to login page if not authenticated
         res.redirect('/login');
     }
 }
-
 // Route to display the login page
 router.get("/login", (req, res) => {
     // Show login page with no error messages initially
@@ -66,11 +67,17 @@ router.post("/login", [
             req.session.loggedIn = true;
             req.session.userId = user.id;
             req.session.userName = user.user_name; // Store the username in the session
-            // After successful validation of log in details user brought to home page
-            res.redirect('/'); // Redirect to home page
+           
+            // Allowing after logged in action to give url of that page the user wants to see after authentication NOT redirecting to a specific page
+            // Redirect to the originally requested URL or home page if no original URL
+             const redirectTo = req.session.returnTo || '/';
+             delete req.session.returnTo; // Clear the returnTo value from session
+             res.redirect(redirectTo);
         });
     });
 });
+
+
 
 // Route to display the registration page
 router.get("/register", (req, res) => {
