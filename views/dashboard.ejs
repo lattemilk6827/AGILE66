@@ -4,10 +4,10 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/dashboardpage.css">
-   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="main-home-page">
@@ -65,6 +65,7 @@
             <p id="relaxation-time">Relaxation Games: 0 minutes</p>
             <p id="educational-time">Educational Games: 0 minutes</p>
         </div>
+        <canvas id="totalTimeChart" width="400" height="400"></canvas>
     </div>
 
     <div class="goals-section">
@@ -175,6 +176,41 @@
                 document.getElementById('mind-time').textContent = `Mind Games: ${totalTimes.mind.toFixed(2)} minutes`;
                 document.getElementById('relaxation-time').textContent = `Relaxation Games: ${totalTimes.relaxation.toFixed(2)} minutes`;
                 document.getElementById('educational-time').textContent = `Educational Games: ${totalTimes.educational.toFixed(2)} minutes`;
+
+                // Render the pie chart
+                renderPieChart(totalTimes);
+            }
+
+            function renderPieChart(totalTimes) {
+                const ctx = document.getElementById('totalTimeChart').getContext('2d');
+                const data = {
+                    labels: ['Mind Games', 'Relaxation Games', 'Educational Games'],
+                    datasets: [{
+                        label: 'Total Time Spent (minutes)',
+                        data: [totalTimes.mind.toFixed(2), totalTimes.relaxation.toFixed(2), totalTimes.educational.toFixed(2)],
+                        backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe'],
+                        hoverOffset: 4
+                    }]
+                };
+
+                const config = {
+                    type: 'pie',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Total Time Spent on Each Section'
+                            }
+                        }
+                    }
+                };
+
+                new Chart(ctx, config);
             }
         });
     </script>
