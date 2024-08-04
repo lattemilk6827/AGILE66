@@ -4,9 +4,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/dashboardpage.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuP+VmmDGMN5t9UJ0Z"
-    crossorigin="anonymous">
+   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -16,14 +14,13 @@
     <%- include('../utils/header') %>
 
     <div class="welcome-section">
-        <h1>Welcome,<%= userName %></span>!</h1>
+        <h1>Welcome,<%= userName %>!</h1>
         <button onclick="location.href='/edit-profile'">Edit Profile</button>
         <div class="completed-section">
             <h2>You Have Completed These Activities</h2>
             <div id="completedActivities"></div>
         </div>
     </div>
-
 
     <div class="achievements-section">
         <h2>Achievements</h2>
@@ -42,7 +39,7 @@
         <div id="gamesProgress">
             <% if (games && games.length > 0) { %>
                 <% games.forEach(function(game) { %>
-                    <div class="game" data-game-id="<%= game.id %>">
+                    <div class="game" data-game-id="<%= game.id %>" data-game-section="<%= game.section %>">
                         <div class="game-title"><%= game.title %></div>
                         <div class="progress">
                             <div class="progress-bar <%= game.progress_class %>" role="progressbar" aria-valuenow="<%= game.progress_percentage %>" aria-valuemin="0" aria-valuemax="100">
@@ -61,6 +58,14 @@
         </div>
     </div>
 
+    <div class="total-time-section">
+        <h2>Total Time Spent on Each Section</h2>
+        <div class="section-time">
+            <p id="mind-time">Mind Games: 0 minutes</p>
+            <p id="relaxation-time">Relaxation Games: 0 minutes</p>
+            <p id="educational-time">Educational Games: 0 minutes</p>
+        </div>
+    </div>
 
     <div class="goals-section">
         <h2>My Goals</h2>
@@ -69,7 +74,6 @@
             <button type="submit" class="btn btn-success">Update Goals</button>
         </form>
 
-        <!-- Display the current goals -->
         <% if (goalsText && goalsText.trim().length > 0) { %>
             <div class="goals-display mb-3">
                 <p><strong>Current Goals:</strong></p>
@@ -78,10 +82,8 @@
         <% } else { %>
             <p>No goals set yet.</p>
         <% } %>
-
     </div>
 
-    <!-- Include the footer -->
     <%- include('../utils/footer') %>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -91,13 +93,24 @@
                 const games = document.querySelectorAll('.game');
                 const completedActivities = document.getElementById('completedActivities');
                 const gamesProgress = document.getElementById('gamesProgress');
+                const totalTimes = {
+                    mind: 0,
+                    relaxation: 0,
+                    educational: 0
+                };
 
                 games.forEach(game => {
                     const gameId = game.getAttribute('data-game-id');
+                    const gameSection = game.getAttribute('data-game-section');
                     const userId = '<%= userName %>'; // Assuming userName is unique per user
                     const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${gameId}_${userId}`)) || 0;
                     const roundedElapsedMinutes = elapsedMinutes.toFixed(2);
                     const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100);
+
+                    // Add to total time
+                    if (totalTimes[gameSection] !== undefined) {
+                        totalTimes[gameSection] += elapsedMinutes;
+                    }
 
                     const progressBar = game.querySelector('.progress-bar');
                     if (progressBar) {
@@ -157,6 +170,11 @@
                         game.style.display = 'none';
                     }
                 });
+
+                // Display total times
+                document.getElementById('mind-time').textContent = `Mind Games: ${totalTimes.mind.toFixed(2)} minutes`;
+                document.getElementById('relaxation-time').textContent = `Relaxation Games: ${totalTimes.relaxation.toFixed(2)} minutes`;
+                document.getElementById('educational-time').textContent = `Educational Games: ${totalTimes.educational.toFixed(2)} minutes`;
             }
         });
     </script>
