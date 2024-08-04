@@ -26,51 +26,32 @@
              <button class="btn btn-primary" onclick="location.href='/dashboard'">Login to view your dashboard</button>
         </div>
 
-        <h2 class="text-center my-4">Top Games Of The Month</h2>
+        <div class="container mt-4">
+            <h1>Recommended Games Based on Your Assessment</h1>
+            <div class="row">
+                <% if (games && games.length > 0) { %>
+                    <% games.forEach(function(game) { %>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="<%= game.image %>" class="card-img-top" alt="<%= game.title %>">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= game.title %></h5>
+                                    <p class="card-text"><%= game.description %></p>
+                                    <a href="/games/play/<%= game.id %>" class="btn btn-primary">Play Now</a>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: <%= game.progress_percentage %>%" aria-valuenow="<%= game.progress_percentage %>" aria-valuemin="0" aria-valuemax="100"><%= game.progress_percentage.toFixed(0) %>% Complete</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p class="text-center w-100">No games are currently recommended for your profile. Please check back later or try a different category.</p>
+                <% } %>
+            </div>
+        </div>
        
-    
-            
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/game1.png" class="card-img-top" alt="Game 1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 1</h5>
-                                   
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/game2.png" class="card-img-top" alt="Game 2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 2</h5>
-                                   
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/game3.png" class="card-img-top" alt="Game 3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 3</h5>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <img src="path/to/game4.png" class="card-img-top" alt="Game 4">
-                                <div class="card-body">
-                                    <h5 class="card-title">Game Title 4</h5>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-               
-              
-       
+
 
         <div class="podium-container">
             <h2>Top Players Of The Month</h2>

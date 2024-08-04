@@ -57,7 +57,9 @@ function getDescription(level) {
 
 // Route to handle questionnaire submission
 router.post('/submit-assessment',requireAuth, express.json(), (req, res) => {
-    const userId = req.user ? req.user.id : 1; // Assuming you have user authentication, default to 1 for testing
+    // const userId = req.user ? req.user.id : 1; // Assuming you have user authentication, default to 1 for testing
+    const userId = req.session.userId; 
+
     const { q1, q2, q3, q4, q5 } = req.body;
 
     console.log("Received data:", req.body);  // Debugging line
@@ -96,7 +98,8 @@ router.post('/submit-assessment',requireAuth, express.json(), (req, res) => {
 
 // Route to retrieve the latest and past results
 router.get('/assessments',requireAuth, (req, res) => {
-    const userId = req.user ? req.user.id : 1; // Assuming you have user authentication, default to 1 for testing
+    // const userId = req.user ? req.user.id : 1; // Assuming you have user authentication, default to 1 for testing
+    const userId = req.session.userId; 
 
     db.all("SELECT * FROM assessments WHERE userId = ? ORDER BY createdAt DESC", [userId], (err, rows) => {
         if (err) {
@@ -111,4 +114,3 @@ router.get('/assessments',requireAuth, (req, res) => {
 
 
 module.exports = router;
-
