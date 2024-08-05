@@ -119,7 +119,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             updateGameProgress();
-
+    
             function updateGameProgress() {
                 const games = document.querySelectorAll('.game');
                 const completedActivities = document.getElementById('completedActivities');
@@ -129,7 +129,7 @@
                     relaxation: 0,
                     educational: 0
                 };
-
+    
                 games.forEach(game => {
                     const gameId = game.getAttribute('data-game-id');
                     const gameSection = game.getAttribute('data-game-section');
@@ -137,21 +137,21 @@
                     const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${gameId}_${userId}`)) || 0;
                     const roundedElapsedMinutes = elapsedMinutes.toFixed(2);
                     const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100);
-
+    
                     // Add to total time
                     if (totalTimes[gameSection] !== undefined) {
                         totalTimes[gameSection] += elapsedMinutes;
                     }
-
+    
                     const progressBar = game.querySelector('.progress-bar');
                     if (progressBar) {
                         progressBar.setAttribute('aria-valuenow', progressPercentage);
                         progressBar.style.width = `${progressPercentage}%`;
                         progressBar.textContent = `${progressPercentage.toFixed(2)}%`;
-
+    
                         // Remove existing colour classes to set custom colour classes 
                         progressBar.classList.remove('progress-bar-low', 'progress-bar-medium', 'progress-bar-high', 'progress-bar-very-high', 'progress-bar-completed');
-
+    
                         // Add colour class based on progress percentage
                         if (progressPercentage < 25) {
                             progressBar.classList.add('progress-bar-low');
@@ -161,17 +161,15 @@
                             progressBar.classList.add('progress-bar-high');
                         } else if (progressPercentage < 100) {
                             progressBar.classList.add('progress-bar-very-high');
-                        } //else {
-                           // progressBar.classList.add('progress-bar-completed');
-                       // }
+                        }
                     }
-
+    
                     const elapsedTimeElem = game.querySelector('.game-status');
                     if (elapsedTimeElem) {
                         const statusText = progressPercentage >= 100 ? 'Completed' : `${progressPercentage.toFixed(2)}% Completed`;
                         elapsedTimeElem.textContent = `Elapsed Time: ${roundedElapsedMinutes} minutes | Status: ${statusText}`;
                     }
-
+    
                     const gameMessageElem = game.querySelector('.game-message');
                     if (gameMessageElem) {
                         if (progressPercentage < 25) {
@@ -186,14 +184,14 @@
                             gameMessageElem.textContent = "Completed!";
                         }
                     }
-
-                     // Move games with 100% progress to the completed section
-                     if (progressPercentage === 100) {
+    
+                    // Move games with 100% progress to the completed section
+                    if (progressPercentage === 100) {
                         // Remove game details except for the title
                         const completedGame = game.cloneNode(true);
                         completedGame.querySelector('.progress').remove();
                         completedGame.querySelector('.game-details').remove();
-
+    
                         completedActivities.appendChild(completedGame);
                         game.remove();
                     } else if (progressPercentage === 0) {
@@ -201,20 +199,26 @@
                         game.style.display = 'none';
                     }
                 });
-
+    
                 // Display total times
                 document.getElementById('mind-time').textContent = `Mind Games: ${totalTimes.mind.toFixed(2)} minutes`;
                 document.getElementById('relaxation-time').textContent = `Relaxation Games: ${totalTimes.relaxation.toFixed(2)} minutes`;
                 document.getElementById('educational-time').textContent = `Educational Games: ${totalTimes.educational.toFixed(2)} minutes`;
-
+    
                 // Render the pie chart
                 renderPieChart(totalTimes);
             }
-
+    
             function renderPieChart(totalTimes) {
+                const total = totalTimes.mind + totalTimes.relaxation + totalTimes.educational;
+    
                 const ctx = document.getElementById('totalTimeChart').getContext('2d');
                 const data = {
-                    labels: ['Mind Games', 'Relaxation Games', 'Educational Games'],
+                    labels: [
+                        'Mind Games',
+                        'Relaxation Games',
+                        'Educational Games'
+                    ],
                     datasets: [{
                         label: 'Total Time Spent (minutes)',
                         data: [totalTimes.mind.toFixed(2), totalTimes.relaxation.toFixed(2), totalTimes.educational.toFixed(2)],
@@ -222,7 +226,7 @@
                         hoverOffset: 4
                     }]
                 };
-
+    
                 const config = {
                     type: 'pie',
                     data: data,
@@ -230,28 +234,40 @@
                         responsive: true,
                         plugins: {
                             legend: {
+                              
                                 position: 'top',
+                                
                             },
                             title: {
                                 display: true,
-                                text: 'Total Time Spent on Each Section'
+                                text: 'Find Out Where You Spent The Most/Least Time'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const total = context.dataset.data.reduce((sum, value) => sum + parseFloat(value), 0);
+                                        const percentage = ((context.raw / total) * 100).toFixed(2);
+                                        // To allow percentage data to show up in tooltip
+                                        return `${context.label}: ${context.raw} minutes (${percentage}%)`;
+                                    }
+                                }
                             }
                         }
                     }
                 };
-
+    
                 new Chart(ctx, config);
             }
         });
-
-        
+    
+    
         document.addEventListener('DOMContentLoaded', function() {
             const deleteIcons = document.querySelectorAll('.delete-goal');
-
+    
             deleteIcons.forEach(icon => {
                 icon.addEventListener('click', function() {
                     const goalIndex = this.getAttribute('data-index');
-                    
+    
                     if (confirm('Are you sure you want to delete this goal?')) {
                         fetch('/delete-goal', {
                             method: 'POST',
@@ -275,7 +291,8 @@
                 });
             });
         });
-
+    
     </script>
+    
 </body>
 </html>

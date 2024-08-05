@@ -61,7 +61,7 @@
 }
 
 /* Style for error messages */
-.login-container.error , .register-container.error {
+.error  {
     color: #dc3545; /* Bootstrap danger color */
     margin-bottom: 1rem;
 }

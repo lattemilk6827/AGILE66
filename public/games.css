@@ -20,10 +20,16 @@ body.games-page {
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
+    margin-left: -8%;
     padding: 2%;
     background-color: #f9ddb4;
     font-family: 'Rusty Hooks', cursive;
+    width: 1430px; /* Ensure it covers the entire viewport width */
+    margin-top: -3%;
+  
+  
 }
+
 
 .headerSection .btn {
     margin-top: 20px; /* Add some space between the button and the header */

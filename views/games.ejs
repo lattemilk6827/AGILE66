@@ -74,7 +74,7 @@
                     <% games.forEach(function(game) { %>
                         <div class="col-md-4">
                             <div class="card">
-                                <img src="<%= game.image %>" class="card-img-top" alt="<%= game.title %>">
+                            
                                 <div class="card-body">
                                     <h5 class="card-title"><%= game.title %></h5>
                                     <p class="card-text"><%= game.description %></p>
@@ -223,7 +223,6 @@
                             const progressPercentage = (elapsedMinutes / 15) * 100;
                             col.innerHTML = `
                             <div class="card" onclick="window.location.href='/games/play/${game.id}'">
-                                <img src="${game.image}" class="card-img-top" alt="${game.title}">
                                 <div class="card-body">
                                     <h5 class="card-title">${game.title}</h5>
                                     <p class="card-text">${game.description}</p>

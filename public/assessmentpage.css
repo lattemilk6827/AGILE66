@@ -30,7 +30,7 @@ body.main-home-page {
 }
 
 .assessment-container img {
-    width: 65%;
+    width: 72%;
     height: 20%;
     object-fit: cover; /* Ensure the image covers the full height and width without distortion */
     margin-left:-40%;
