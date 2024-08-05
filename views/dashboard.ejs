@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="main-home-page">
+<body class="assessment-page">
     <%- include('../utils/header') %>
 
     <div class="welcome-section">
@@ -37,6 +37,7 @@
 
     <div class="progress-section">
         <h2 class="section-header" style="font-family: 'Yaelah';">Games Progress</h2>
+        <p class="click-to-go-text">Click on each game below to progress :</p>
         <div id="gamesProgress">
             <% if (games && games.length > 0) { %>
                 <% games.forEach(function(game) { %>

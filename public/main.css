@@ -19,6 +19,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Komigo3D';
+    src: url('/fonts/Komigo3D-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .main-home-page h1, .main-home-page h2, .main-home-page h3 {
     font-family: 'Rusty Hooks', cursive;
     color: #271e4c;

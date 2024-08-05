@@ -1,5 +1,5 @@
 /* General body styling */
-body.main-home-page {
+body.assessment-page {
     background-color: #f0f8ff; /* Light background color */
     color: #333; /* Dark text color */
 }
@@ -107,6 +107,7 @@ body.main-home-page {
     margin-left: 0; 
 }
 
+
 .progress-bar {
     height: 100%;
     line-height: 40px; /* Match the height of the progress bar */
@@ -134,6 +135,25 @@ body.main-home-page {
 
 .progress-bar-very-high {
     background-color: green !important;
+}
+
+.click-to-go-text{
+    font-size: 0.8rem;
+    letter-spacing: 0.1rem;
+}
+
+.game-link:hover {
+    color: #2980b9; /* Darker blue color for the link on hover */
+    text-decoration: none;
+}
+
+.game {
+    background-color: #f7f7f7; /* Light gray background color for the game container */
+    border: 1px solid #ddd; /* Add a border to the game container */
+    padding: 1rem; /* Add some space around the game content */
+    margin-bottom: 1rem; /* Add some space between the games */
+    border-radius: 0.5rem; /* Add a subtle rounded corner to the game container */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the game container */
 }
 
 .game-title {

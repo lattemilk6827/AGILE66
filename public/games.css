@@ -57,44 +57,63 @@ body.games-page {
 /* Games Brief */
 .gamesBrief {
     position: relative;
-    width: 80%; 
+    max-width: 80%; /* Use max-width instead of width for a more responsive design */
     padding: 2%;
-    margin: 0 auto; /* Add this to center the element horizontally */
-    left: 0;
-    right: 0; /* Add this to center the element horizontally */
-    background: linear-gradient(120deg, #fcdcf4, #c9c4fc, #d6fcf4, #fcf6d9); /* Gradient background */
+    margin: 40px auto; /* Add a margin top and bottom for better spacing */
+    background: linear-gradient(120deg, #fcdcf4, #c9c4fc, #d6fcf4, #fcf6d9);
     background-size: 300% 300%;
-    animation: colorChange 10s ease infinite; /* Color change animation */
+    animation: colorChange 10s ease infinite;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
-    color: #333; /* Text color */
-    margin-bottom: 80px;
-    margin-top: 80px;
+    color: #333;
 }
 
 @keyframes colorChange {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
-
 .gamesBrief h3 {
-    color: #2b5b34; /* Text color */
-    font-family: 'Yaelah';
-    font-size: 2rem; /* Font size */
-    margin: 0; /* Remove default margin */
-    letter-spacing: 1px; /* Spacing between letters */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+    color: #2b5b34;
+    font-size: 2rem;
+    margin: 0;
+    letter-spacing: 0.2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    animation: textChange 5s ease infinite; /* Add text change animation */
+}
+
+@keyframes textChange {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .gamesDescription {
-    color: #076038; /* Text color */
+    color: #25372f;
     font-family: 'Yaelah';
-    letter-spacing: 0.15rem;
-    font-size: 1.2rem; /* Font size */
-    margin-top: 2%; /* Space between the heading and the paragraph */
-    line-height: 1.6; /* Line height for better readability */
+    font-size: 1.2rem;
+    margin-top: 20px; /* Increase the margin top for better spacing */
+    line-height: 1.6;
+}
+
+.gamesBrief img {
+    width: 70%; /* Make the image full width */
+    height: auto; /* Maintain the image aspect ratio */
+    margin: 20px auto; /* Add a margin top and bottom for better spacing */
+    display: block; /* Make the image a block element for better layout */
 }
 
 /* Podium Section */
@@ -107,7 +126,7 @@ body.games-page {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    margin-top: 80px;
+    
 }
 
 .podium-container h2 {
@@ -227,7 +246,7 @@ body.games-page {
 
 .custom-header {
     text-align: center; /* Centers the text horizontally */
-    margin: 20px; /* Adds a margin of 20px to the top and bottom */
+    margin: 60px; /* Adds a margin of 20px to the top and bottom */
     font-size: 2.1rem;
     font-weight: bold; /* Makes the text bold */
     color: #333; /* Sets the text color to a dark gray */
