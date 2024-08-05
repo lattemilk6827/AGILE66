@@ -14,11 +14,6 @@ body.main-home-page {
     text-align: center;
 }
 
-.welcome-section h1 {
-    color: #007bff; /* Matching the header color */
-    font-family: 'Patrick Hand', cursive; /* Cute font */
-}
-
 .welcome-section button {
     margin-top: 10px;
     background-color: #69afff;
@@ -33,6 +28,19 @@ body.main-home-page {
 .welcome-section button:hover {
     background-color: #4369a1; /* Darker shade for hover */
 }
+
+/* Completed section styling */
+.completed-section {
+    background-color: #dbdffb;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1100px;
+    border: 1px solid #ddd; /* light gray border */
+    border-radius: 10px; /* rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
+}
+
 
 
 /* Achievements section styling */
@@ -79,6 +87,17 @@ body.main-home-page {
 
 /* Progress section styling */
 
+.progress-section {
+    background-color: #f9ebf3;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1100px;
+    border: 1px solid #ddd; /* light gray border */
+    border-radius: 10px; /* rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
+}
+
 .progress {
     height: 100px; /* Increased height */
     width: 50%; /* Reduced width */
@@ -118,9 +137,12 @@ body.main-home-page {
 }
 
 .game-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-bottom: 5px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'SuperMilk';
+    color: #faffd1;
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+    letter-spacing: 0.2em;
 }
 
 .game-details {
@@ -129,31 +151,53 @@ body.main-home-page {
 
 .game-status {
     font-size: 0.9rem;
+    margin: 20px 20px;
     color: #555;
 }
 
 .game-message {
-    font-size: 1rem;
-    color: #777;
-    font-style: italic;
+    font-size: 0.9rem;
+    color: #4e4e4e;
+    text-align: right;
+    animation: wave 2s infinite;
+    animation-timing-function: linear;
+} 
+
+  
+@keyframes wave {
+    0% { transform: translateY(0px) }
+    25% { transform: translateY(-10px) }
+    50% { transform: translateY(10px) }
+    75% { transform: translateY(-10px) }
+    100% { transform: translateY(0px) }
 }
 
-.completed-section {
-    margin-top: 2%;
-    background-color: #d1c4e9; 
-    font-weight:300;
-    padding: 10px;
-    border-radius: 10px;
+
+/* Total Time section styling */
+
+.total-time-section {
+    background-color: #ebf0f9;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1100px;
+    border: 1px solid #ddd; /* light gray border */
+    border-radius: 10px; /* rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
 }
 
-.completed-section h2 {
-    font-size: 1.5rem;
-   
+
+.section-time p {
+    margin-bottom: 10px;
+    color: #583131;
+    font-weight: bolder;
 }
 
-
-
-
+.canvas-wrapper {
+    width: 300px;
+    height: 300px;
+    display: inline-block; /* to make the wrapper div inline */
+}
 
 /* Goals section styling */
 .goals-section {
@@ -167,12 +211,9 @@ body.main-home-page {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
 }
 
-.goals-section h2 {
-    color: #007bff; /* Matching header color */
-}
 
- /* Add some basic styling to the form */
- .add-more-goals-form {
+/* Add some basic styling to the form */
+.add-more-goals-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -190,7 +231,6 @@ body.main-home-page {
     border-radius: 10px;
     width: 100%;
 }
-
 
 .add-goal-btn {
     margin-top: 10px;
@@ -230,8 +270,6 @@ body.main-home-page {
     border-radius: 5px;
     margin-bottom: 10px;
     font-size: 16px;
-    display: flex;
-    align-items: center;
 }
 
 .goals-display ul li::before {
@@ -264,11 +302,10 @@ body.main-home-page {
     margin: 0;
 }
 
-
-
 .delete-goal-btn {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 16px;
+text-align: right;
 }

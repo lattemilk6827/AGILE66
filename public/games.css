@@ -4,7 +4,7 @@
 body.games-page {
     margin: 0;
     padding: 0;
-    background-color: #fdcccc; /* Light background color */
+    background-color: #fbe5e5; /* Light background color */
 }
 
 .gamescontainer {
@@ -21,47 +21,55 @@ body.games-page {
     margin-bottom: 20px;
     text-align: center;
     padding: 2%;
-    background-color: #f8cb87;
+    background-color: #f9ddb4;
     font-family: 'Rusty Hooks', cursive;
 }
 
 .headerSection .btn {
-    margin-top: 5px;
+    margin-top: 20px; /* Add some space between the button and the header */
     font-size: 1.2rem; /* Font size for the button */
     padding: 10px 20px; /* Padding inside the button */
     border-radius: 5px; /* Rounded corners for the button */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), /* Soft shadow */
                 0 6px 20px rgba(0, 0, 0, 0.19); /* Deeper shadow */
     transition: transform 0.3s ease; /* Smooth transition for hover effect */
-    background-color: #04343f;
+    background-color: #e4b18b; /* Bright orange color that might appeal to kids */
+    color: #FFFFFF; /* White text color for better contrast */
+    border: none; /* Remove the default border */
+    cursor: pointer; /* Change the cursor to a pointer on hover */
 }
 
 .headerSection .btn:hover {
-    transform: translateY(-2px); /* Slight lift on hover */
+    transform: scale(1.1); /* Scale the button up on hover */
+    background-color: #FFA07A; /* Change the background color to a bright coral color on hover */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25), /* Deeper shadow on hover */
+                0 10px 30px rgba(0, 0, 0, 0.22); /* Even deeper shadow on hover */
 }
 
 /* Dropdown */
 #categoryDropdown {
     width: fit-content;
-    background-color: rgb(251, 226, 194);
-    color: rgb(13, 29, 150);
+    background-color: rgb(202, 149, 79);
+    color: rgb(255, 255, 255);
     font-weight: bolder;
-    
 }
 
 /* Games Brief */
-.gamesBreif {
+.gamesBrief {
     position: relative;
-    width: 114%; /* Set a maximum width */
+    width: 80%; 
     padding: 2%;
-    margin-left: -7%;
+    margin: 0 auto; /* Add this to center the element horizontally */
+    left: 0;
+    right: 0; /* Add this to center the element horizontally */
     background: linear-gradient(120deg, #fcdcf4, #c9c4fc, #d6fcf4, #fcf6d9); /* Gradient background */
     background-size: 300% 300%;
     animation: colorChange 10s ease infinite; /* Color change animation */
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
     color: #333; /* Text color */
-   
+    margin-bottom: 80px;
+    margin-top: 80px;
 }
 
 @keyframes colorChange {
@@ -71,9 +79,9 @@ body.games-page {
 }
 
 
-.gamesBreif h3 {
-    color: #4008f7; /* Text color */
-    font-family:monospace;/* Font style */
+.gamesBrief h3 {
+    color: #2b5b34; /* Text color */
+    font-family: 'Yaelah';
     font-size: 2rem; /* Font size */
     margin: 0; /* Remove default margin */
     letter-spacing: 1px; /* Spacing between letters */
@@ -82,8 +90,9 @@ body.games-page {
 
 .gamesDescription {
     color: #076038; /* Text color */
-    font-family: 'Arial', sans-serif; /* Font style */
-    font-size: 18px; /* Font size */
+    font-family: 'Yaelah';
+    letter-spacing: 0.15rem;
+    font-size: 1.2rem; /* Font size */
     margin-top: 2%; /* Space between the heading and the paragraph */
     line-height: 1.6; /* Line height for better readability */
 }
@@ -98,6 +107,7 @@ body.games-page {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    margin-top: 80px;
 }
 
 .podium-container h2 {
@@ -187,9 +197,9 @@ body.games-page {
     text-align: left;
     margin: 40px 0 20px 0;
     font-size: 2rem;
-    font-weight: bold;
-    color: #4f0544;
-    text-shadow: 1px 1px 2px rgba(149, 229, 28, 0.1);
+    color: #3a3535;
+    font-size: 2.1rem;
+    font-family: 'Yaelah';
 }
 
 /* Carousel controls */
@@ -215,6 +225,22 @@ body.games-page {
     margin-bottom: 40px;
 }
 
+.custom-header {
+    text-align: center; /* Centers the text horizontally */
+    margin: 20px; /* Adds a margin of 20px to the top and bottom */
+    font-size: 2.1rem;
+    font-weight: bold; /* Makes the text bold */
+    color: #333; /* Sets the text color to a dark gray */
+    font-family: 'Yaelah';
+}
 
+.card-title{
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    font-family: 'SuperMilk';
+    color: #faffd1;
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+    letter-spacing: 0.2em;
+}
 
 

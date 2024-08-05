@@ -4,6 +4,8 @@ body.main-home-page {
 }
 
 
+/* Assessment Header section styling */
+
 .assessment-container {
     background-color: #ffb6c1; 
     padding: 10px;
@@ -19,6 +21,7 @@ body.main-home-page {
     font-size: 3rem;
     font-weight: bold;
     color: #000; 
+    
 }
 
 .assessment-container .assessment-text p {
@@ -33,10 +36,6 @@ body.main-home-page {
     margin-left:-40%;
 }
 
-/* Welcome section styling */
-.text-center.my-5 h1 {
-    color: #2e277c; /* Matching header color */
-}
 
 /* Style for the statistics boxes */
 .stat-box {
@@ -53,15 +52,22 @@ body.main-home-page {
 /* Optional: Add a shadow for better effect */
 .stat-box {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    line-height: 1.5; /* Add some space between the lines */
+    color: #333; /* Dark gray text color */
+    text-align: center; /* Center the text */
+    font-family: 'Yaelah';
 }
 
 .stat-box:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Understanding Emotions Section */
-h2.text-center {
-    color: #6c63ff; /* Matching header color */
+.stat-box-heading {
+    font-size: 1.5rem; /* Larger font size for the headings */
+}
+
+.stat-box p {
+    margin: 0; /* Remove the default margin for the paragraphs */
 }
 
 .emotion-image {
@@ -93,12 +99,16 @@ h2.text-center {
     border-color: #ff4d4d;
 }
 
+.emotion-description {
+    font-family: 'Yaelah';
+}
 
 
 /* Questionnaire header styling */
 .questionnaireHeader {
     text-align: center;
     margin-bottom: 20px;
+    font-family: 'Yaelah';
 }
 
 /* Questionnaire section styling */
@@ -143,11 +153,13 @@ h2.text-center {
     text-align: center;
     color: #6ba1ff;
     margin-bottom: 20px;
+    font-family: 'Yaelah';
 }
 
  /* Form styles */
 #mental-health-form {
     margin-top: 20px;
+    font-family: 'Yaelah';
 }
 
 .form-group {
@@ -202,6 +214,7 @@ input[type="radio"]:checked {
     margin-top: 10px;
     background-color: #5c92d0;
     width: 20%;
+    font-family: 'Yaelah';
 }
 
 #view-assessments-container {
@@ -221,6 +234,7 @@ input[type="radio"]:checked {
     transition: background-color 0.3s ease;
     margin-top: 10px;
     background-color: #9b6b43;
+    font-family: 'Yaelah';
 }
 
 /* Hover effect for submit button */
@@ -245,7 +259,7 @@ input[type="radio"]:checked {
 .table {
     border-collapse: separate;
     border-spacing: 0 10px; /* add space between rows */
-    font-size: 12px;
+    font-size: 0.8rem;
 }
   
 th, td {
@@ -282,7 +296,6 @@ td li:last-child {
 td li:before {
     content: "\2714"; /* checkmark icon */
     font-size: 12px;
-    color: #4CAF50; /* green color */
     margin-right: 10px;
 }
   
