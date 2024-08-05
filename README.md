@@ -10,10 +10,6 @@ To get started:
 
 * Run ```npm run start``` to start serving the web app (Access via http://localhost:3000)
 
-
-Edit this README.md to explain any specific instructions for setting up or using your application that you want to bring to our attention:
-
-
 ## List of additional libraries
 
 - express validator -- for input validation errors
