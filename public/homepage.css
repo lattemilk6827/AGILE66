@@ -5,7 +5,98 @@
     justify-content: center; /* Center horizontally */
     text-align: center; /* Center text horizontally */
     height: 300px; /* Ensure consistent height */
+    position: relative;
 }
+
+/* Pop-up Animations */
+.pop-up-top-left {
+    position: absolute;
+    top: -150px;
+    left: -150px;
+    animation: slideInTopLeft 1s forwards;
+    animation-delay: 0.5s;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+    background-color: rgba(111, 120, 247, 0.5);
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pop-up-top-right {
+    position: absolute;
+    top: -150px;
+    right: -150px;
+    animation: slideInTopRight 1s forwards;
+    animation-delay: 0.5s;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+    background-color: rgba(49, 155, 134, 0.5);
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pop-up-bottom-left {
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    animation: slideInBottomLeft 1s forwards;
+    animation-delay: 0.5s;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+    background-color: rgba(247, 111, 224, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pop-up-bottom-right {
+    position: absolute;
+    bottom: -150px;
+    right: -150px;
+    animation: slideInBottomRight 1s forwards;
+    animation-delay: 0.5s;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+    background-color: rgba(215, 176, 5, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideInTopLeft {
+    to {
+        top: 10px;
+        left: 10px;
+    }
+}
+
+@keyframes slideInTopRight {
+    to {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@keyframes slideInBottomLeft {
+    to {
+        bottom: 10px;
+        left: 10px;
+    }
+}
+
+@keyframes slideInBottomRight {
+    to {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
 
 /* Vision and Mission Section */
 .vision-mission-section {
