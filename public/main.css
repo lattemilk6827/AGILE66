@@ -5,6 +5,20 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'SuperMilk';
+    src: url('/fonts/SuperMilk-nRq9Y.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Yaelah';
+    src: url('/fonts/Yaelah.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .main-home-page h1, .main-home-page h2, .main-home-page h3 {
     font-family: 'Rusty Hooks', cursive;
     color: #271e4c;

@@ -112,6 +112,8 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%) rotate(-15deg);
+    font-family: 'Yaelah';
+    color: #30302f;
 }
 .vision-mission-section .vision {
     left: 5%;
@@ -197,7 +199,6 @@
 
 /* Calls to Action Section */
 
-
 .call-to-action-item {
     position: relative;
     text-align: center;
@@ -227,6 +228,7 @@
     z-index: 1;
     width: 90%;
     transition: opacity 0.5s ease; /* Smooth transition for opacity */
+    
    
 }
 
@@ -301,74 +303,8 @@
 }
 
 
-/* Testimonials Section */
-.testimonials-section {
-    padding: 2rem;
-}
-
-.testimonial-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.thought-bubble {
-    position: relative;
-    background: #fff;
-    border: 1px solid #c1e3ba;
-    border-radius: 15px;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    max-width: 80%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 1rem;
-    clear: both;
-}
-
-.thought-bubble:before {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-    border-top-color: #fff;
-    border-bottom: 0;
-    margin-left: -20px;
-    border-radius: 30%;
-}
-
-.thought-bubble:nth-child(odd) {
-    align-self: flex-start;
-    margin-right: auto;
-}
-
-.thought-bubble:nth-child(even) {
-    align-self: flex-end;
-    margin-left: auto;
-}
-
-/* Testimonials Section */
-.testimonials-section {
-    background-color: #e1f5fe;
-    padding: 50px 0;
-}
-
-.testimonials-section h3 {
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.testimonials-section h4 {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.testimonials-section p {
-    font-size: 1rem;
-}
-
 /* Welcome Section */
+
 .welcome-section h1 {
     font-size: 2.5rem;
     font-weight: bold;
@@ -378,18 +314,6 @@
 .welcome-section p.lead {
     font-size: 1.5rem;
     color: #666;
-}
-
-@font-face {
-    font-family: 'Rusty Hooks';
-    src: url('/fonts/Candyful-rgdjx.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-.main-home-page h1, .main-home-page h2, .main-home-page h3 {
-    font-family: 'Rusty Hooks', cursive;
-    color: #271e4c;
 }
 
 .welcome-section h2 {
@@ -403,6 +327,7 @@
     animation: gradientAnimation 3s ease infinite, textGlow 1.2s ease-in-out infinite alternate;
     -webkit-text-fill-color: transparent; 
     text-shadow: 0 0 5px rgba(196, 232, 13, 0.5), 0 0 10px rgba(28, 203, 197, 0.3);
+    letter-spacing: 0.4rem;
 }
 
 @keyframes gradientAnimation {
@@ -414,5 +339,99 @@
     }
     100% {
         background-position: 0% 50%;
+    }
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    background-color: #dffbf3; /* Light gray background color */
+    padding: 2rem; /* Add some space around the content */
+}
+
+.testimonials-section h3 {
+    font-size: 2rem; /* Larger font size for the header */
+    font-weight: bold; /* Bold font weight for the header */
+    color: #3498db; /* Blue color for the header */
+    text-transform: uppercase; /* Convert the text to uppercase */
+    margin-bottom: 1rem; /* Add some space between the header and the content */
+    padding-bottom: 0.5rem; /* Add some space below the header */
+    border-bottom: 1px solid #ccc; /* Add a bottom border to the header */
+}
+
+.testimonial-container {
+    margin-top: 2rem; /* Add some space between the header and the testimonials */
+}
+
+.testimonial-header {
+    font-family: 'Yaelah';
+    text-align: center;
+}
+.thought-bubble {
+    font-family: 'Yaelah';
+    color: #ffffff;
+    border-radius: 1rem; /* Rounded corners for the thought bubbles */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the thought bubbles */
+    padding: 1rem; /* Add some space around the content */
+    margin-bottom: 1rem; /* Add some space between the thought bubbles */
+    position: relative; /* Set the position to relative for the animation */
+}
+
+.thought-bubble::before {
+    content: "";
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #f5c4c4;
+    border-radius: 50%;
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.thought-bubble:hover {
+    transform: rotate(5deg); /* Rotate the thought bubble on hover */
+    transition: transform 0.5s ease-in-out; /* Add a smooth transition effect */
+}
+
+.testimonial-container {
+    display: flex; /* Display the thought bubbles in a flex container */
+    flex-wrap: wrap; /* Wrap the thought bubbles to the next line */
+    justify-content: center; /* Center the thought bubbles horizontally */
+}
+
+.thought-bubble:nth-child(1) {
+    background-color: #4082fb; /* Blue background color for the first thought bubble */
+    animation: move 5s infinite; /* Add an animation to the first thought bubble */
+}
+
+.thought-bubble:nth-child(2) {
+    background-color: #34c759; /* Green background color for the second thought bubble */
+    animation: move 5s infinite; /* Add an animation to the second thought bubble */
+    animation-delay: 1s; /* Delay the animation by 1 second */
+}
+
+.thought-bubble:nth-child(3) {
+    background-color: #ff69b4; /* Pink background color for the third thought bubble */
+    animation: move 5s infinite; /* Add an animation to the third thought bubble */
+    animation-delay: 2s; /* Delay the animation by 2 seconds */
+}
+
+.thought-bubble:nth-child(4) {
+    background-color: #ffd700; /* Yellow background color for the fourth thought bubble */
+    animation: move 5s infinite; /* Add an animation to the fourth thought bubble */
+    animation-delay: 3s; /* Delay the animation by 3 seconds */
+}
+
+@keyframes move {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateX(10px) rotate(10deg);
+    }
+    100% {
+        transform: translateX(0) rotate(0deg);
     }
 }

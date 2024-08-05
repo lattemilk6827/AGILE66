@@ -16,14 +16,15 @@
     <div class="welcome-section">
         <h1>Welcome,<%= userName %>!</h1>
         <button onclick="location.href='/edit-profile'">Edit Profile</button>
-        <div class="completed-section">
-            <h2>You Have Completed These Activities</h2>
-            <div id="completedActivities"></div>
-        </div>
+    </div>
+
+    <div class="completed-section">
+        <h2 class="section-header" style="font-family: 'Yaelah';">You Have Completed These Activities</h2>
+        <div id="completedActivities"></div>
     </div>
 
     <div class="achievements-section">
-        <h2>Achievements</h2>
+        <h2 class="section-header" style="font-family: 'Yaelah';">Achievements</h2>
         <div class="badges">
             <% achievements.forEach(function(achievement) { %>
                 <div class="badge">
@@ -35,7 +36,7 @@
     </div>
 
     <div class="progress-section">
-        <h2>Games Progress</h2>
+        <h2 class="section-header" style="font-family: 'Yaelah';">Games Progress</h2>
         <div id="gamesProgress">
             <% if (games && games.length > 0) { %>
                 <% games.forEach(function(game) { %>
@@ -62,31 +63,56 @@
     </div>
 
     <div class="total-time-section">
-        <h2>Total Time Spent on Each Section</h2>
-        <div class="section-time">
-            <p id="mind-time">Mind Games: 0 minutes</p>
-            <p id="relaxation-time">Relaxation Games: 0 minutes</p>
-            <p id="educational-time">Educational Games: 0 minutes</p>
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="section-header" style="font-family: 'Yaelah';">Total Time Spent on Each Section</h2>
+                <div class="section-time">
+                    <p id="mind-time">Mind Games: 0 minutes</p>
+                    <p id="relaxation-time">Relaxation Games: 0 minutes</p>
+                    <p id="educational-time">Educational Games: 0 minutes</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="canvas-wrapper">
+                    <canvas id="totalTimeChart" width="150" height="150"></canvas>
+                </div>
+            </div>
         </div>
-        <canvas id="totalTimeChart" width="400" height="400"></canvas>
     </div>
 
     <div class="goals-section">
-        <h2>My Goals</h2>
-        <form action="/update-goals" method="post" class="mb-3">
-            <textarea class="form-control mb-3" name="goals" placeholder="Enter your goals here..."><%= goalsText %></textarea>
-            <button type="submit" class="btn btn-success">Update Goals</button>
+        <h2 class="section-header" style="font-family: 'Yaelah';">My Goals</h2>
+    
+        <!-- Add more goals form -->
+        <form action="/add-more-goals" method="post" class="add-more-goals-form mb-3">
+            <input type="text" name="newGoal" placeholder="Enter new goal...">
+            <button type="submit" class="add-goal-btn">Add Above</button>
         </form>
-
+      
+        <!-- Display the current goals in a column -->
         <% if (goalsText && goalsText.trim().length > 0) { %>
             <div class="goals-display mb-3">
                 <p><strong>Current Goals:</strong></p>
-                <p><%= goalsText %></p>
+                <ul>
+                    <% const goalsArray = goalsText.split("\n"); %>
+                    <% goalsArray.forEach((goal, index) => { %>
+                        <li class="goal-item">
+                            <span class="goal-text"><%= goal %></span>
+                            <form action="/delete-goal" method="post" style="display:inline;">
+                                <input type="hidden" name="goalIndex" value="<%= index %>">
+                                <button type="submit" class="delete-goal-btn" title="Delete Goal">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </li>
+                    <% }); %>
+                </ul>
             </div>
         <% } else { %>
             <p>No goals set yet.</p>
         <% } %>
     </div>
+    
 
     <%- include('../utils/footer') %>
     <script>
@@ -216,6 +242,39 @@
                 new Chart(ctx, config);
             }
         });
+
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteIcons = document.querySelectorAll('.delete-goal');
+
+            deleteIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const goalIndex = this.getAttribute('data-index');
+                    
+                    if (confirm('Are you sure you want to delete this goal?')) {
+                        fetch('/delete-goal', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ goalIndex: goalIndex }),
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                location.reload(); // Refresh the page to show updated goals
+                            } else {
+                                alert('Failed to delete goal. Please try again.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Failed to delete goal. Please try again.');
+                        });
+                    }
+                });
+            });
+        });
+
     </script>
 </body>
 </html>
