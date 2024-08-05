@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yoga Routine</title>
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/gamesIndiv.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -12,8 +14,7 @@
         <h1 class="mb-4">Yoga Routine</h1>
         <p class="lead">Follow the yoga routine for relaxation.</p>
         <div id="yogaRoutine" class="mt-4">
-            <button class="btn btn-primary btn-lg mb-3" onclick="startYoga()">Start Yoga</button>
-            <div id="yogaStep" class="mt-3"></div>
+            <div id="yogaSteps"></div>
         </div>
 
         <!-- Progress Bar -->
@@ -22,28 +23,34 @@
                 data-gameid="<%= gameId %>" data-userid="<%= userName %>"></div>
         </div>
         <p id="time-remaining" class="mt-3">Time remaining: 15 minutes 0 seconds</p>
-        <button onclick="window.location.href='/games'">Back to Games</button>
+        <button class="btn btn-secondary mt-3" onclick="window.location.href='/games'">Back to Games</button>
     </div>
 
     <script src="/progressTracker/progress.js"></script>
     <script>
-        let yogaSteps = [
-            'Mountain Pose',
-            'Downward Dog',
-            'Warrior I',
-            'Warrior II',
-            'Tree Pose'
+        const yogaSteps = [
+            { name: 'Mountain Pose', link: 'https://www.youtube.com/watch?app=desktop&v=S08rkqIegMo' },
+            { name: 'Downward Dog', link: 'https://www.youtube.com/watch?v=EC7RGJ975iM' },
+            { name: 'Warrior I', link: 'https://www.youtube.com/watch?v=kkGY3xBnaGc' },
+            { name: 'Warrior II', link: 'https://www.youtube.com/watch?v=Mn6RSIRCV3w' },
+            { name: 'Tree Pose', link: 'https://www.youtube.com/watch?v=Fr5kiIygm0c' }
         ];
-        let currentStep = 0;
-        let yogaInterval;
 
-        function startYoga() {
-            document.getElementById('yogaStep').innerText = yogaSteps[currentStep];
-            yogaInterval = setInterval(() => {
-                currentStep = (currentStep + 1) % yogaSteps.length;
-                document.getElementById('yogaStep').innerText = yogaSteps[currentStep];
-            }, 60000);
+        function displayYogaSteps() {
+            const yogaStepsContainer = document.getElementById('yogaSteps');
+            yogaStepsContainer.innerHTML = '';
+            yogaSteps.forEach(step => {
+                const stepElement = document.createElement('div');
+                stepElement.innerHTML = `
+                    <strong>${step.name}</strong>
+                    <a class="yoga-link" href="${step.link}" target="_blank">Watch demo video for ${step.name}</a>
+                `;
+                yogaStepsContainer.appendChild(stepElement);
+            });
         }
+
+        // Display yoga steps on page load
+        document.addEventListener('DOMContentLoaded', displayYogaSteps);
     </script>
 </body>
 </html>
