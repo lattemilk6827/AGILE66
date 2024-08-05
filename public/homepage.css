@@ -1,5 +1,4 @@
 /* Carousel Items Centering */
-/* Carousel Items Centering */
 .carousel-item > div {
     display: flex;
     align-items: center;  /* Center vertically */
