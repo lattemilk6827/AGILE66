@@ -127,23 +127,23 @@ CREATE TABLE IF NOT EXISTS Games (
 
 -- Insert sample data into Games table
 INSERT OR REPLACE INTO Games (id, title, description, category, section, progress, user_id) VALUES 
-(1, 'Mind Quest: Puzzles and Riddles', 'Solve various puzzles and riddles to sharpen your mind.', 'easy', 'mind', 0, 1),
-(2, 'Brain Teasers Galore', 'Challenge your brain with a variety of brain teasers.', 'easy', 'mind', 0, 1),
+(1, 'Mind Quest', 'Solve various puzzles and riddles to sharpen your mind.', 'easy', 'mind', 0, 1),
+(2, 'Brain Galore', 'Challenge your brain with a variety of brain teasers.', 'easy', 'mind', 0, 1),
 (3, 'Mystery Solver', 'Unravel the mysteries by solving intermediate puzzles.', 'medium', 'mind', 0, 1),
 (4, 'Logic Master', 'Test your logical thinking with advanced puzzles.', 'medium', 'mind', 0, 1),
 (5, 'Puzzle Prodigy', 'Master the art of complex puzzles and riddles.', 'difficult', 'mind', 0, 1),
 (6, 'Mind Marathon', 'Endure and solve a marathon of challenging puzzles.', 'difficult', 'mind', 0, 1),
-(7, 'Relax and Paint', 'Create beautiful art while relaxing.', 'easy', 'relaxation', 0, 1),
-(8, 'Calm Coloring', 'Enjoy coloring intricate designs to calm your mind.', 'easy', 'relaxation', 0, 1),
-(9, 'Meditation Music', 'Listen to soothing music and meditations.', 'medium', 'relaxation', 0, 1),
-(10, 'Nature Sounds', 'Relax with calming sounds of nature.', 'medium', 'relaxation', 0, 1),
-(11, 'Deep Relaxation', 'Experience deep relaxation techniques and exercises.', 'difficult', 'relaxation', 0, 1),
-(12, 'Zen Master', 'Master advanced relaxation and meditation practices.', 'difficult', 'relaxation', 0, 1),
+(7, 'Breath Exercise', 'Create beautiful art while relaxing.', 'easy', 'relaxation', 0, 1),
+(8, 'Yoga Pose', 'Enjoy coloring intricate designs to calm your mind.', 'easy', 'relaxation', 0, 1),
+(9, 'Colouring', 'Listen to soothing music and meditations.', 'medium', 'relaxation', 0, 1),
+(10, 'Mindful Gardern', 'Relax with calming sounds of nature.', 'medium', 'relaxation', 0, 1),
+(11, 'Nature Sounds', 'Experience deep relaxation techniques and exercises.', 'difficult', 'relaxation', 0, 1),
+(12, 'Cloud Punch', 'Master advanced relaxation and meditation practices.', 'difficult', 'relaxation', 0, 1),
 (13, 'Math Fun', 'Learn and practice math with fun activities.', 'easy', 'educational', 0, 1),
 (14, 'Science Explorer', 'Explore basic scientific concepts through interactive activities.', 'easy', 'educational', 0, 1),
 (15, 'History Adventure', 'Discover historical events and figures in a fun way.', 'medium', 'educational', 0, 1),
 (16, 'Geography Quest', 'Learn about different countries and their cultures.', 'medium', 'educational', 0, 1),
-(17, 'Advanced Math Challenges', 'Take on challenging math problems and puzzles.', 'difficult', 'educational', 0, 1),
+(17, 'Math Challenges', 'Take on challenging math problems and puzzles.', 'difficult', 'educational', 0, 1),
 (18, 'Science Mastery', 'Master advanced scientific concepts and experiments.', 'difficult', 'educational', 0, 1);
 
 -- Save time progress for games to show in progress bars
