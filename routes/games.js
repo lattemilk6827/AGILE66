@@ -2,60 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { requireAuth } = require("./authenticate");
 
-// Render Games Page
-router.get("/games", (req, res) => {
-    const userId = req.session.userId;
-
-    const assessmentQuery = "SELECT score FROM assessments WHERE userId = ? ORDER BY createdAt DESC LIMIT 1";
-
-    db.get(assessmentQuery, [userId], (assessmentErr, assessmentResult) => {
-        if (assessmentErr) {
-            console.error("Error fetching assessment:", assessmentErr.message);
-            return res.status(500).send("Server Error in fetching assessment");
-        }
-
-        let gameCategory = 'easy'; // Default category if no assessment data found
-        if (assessmentResult && assessmentResult.score !== undefined) {
-            const score = assessmentResult.score;
-            if (score <= 5) {
-                gameCategory = 'difficult';
-            } else if (score <= 10) {
-                gameCategory = 'medium';
-            } else if (score <= 15) {
-                gameCategory = 'medium';
-            } else {
-                gameCategory = 'easy';
-            }
-        }
-    });
-
-    const query = `
-        SELECT gp.game_id, gp.elapsed_minutes, g.title, g.image, g.description, g.category,
-               ROUND((gp.elapsed_minutes / 15.0) * 100, 2) AS progress_percentage
-        FROM game_progress gp
-        JOIN Games g ON gp.game_id = g.id
-        WHERE gp.user_id = ?
-    `;
-    
-    // Fetch game progress and game details for the logged-in user
-    db.all(query, [userId], (err, games) => {
-        if (err) {
-            console.error(err.message);
-            return res.status(500).send("Server Error");
-        }
-
-        // Log fetched rows for debugging
-        console.log("Fetched games based on user assessment score:", games);
-
-        // Render games.ejs with game progress data
-        res.render("games.ejs", {
-            title: "Games",
-            userName: req.session.userName || null,
-            progressData: games, // Pass progress data to the template
-            games: games // Games data filtered by assessment score
-        });
-    });
-});
 
 // Render Games Page
 router.get("/games", (req, res) => {
@@ -69,11 +15,11 @@ router.get("/games", (req, res) => {
             return res.status(500).send("Server Error in fetching assessment");
         }
 
-        console.log("Assessment result:", assessmentResult);
-        let gameCategory = 'easy'; // Default category if no assessment data found
+        // Default category is null if no assessment data found
+        let gameCategory = null; 
         
         if (assessmentResult) {
-            console.log("Assessment score:", assessmentResult.score);
+        // Allows game category to be fetched based on value stored in score column in assesment table
             const score = assessmentResult.score;
             if (score >= 16) {
                 gameCategory = 'difficult';
@@ -100,8 +46,6 @@ router.get("/games", (req, res) => {
                 console.error("Error fetching games:", err.message);
                 return res.status(500).send("Server Error in fetching games");
             }
-
-            // console.log("Fetched games based on user assessment score:", games);
 
             res.render("games.ejs", {
                 title: "Games",

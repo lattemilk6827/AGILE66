@@ -25,7 +25,7 @@
             <h1>THE GAMES <br> FUN FOR YOUR MIND</h1>
              <button class="btn btn-primary" onclick="location.href='/dashboard'">Login to view your dashboard</button>
         </div>
-
+        <h2 class="text-center my-4">Top Games Of The Month</h2>
         <div class="row">
             <div class="col-md-3">
                 <div class="card">
@@ -65,7 +65,8 @@
             </div>
         </div>
    
-        
+  
+
         <div class="container mt-4">
             <h1>Recommended Games Based on Your Assessment</h1>
             <div class="row">
@@ -78,15 +79,13 @@
                                     <h5 class="card-title"><%= game.title %></h5>
                                     <p class="card-text"><%= game.description %></p>
                                     <a href="/games/play/<%= game.id %>" class="btn btn-primary">Play Now</a>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: <%= game.progress_percentage %>%" aria-valuenow="<%= game.progress_percentage %>" aria-valuemin="0" aria-valuemax="100"><%= game.progress_percentage.toFixed(0) %>% Complete</div>
-                                    </div>
+                                  
                                 </div>
                             </div>
                         </div>
                     <% }); %>
                 <% } else { %>
-                    <p class="text-center w-100">No games are currently recommended for your profile. Please check back later or try a different category.</p>
+                    <p class="text-center w-100">No games are currently recommended.Complete our assesmment to find out what suits you best.</p>
                 <% } %>
             </div>
         </div>
