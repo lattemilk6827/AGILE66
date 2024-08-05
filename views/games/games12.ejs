@@ -23,9 +23,9 @@
         #score {
             position: absolute;
             top: 20px;
-            left: 20px;
-            font-size: 24px;
-            color: white;
+            right: 20px;
+            font-size: 34px;
+            color: rgb(241, 29, 29);
         }
         .progress-container {
             position: absolute;
@@ -34,15 +34,13 @@
             left: 50%;
             transform: translateX(-50%);
         }
-        #time-remaining {
-            color: white;
-        }
     </style>
 </head>
 <body>
     <canvas id="cloudCanvas"></canvas>
     <div id="score">Score: 0</div>
-    <div class="progress-container">
+    <div class="container text-center mt-5 progress-container">
+        <h3>Punch as many clouds you can by clicking</h3>
         <div class="progress">
             <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
@@ -59,23 +57,23 @@
         const clouds = []; // Array to store cloud data
         let score = 0;
         let cloudSpeed = 1;
-        let cloudSize = 0.5;
+        let cloudSize = 1.5; // Start with bigger clouds
         let cloudInterval;
 
         function drawCloud(cloud) {
             ctx.beginPath();
             ctx.fillStyle = 'white';
-            ctx.arc(cloud.x, cloud.y, 30 * cloudSize, Math.PI * 0.5, Math.PI * 1.5);
-            ctx.arc(cloud.x + 35 * cloudSize, cloud.y - 30 * cloudSize, 35 * cloudSize, Math.PI * 1, Math.PI * 1.85);
-            ctx.arc(cloud.x + 76 * cloudSize, cloud.y - 22.5 * cloudSize, 25 * cloudSize, Math.PI * 1.37, Math.PI * 1.91);
-            ctx.arc(cloud.x + 100 * cloudSize, cloud.y, 30 * cloudSize, Math.PI * 1.5, Math.PI * 0.5);
+            ctx.arc(cloud.x, cloud.y, 60 * cloud.size, Math.PI * 0.5, Math.PI * 1.5);
+            ctx.arc(cloud.x + 70 * cloud.size, cloud.y - 60 * cloud.size, 70 * cloud.size, Math.PI * 1, Math.PI * 1.85);
+            ctx.arc(cloud.x + 152 * cloud.size, cloud.y - 45 * cloud.size, 50 * cloud.size, Math.PI * 1.37, Math.PI * 1.91);
+            ctx.arc(cloud.x + 200 * cloud.size, cloud.y, 60 * cloud.size, Math.PI * 1.5, Math.PI * 0.5);
             ctx.fill();
         }
 
         function addCloud() {
             const x = -200; // Start clouds off screen
             const y = Math.random() * (canvas.height / 2);
-            clouds.push({x, y});
+            clouds.push({x, y, size: cloudSize});
         }
 
         function moveClouds() {
@@ -89,9 +87,14 @@
             });
         }
 
+        function decreaseCloudSize() {
+            if (cloudSize > 0.5) {
+                cloudSize -= 0.1; // Decrease initial cloud size for new clouds
+            }
+        }
+
         function increaseSpeed() {
-            cloudSpeed *= 1.5; // Increase cloud speed exponentially
-            cloudSize *= 1; // Increase cloud size
+            cloudSpeed += 0.2; // Increase cloud speed moderately
         }
 
         canvas.addEventListener('click', (event) => {
@@ -101,10 +104,10 @@
 
             clouds.forEach((cloud, index) => {
                 ctx.beginPath();
-                ctx.arc(cloud.x, cloud.y, 30 * cloudSize, Math.PI * 0.5, Math.PI * 1.5);
-                ctx.arc(cloud.x + 35 * cloudSize, cloud.y - 30 * cloudSize, 35 * cloudSize, Math.PI * 1, Math.PI * 1.85);
-                ctx.arc(cloud.x + 76 * cloudSize, cloud.y - 22.5 * cloudSize, 25 * cloudSize, Math.PI * 1.37, Math.PI * 1.91);
-                ctx.arc(cloud.x + 100 * cloudSize, cloud.y, 30 * cloudSize, Math.PI * 1.5, Math.PI * 0.5);
+                ctx.arc(cloud.x, cloud.y, 60 * cloud.size, Math.PI * 0.5, Math.PI * 1.5);
+                ctx.arc(cloud.x + 70 * cloud.size, cloud.y - 60 * cloud.size, 70 * cloud.size, Math.PI * 1, Math.PI * 1.85);
+                ctx.arc(cloud.x + 152 * cloud.size, cloud.y - 45 * cloud.size, 50 * cloud.size, Math.PI * 1.37, Math.PI * 1.91);
+                ctx.arc(cloud.x + 200 * cloud.size, cloud.y, 60 * cloud.size, Math.PI * 1.5, Math.PI * 0.5);
 
                 if (ctx.isPointInPath(x, y)) {
                     clouds.splice(index, 1); // Remove clicked cloud
@@ -118,9 +121,10 @@
         setInterval(addCloud, 2000);
         // Move and redraw clouds every 20 milliseconds
         cloudInterval = setInterval(moveClouds, 20);
-        // Increase cloud speed and size every 5 seconds
-        setInterval(increaseSpeed, 5000);
+        // Decrease cloud size every 5 seconds
+        setInterval(decreaseCloudSize, 5000);
+        // Increase cloud speed every 10 seconds
+        setInterval(increaseSpeed, 10000);
     </script>
 </body>
 </html>
-
