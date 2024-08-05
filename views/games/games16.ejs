@@ -9,8 +9,8 @@
     <style>
         .video-responsive {
             position: relative;
-            overflow: hidden;
-            padding-top: 56.25%; /* 16:9 */
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
         }
         .video-responsive iframe {
             position: absolute;
@@ -19,16 +19,57 @@
             width: 100%;
             height: 100%;
         }
-        </style>
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: black; /* arrow color */
+            height: 50px; /* Size of the arrows */
+            width: 50px;
+        }
+        .carousel-control-prev, .carousel-control-next {
+            width: 5%; /* Width of clickable arrow area */
+        }
+        /* Move the arrows outside the video */
+        .carousel-control-prev {
+            left: -60px;
+        }
+        .carousel-control-next {
+            right: -60px;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Puzzles</h1>
-        <div class="video-responsive">
-            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/jetoWelJJJk?rel=0&amp;controls=1&amp;showinfo=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <h1>Learn About Emotions</h1>
+        <div id="videoCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="video-responsive">
+                        <iframe src="https://www.youtube.com/embed/HwmPtGI-f9A" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="video-responsive">
+                        <iframe src="https://www.youtube.com/embed/ymrvDRofDkY" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="video-responsive">
+                        <iframe src="https://www.youtube.com/embed/jetoWelJJJk" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                    
+            </div>
+            <a class="carousel-control-prev" href="#videoCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#videoCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
     </div>
-
+    
     
     <!-- Progress Bar -->
     <div class="progress mt-5">
@@ -38,5 +79,13 @@
     <p id="time-remaining" class="mt-3">Time remaining: 15 minutes 0 seconds</p>
     <button onclick="window.location.href='/games'">Back to Games</button>
     <script src="/progressTracker/progress.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.carousel').carousel({
+                interval: 5000 // auto change speed
+            })
+        });
+    </script>
 </body>
 </html>
