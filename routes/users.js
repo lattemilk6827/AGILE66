@@ -3,8 +3,7 @@ const express = require("express");
 const router = express.Router();
 // Import express validator for error message validation
 const { check, validationResult } = require('express-validator');
-// Import custom authentication middleware
-const { requireAuth } = require('./authenticate');
+
 
 // Render Main Home Page
 router.get("/", (req, res) => {
