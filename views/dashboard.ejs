@@ -39,6 +39,8 @@
         <div id="gamesProgress">
             <% if (games && games.length > 0) { %>
                 <% games.forEach(function(game) { %>
+                    <!-- Redirect each unifinished game to its respective game page -->
+                    <a href="/games/play/<%= game.id %>" class="game-link">
                     <div class="game" data-game-id="<%= game.id %>" data-game-section="<%= game.section %>">
                         <div class="game-title"><%= game.title %></div>
                         <div class="progress">
