@@ -19,8 +19,10 @@
     <nav>
         <button onclick="window.location.href='/forum'">ALL Posts</button>
         <button onclick="window.location.href='/myPosts'">MY Posts</button>
-        <input type="text" placeholder="Search">
-        <button>🔍</button>
+        <form action="/forum" method="get">
+            <input type="text" name="search" placeholder="Search" value="<%= searchQuery %>" class="form-control">
+            <button type="submit" class="btn btn-primary">🔍</button>
+        </form>
     </nav>
     <hr>
 </div>
