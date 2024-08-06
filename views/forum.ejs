@@ -17,11 +17,12 @@
     <h2>Your Mental Health Community</h2>
     <p>A Safe Space for Your Mental Health</p>
     <nav>
-        <button>ALL Categories</button>
-        <button>ALL Posts</button>
-        <button>MY Posts</button>
-        <input type="text" placeholder="Search">
-        <button>🔍</button>
+        <button onclick="window.location.href='/forum'">ALL Posts</button>
+        <button onclick="window.location.href='/myPosts'">MY Posts</button>
+        <form action="/forum" method="get">
+            <input type="text" name="search" placeholder="Search" value="<%= searchQuery %>" class="form-control">
+            <button type="submit" class="btn btn-primary">🔍</button>
+        </form>
     </nav>
     <hr>
 </div>
@@ -47,7 +48,6 @@
                 <option value="Success Stories and Positivity" <%= selectedCategory === 'Success Stories and Positivity' ? 'selected' : '' %>>Success Stories and Positivity</option>
                 <option value="Coping Strategies" <%= selectedCategory === 'Coping Strategies' ? 'selected' : '' %>>Coping Strategies</option>
                 <option value="Mental Health Resources" <%= selectedCategory === 'Mental Health Resources' ? 'selected' : '' %>>Mental Health Resources</option>
-                <option value="Others" <%= selectedCategory === 'Others' ? 'selected' : '' %>>Others</option>
             </select>
         </div>
     </div>
