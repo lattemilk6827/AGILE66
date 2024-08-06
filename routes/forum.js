@@ -7,18 +7,29 @@ const bcrypt = require('bcrypt');
 // Number of entries per page
 const entriesPerPage = 4;
 
-// Retrieve Forum data with pagination and optional category filtering
-function fetchForumData(page, category, callback) {
+// Retrieve Forum data with pagination, optional category filtering, and extended search functionality
+function fetchForumData(page, category, searchQuery, callback) {
     const offset = (page - 1) * entriesPerPage;
-    let query = "SELECT forum_id, forum_title, forum_subtitle, forum_publishedtimestamp, forum_likes FROM Forum";
+    let query = `SELECT Forum.forum_id, Forum.forum_title, Forum.forum_subtitle, 
+                 Forum.forum_publishedtimestamp, Forum.forum_likes, Users.user_name
+                 FROM Forum JOIN Users ON Forum.user_id = Users.id`;
     let params = [];
 
+    let conditions = [];
     if (category) {
-        query += " WHERE forum_category = ?";
+        conditions.push("Forum.forum_category = ?");
         params.push(category);
     }
+    if (searchQuery) {
+        conditions.push("(Forum.forum_title LIKE ? OR Forum.forum_subtitle LIKE ? OR Forum.forum_body LIKE ? OR Users.user_name LIKE ?)");
+        params.push(`%${searchQuery}%`, `%${searchQuery}%`, `%${searchQuery}%`, `%${searchQuery}%`);
+    }
 
-    query += " LIMIT ? OFFSET ?";
+    if (conditions.length) {
+        query += " WHERE " + conditions.join(" AND ");
+    }
+
+    query += " ORDER BY Forum.forum_publishedtimestamp DESC LIMIT ? OFFSET ?";
     params.push(entriesPerPage, offset);
 
     global.db.serialize(() => {
@@ -27,7 +38,10 @@ function fetchForumData(page, category, callback) {
                 callback(err);
                 return;
             }
-            global.db.get("SELECT COUNT(*) AS count FROM Forum" + (category ? " WHERE forum_category = ?" : ""), category ? [category] : [], (err, result) => {
+            // Query to count the total entries
+            global.db.get("SELECT COUNT(*) AS count FROM Forum JOIN Users ON Forum.user_id = Users.id" + 
+                          (conditions.length ? " WHERE " + conditions.join(" AND ") : ""), 
+                          params.slice(0, -2), (err, result) => {
                 if (err) {
                     callback(err);
                     return;
@@ -39,11 +53,14 @@ function fetchForumData(page, category, callback) {
     });
 }
 
+
 // Route to display all forum entries with pagination and filtering
 router.get('/forum', requireAuth, (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const category = req.query.category || '';
-    fetchForumData(page, category, (err, data) => {
+    const searchQuery = req.query.search || '';
+
+    fetchForumData(page, category, searchQuery, (err, data) => {
         if (err) {
             res.status(500).send('Error fetching forum data');
             return;
@@ -56,6 +73,7 @@ router.get('/forum', requireAuth, (req, res) => {
             currentPage: page,
             totalPages: totalPages,
             selectedCategory: category,
+            searchQuery: searchQuery  // Pass search query back to the template
         });
     });
 });
