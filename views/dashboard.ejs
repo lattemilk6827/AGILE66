@@ -14,7 +14,7 @@
     <%- include('../utils/header') %>
 
     <div class="welcome-section">
-        <h1>Welcome,<%= userName %>!</h1>
+        <h1>Welcome, <%= userName %>!</h1>
         <button onclick="location.href='/edit-profile'">Edit Profile</button>
     </div>
 
@@ -25,42 +25,42 @@
 
     <div class="achievements-section">
         <h2 class="section-header" style="font-family: 'Yaelah';">Achievements</h2>
-        <div class="badges">
-            <% achievements.forEach(function(achievement) { %>
+        <div class="badges" id="achievements">
+            <% achievements.forEach(achievement => { %>
                 <div class="badge">
-                    <img src="<%= achievement.badgeImage %>" alt="<%= achievement.name %>">
-                    <p><%= achievement.name %></p>
+                    <img src="<%= achievement.badgeImage %>" alt="Completed <%= achievement.name %>">
+                    <p>Completed <%= achievement.name %></p>
                 </div>
-            <% }); %>
+            <% }) %>
         </div>
     </div>
 
     <div class="progress-section">
         <h2 class="section-header" style="font-family: 'Yaelah';">Games Progress</h2>
-        <p class="click-to-go-text">Click on each game below to progress :</p>
+        <p class="click-to-go-text">Click on each game below to progress:</p>
         <div id="gamesProgress">
             <% if (games && games.length > 0) { %>
                 <% games.forEach(function(game) { %>
-                    <!-- Redirect each unifinished game to its respective game page -->
+                    <!-- Redirect each unfinished game to its respective game page -->
                     <a href="/games/play/<%= game.id %>" class="game-link">
-                    <div class="game" data-game-id="<%= game.id %>" data-game-section="<%= game.section %>">
-                        <div class="game-title"><%= game.title %></div>
-                        <div class="progress">
-                            <div class="progress-bar <%= game.progress_class %>" role="progressbar" aria-valuenow="<%= game.progress_percentage %>" aria-valuemin="0" aria-valuemax="100">
-                                <%= game.progress_percentage %>%
+                        <div class="game" data-game-id="<%= game.id %>" data-game-section="<%= game.section %>">
+                            <div class="game-title"><%= game.title %></div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="<%= game.progress_percentage %>" aria-valuemin="0" aria-valuemax="100">
+                                    <%= game.progress_percentage %>%
+                                </div>
+                            </div>
+                            <div class="game-details">
+                                <div class="game-status">Elapsed Time: <%= game.elapsed_minutes %> minutes | Status: <%= game.progress_percentage >= 100 ? 'Completed' : game.progress_percentage.toFixed(2) + '% Completed' %></div>
+                                <div class="game-message"><%= game.progress_message %></div>
                             </div>
                         </div>
-                        <div class="game-details">
-                            <div class="game-status">Elapsed Time: <%= game.elapsed_minutes %> minutes | Status: <%= game.progress_percentage >= 100 ? 'Completed' : game.progress_percentage.toFixed(2) + '% Completed' %></div>
-                            <div class="game-message"><%= game.progress_message %></div>
-                        </div>
-                    </div>
+                    </a>
                 <% }); %>
             <% } else { %>
                 <p>No games available.</p>
             <% } %>
         </div>
-    </a>
     </div>
 
     <div class="total-time-section">
@@ -113,45 +113,45 @@
             <p>No goals set yet.</p>
         <% } %>
     </div>
-    
 
     <%- include('../utils/footer') %>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             updateGameProgress();
-    
+
             function updateGameProgress() {
                 const games = document.querySelectorAll('.game');
                 const completedActivities = document.getElementById('completedActivities');
+                const achievementsSection = document.getElementById('achievements');
                 const gamesProgress = document.getElementById('gamesProgress');
                 const totalTimes = {
                     mind: 0,
                     relaxation: 0,
                     educational: 0
                 };
-    
-                games.forEach(game => {
+
+                games.forEach((game, index) => {
                     const gameId = game.getAttribute('data-game-id');
                     const gameSection = game.getAttribute('data-game-section');
                     const userId = '<%= userName %>'; // Assuming userName is unique per user
                     const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${gameId}_${userId}`)) || 0;
                     const roundedElapsedMinutes = elapsedMinutes.toFixed(2);
                     const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100);
-    
+
                     // Add to total time
                     if (totalTimes[gameSection] !== undefined) {
                         totalTimes[gameSection] += elapsedMinutes;
                     }
-    
+
                     const progressBar = game.querySelector('.progress-bar');
                     if (progressBar) {
                         progressBar.setAttribute('aria-valuenow', progressPercentage);
                         progressBar.style.width = `${progressPercentage}%`;
                         progressBar.textContent = `${progressPercentage.toFixed(2)}%`;
-    
+
                         // Remove existing colour classes to set custom colour classes 
                         progressBar.classList.remove('progress-bar-low', 'progress-bar-medium', 'progress-bar-high', 'progress-bar-very-high', 'progress-bar-completed');
-    
+
                         // Add colour class based on progress percentage
                         if (progressPercentage < 25) {
                             progressBar.classList.add('progress-bar-low');
@@ -163,13 +163,13 @@
                             progressBar.classList.add('progress-bar-very-high');
                         }
                     }
-    
+
                     const elapsedTimeElem = game.querySelector('.game-status');
                     if (elapsedTimeElem) {
                         const statusText = progressPercentage >= 100 ? 'Completed' : `${progressPercentage.toFixed(2)}% Completed`;
                         elapsedTimeElem.textContent = `Elapsed Time: ${roundedElapsedMinutes} minutes | Status: ${statusText}`;
                     }
-    
+
                     const gameMessageElem = game.querySelector('.game-message');
                     if (gameMessageElem) {
                         if (progressPercentage < 25) {
@@ -184,34 +184,43 @@
                             gameMessageElem.textContent = "Completed!";
                         }
                     }
-    
+
                     // Move games with 100% progress to the completed section
                     if (progressPercentage === 100) {
                         // Remove game details except for the title
                         const completedGame = game.cloneNode(true);
                         completedGame.querySelector('.progress').remove();
                         completedGame.querySelector('.game-details').remove();
-    
+
                         completedActivities.appendChild(completedGame);
                         game.remove();
+
+                        // Add achievement badges from server side
+                        const badge = document.createElement('div');
+                        badge.classList.add('badge');
+                        badge.innerHTML = `
+                            <img src="${completedGame.querySelector('.game-title').innerText}">
+                            <p>Completed ${completedGame.querySelector('.game-title').innerText}</p>
+                        `;
+                        achievementsSection.appendChild(badge);
                     } else if (progressPercentage === 0) {
                         // Hide games with 0% progress
                         game.style.display = 'none';
                     }
                 });
-    
+
                 // Display total times
                 document.getElementById('mind-time').textContent = `Mind Games: ${totalTimes.mind.toFixed(2)} minutes`;
                 document.getElementById('relaxation-time').textContent = `Relaxation Games: ${totalTimes.relaxation.toFixed(2)} minutes`;
                 document.getElementById('educational-time').textContent = `Educational Games: ${totalTimes.educational.toFixed(2)} minutes`;
-    
+
                 // Render the pie chart
                 renderPieChart(totalTimes);
             }
-    
+
             function renderPieChart(totalTimes) {
                 const total = totalTimes.mind + totalTimes.relaxation + totalTimes.educational;
-    
+
                 const ctx = document.getElementById('totalTimeChart').getContext('2d');
                 const data = {
                     labels: [
@@ -226,7 +235,7 @@
                         hoverOffset: 4
                     }]
                 };
-    
+
                 const config = {
                     type: 'pie',
                     data: data,
@@ -234,9 +243,7 @@
                         responsive: true,
                         plugins: {
                             legend: {
-                              
                                 position: 'top',
-                                
                             },
                             title: {
                                 display: true,
@@ -255,19 +262,18 @@
                         }
                     }
                 };
-    
+
                 new Chart(ctx, config);
             }
         });
-    
-    
+
         document.addEventListener('DOMContentLoaded', function() {
             const deleteIcons = document.querySelectorAll('.delete-goal');
-    
+
             deleteIcons.forEach(icon => {
                 icon.addEventListener('click', function() {
                     const goalIndex = this.getAttribute('data-index');
-    
+
                     if (confirm('Are you sure you want to delete this goal?')) {
                         fetch('/delete-goal', {
                             method: 'POST',
@@ -291,8 +297,6 @@
                 });
             });
         });
-    
     </script>
-    
 </body>
 </html>

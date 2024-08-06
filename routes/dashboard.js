@@ -1,8 +1,6 @@
 const express = require("express");
 // Create a new instance of the express router
 const router = express.Router();
-// Import express validator for error message validation
-const { check, validationResult } = require('express-validator');
 // Import custom authentication middleware
 const { requireAuth } = require('./authenticate');
 const bcrypt = require('bcrypt');
@@ -50,7 +48,6 @@ router.get("/dashboard", requireAuth, (req, res) => {
         });
     });
 });
-
 
 // Route to display the Edit Profile form
 router.get("/edit-profile", requireAuth, (req, res) => {

@@ -126,6 +126,27 @@ CREATE TABLE IF NOT EXISTS achievements (
     FOREIGN KEY(user_id) REFERENCES Users(id)
 );
 
+-- Insert sample data into the achievements table
+INSERT INTO achievements (user_id, name, description, badgeImage) VALUES 
+(1, 'Completed Mind Quest', 'Completed the Mind Quest game', '/images/rewards/image1.png'),
+(1, 'Completed Brain Galore', 'Completed the Brain Galore game', '/images/rewards/image2.png'),
+(1, 'Completed Mystery Solver', 'Completed the Mystery Solver game', '/images/rewards/image3.png'),
+(1, 'Completed Logic Master', 'Completed the Logic Master game', '/images/rewards/image4.png'),
+(1, 'Completed Puzzle Prodigy', 'Completed the Puzzle Prodigy game', '/images/rewards/image5.png'),
+(1, 'Completed Mind Marathon', 'Completed the Mind Marathon game', '/images/rewards/image6.png'),
+(1, 'Completed Breath Exercise', 'Completed the Breath Exercise game', '/images/rewards/image7.png'),
+(1, 'Completed Yoga Pose', 'Completed the Yoga Pose game', '/images/rewards/image8.png'),
+(1, 'Completed Colouring', 'Completed the Colouring game', '/images/rewards/image9.png'),
+(1, 'Completed Mindful Gardern', 'Completed the Mindful Gardern game', '/images/rewards/image10.png'),
+(1, 'Completed Nature Sounds', 'Completed the Nature Sounds game', '/images/rewards/image11.png'),
+(1, 'Completed Cloud Punch', 'Completed the Cloud Punch game', '/images/rewards/image12.png'),
+(1, 'Completed Math Fun', 'Completed the Math Fun game', '/images/rewards/image13.png'),
+(1, 'Completed Science Explorer', 'Completed the Science Explorer game', '/images/rewards/image14.png'),
+(1, 'Completed History Adventure', 'Completed the History Adventure game', '/images/rewards/image15.png'),
+(1, 'Completed Geography Quest', 'Completed the Geography Quest game', '/images/rewards/image16.png'),
+(1, 'Completed Math Challenges', 'Completed the Math Challenges game', '/images/rewards/image17.png'),
+(1, 'Completed Science Mastery', 'Completed the Science Mastery game', '/images/rewards/image18.png');
+
 
 -- Goals Table
 CREATE TABLE IF NOT EXISTS goals (
