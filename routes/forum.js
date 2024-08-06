@@ -116,6 +116,7 @@ router.get('/myPosts', requireAuth, (req, res) => {
                     currentPage: page,
                     totalPages: totalPages,
                     selectedCategory: '', // no category filtering for my posts
+                    searchQuery: ''  // pass an empty string for searchQuery
                 });
             });
         });
