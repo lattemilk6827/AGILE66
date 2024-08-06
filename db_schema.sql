@@ -78,8 +78,6 @@ INSERT INTO Forum (forum_id, user_id, forum_title, forum_subtitle, forum_body, f
 (31, 1, 'Gaming and Mental Health', 'Finding Balance', 'Discuss how gaming can impact mental health and find a healthy balance between gaming and other activities. Learn how to enjoy gaming while maintaining mental well-being. Moderation and mindful gaming practices can help prevent negative effects such as addiction and social isolation.', 9, CURRENT_TIMESTAMP, 'Gaming and Hobbies'),
 (32, 1, 'Hobbies for Relaxation', 'Exploring New Interests', 'Explore different hobbies that promote relaxation and mental health. Share your favorite activities and discover new ones to try. Hobbies can provide a sense of purpose, enhance creativity, and offer a break from stress.', 7, CURRENT_TIMESTAMP, 'Gaming and Hobbies');
 
-
-
 -- Forums Comments Table
 CREATE TABLE IF NOT EXISTS Forum_Comments (
     comment_id INTEGER PRIMARY KEY AUTOINCREMENT,

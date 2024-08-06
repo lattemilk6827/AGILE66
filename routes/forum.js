@@ -140,5 +140,52 @@ router.post('/newPost', requireAuth, [
     });
 });
 
+// Likes
+router.post('/forum/:forum_id/like', requireAuth, (req, res) => {
+    const userId = req.session.userId; // Assuming you have session middleware
+    const forumId = req.params.forum_id; // Use req.params for forum ID from URL
 
+    global.db.get('SELECT * FROM Likes WHERE user_id = ? AND forum_id = ?', [userId, forumId], (err, existingLike) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ success: false, message: 'An error occurred' });
+        }
+
+        if (existingLike) {
+            // User has already liked the post, so unlike it
+            global.db.run('DELETE FROM Likes WHERE user_id = ? AND forum_id = ?', [userId, forumId], (err) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ success: false, message: 'An error occurred' });
+                }
+
+                global.db.run('UPDATE Forum SET forum_likes = forum_likes - 1 WHERE forum_id = ?', [forumId], (err) => {
+                    if (err) {
+                        console.error(err);
+                        return res.status(500).json({ success: false, message: 'An error occurred' });
+                    }
+
+                    return res.json({ success: true, action: 'unliked' });
+                });
+            });
+        } else {
+            // User has not liked the post yet, so like it
+            global.db.run('INSERT INTO Likes (user_id, forum_id) VALUES (?, ?)', [userId, forumId], (err) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ success: false, message: 'An error occurred' });
+                }
+
+                global.db.run('UPDATE Forum SET forum_likes = forum_likes + 1 WHERE forum_id = ?', [forumId], (err) => {
+                    if (err) {
+                        console.error(err);
+                        return res.status(500).json({ success: false, message: 'An error occurred' });
+                    }
+
+                    return res.json({ success: true, action: 'liked' });
+                });
+            });
+        }
+    });
+});
 module.exports = router;

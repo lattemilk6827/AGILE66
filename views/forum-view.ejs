@@ -20,15 +20,43 @@
         <hr>
         <p><%= forum.forum_body %></p>
         <div class="d-flex justify-content-between align-items-center mt-2">
-            <div>
-                <i class="fas fa-heart"></i> <%= forum.forum_likes %>
+            <div class="forum_like">
+                <button id="like-button"><i class="fas fa-heart"></i> <span id="likes-count"><%= forum.forum_likes %></span></button>
             </div>
         </div>
     </div>
-    <div class="forum_comments">
-        
-    </div>
+
     <!--footer-->
     <%- include('../utils/footer') %>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('like-button').addEventListener('click', async () => {
+                const forumId = '<%= forum.forum_id %>';
+                try {
+                    const response = await fetch(`/forum/${forumId}/like`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        const likesCountElement = document.getElementById('likes-count');
+                        let likesCount = parseInt(likesCountElement.textContent.trim());
+
+                        if (result.action === 'liked') {
+                            likesCount += 1;
+                        } else {
+                            likesCount -= 1;
+                        }
+
+                        likesCountElement.textContent = likesCount;
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
