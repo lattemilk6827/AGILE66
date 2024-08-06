@@ -60,6 +60,51 @@ router.get('/forum', requireAuth, (req, res) => {
     });
 });
 
+// Route to display all forum entries created by the logged-in user with pagination
+router.get('/myPosts', requireAuth, (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const userId = req.session.userId;
+    const offset = (page - 1) * entriesPerPage;
+
+    const query = `
+        SELECT forum_id, forum_title, forum_subtitle, forum_publishedtimestamp, forum_likes 
+        FROM Forum 
+        WHERE user_id = ? 
+        LIMIT ? OFFSET ?
+    `;
+    const countQuery = `
+        SELECT COUNT(*) AS count 
+        FROM Forum 
+        WHERE user_id = ?
+    `;
+
+    global.db.serialize(() => {
+        global.db.all(query, [userId, entriesPerPage, offset], (err, forums) => {
+            if (err) {
+                res.status(500).send('Error fetching forum data');
+                return;
+            }
+            global.db.get(countQuery, [userId], (err, result) => {
+                if (err) {
+                    res.status(500).send('Error fetching forum data count');
+                    return;
+                }
+                const totalEntries = result.count;
+                const totalPages = Math.ceil(totalEntries / entriesPerPage);
+                res.render('forum', {
+                    title: 'My Posts',
+                    forums: forums,
+                    userName: req.session.userName || null,
+                    currentPage: page,
+                    totalPages: totalPages,
+                    selectedCategory: '', // no category filtering for my posts
+                });
+            });
+        });
+    });
+});
+
+
 // Retrieve data for a single forum post
 function fetchForumPost(forumId, callback) {
     const query = `
@@ -68,35 +113,46 @@ function fetchForumPost(forumId, callback) {
         JOIN Users ON Forum.user_id = Users.id
         WHERE forum_id = ?
     `;
+    const commentsQuery = `
+        SELECT * FROM Forum_Comments WHERE forum_id = ? ORDER BY comment_timestamp DESC
+    `;
     global.db.get(query, [forumId], (err, forum) => {
         if (err) {
             console.error('Error fetching forum post:', err);
             callback(err);
             return;
         }
-        console.log('Fetched forum post:', forum);
-        callback(null, forum);
+        global.db.all(commentsQuery, [forumId], (err, comments) => {
+            if (err) {
+                console.error('Error fetching comments:', err);
+                callback(err);
+                return;
+            }
+            callback(null, { forum, comments });
+        });
     });
 }
 
 router.get('/forum/:id', requireAuth, (req, res) => {
     const forumId = req.params.id;
-    fetchForumPost(forumId, (err, forum) => {
+    fetchForumPost(forumId, (err, data) => {
         if (err) {
             res.status(500).send('Error fetching forum post');
             return;
         }
-        if (!forum) {
+        if (!data.forum) {
             res.status(404).send('Forum post not found');
             return;
         }
         res.render('forum-view', {
-            title: forum.forum_title,
-            forum: forum,
+            title: data.forum.forum_title,
+            forum: data.forum,
+            comments: data.comments,
             userName: req.session.userName || null,
         });
     });
 });
+
 // Ensure user is authenticated before accessing the new post page
 router.get('/newPost', requireAuth, (req, res) => {
     res.render('forum-create.ejs', {
@@ -188,4 +244,19 @@ router.post('/forum/:forum_id/like', requireAuth, (req, res) => {
         }
     });
 });
+
+//posting comments
+router.post('/forum/:id/comment', requireAuth, (req, res) => {
+    const forumId = req.params.id;
+    const { commenter_name, comment_text } = req.body;
+
+    const query = "INSERT INTO Forum_Comments (forum_id, commenter_name, comment_text) VALUES (?, ?, ?)";
+    global.db.run(query, [forumId, commenter_name, comment_text], function(err) {
+        if (err) {
+            return res.status(500).send('Error saving the comment');
+        }
+        res.redirect(`/forum/${forumId}`);
+    });
+});
+
 module.exports = router;

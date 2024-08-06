@@ -26,6 +26,33 @@
         </div>
     </div>
 
+    <h3>Comments</h3>
+    <div class="comments-section">
+        <h3>Leave a Comment</h3>
+            <form action="/forum/<%= forum.forum_id %>/comment" method="POST">
+                <div class="form-group">
+                    <label for="commenter_name">Name</label>
+                    <br>
+                    <input type="text" id="commenter_name" name="commenter_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="comment_text">Comment</label>
+                    <br>
+                    <textarea rows="5" cols="60" id="comment_text" name="comment_text"  required></textarea>
+                </div>
+                <button type="submit" class="submit">Submit</button>
+            </form>
+        <% comments.forEach(comment => { %>
+            <div class="comment">
+                <p><strong><%= comment.commenter_name %>:</strong> <br>
+                    <small>Posted on: <%= comment.comment_timestamp %></small>
+                    <br><%= comment.comment_text %></p>
+
+                <hr>
+            </div>
+        <% }); %>
+    </div>
+
     <!--footer-->
     <%- include('../utils/footer') %>
     <script>
