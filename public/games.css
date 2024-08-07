@@ -20,16 +20,32 @@ body.games-page {
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
-    margin-left: -8%;
+   
     padding: 2%;
     background-color: #f9ddb4;
     font-family: 'Rusty Hooks', cursive;
-    width: 1430px; /* Ensure it covers the entire viewport width */
+    
     margin-top: -3%;
   
   
 }
 
+/* Custom layout styling for top games played  */
+.card-img-top {
+    margin-left: 50%;
+    padding: 2%;
+    width: 200px;
+    height: 200px; 
+    object-fit: cover; /* To ensure the images are scaled properly to avoid cropped areas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    background-color: #bbfece;
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for transform and box-shadow */
+}
+
+.card-img-top:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0 28px 16px rgba(0, 0, 0, 0.4); /* Larger shadow on hover */
+}
 
 .headerSection .btn {
     margin-top: 20px; /* Add some space between the button and the header */
@@ -153,38 +169,39 @@ body.games-page {
 }
 
 .podium .podium-item .star {
-    width: 80px; /* Increased size of the star */
+    width: 80px; 
     height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
-    font-size: 0; /* Hide the font size */
+    font-size: 0; 
     position: relative;
     top: -20px; /* Adjust to create gaps between stars and blocks */
 }
 
+/* Increased size of the star */
 .podium .podium-item .star i {
     font-size: 80px;
 }
 
 .podium .first-place .star i {
-    color: #4CAF50; 
+    color: rgba(76, 175, 80, 0.8); /* Semi-transparent green */
 }
 
 .podium .second-place .star i {
-    color: #e2f919; 
+    color: rgba(226, 249, 25, 0.8); /* Semi-transparent yellow */
 }
 
 .podium .third-place .star i {
-    color:#FF5722; 
+    color: rgba(255, 87, 34, 0.8); /* Semi-transparent orange */
 }
 
-
 .podium .podium-item .star img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    margin-left: -81%;
    
 }
 
@@ -193,7 +210,6 @@ body.games-page {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
     font-size: 24px;
     font-weight: bold;
     color: #fff;
@@ -203,17 +219,17 @@ body.games-page {
 
 .podium .first-place .podium-number {
     height: 150px; /* Adjust height for the tallest block */
-    background-color: #4CAF50;
+    background-color: #1ee324;
 }
 
 .podium .second-place .podium-number {
     height: 130px; /* Adjust height for the second tallest block */
-    background-color: #FFC107;
+    background-color: #f0be28;
 }
 
 .podium .third-place .podium-number {
     height: 110px; /* Adjust height for the shortest block */
-    background-color: #FF5722;
+    background-color: #ff5622;
 }
 
 
@@ -260,32 +276,28 @@ body.games-page {
 }
 
 /* Custom styling fo cards that carries the game contents  */
-
 .card {
     height: 200px; /* Set a fixed height for the cards */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
    
-}
-
-.card img {
-    height: 150px; /* Set a fixed height for the images */
-    object-fit: cover; /* Ensure the image covers the area without distortion */
 }
 
 .card .card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: rgb(205, 203, 254);
+    text-align: center;
+    background-color: rgb(215, 214, 244);
 }
 
 .card-title {
     font-size: 1.5rem;
     margin-bottom: 5px;
     font-family: 'SuperMilk';
-    color: #faffd1;
+    color: #f0f7b5;
     text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
     letter-spacing: 0.2em;
     text-align: center; /* Center the text */
