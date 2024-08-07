@@ -20,14 +20,9 @@ body.games-page {
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
-   
     padding: 2%;
     background-color: #f9ddb4;
     font-family: 'Rusty Hooks', cursive;
-    
-    margin-top: -3%;
-  
-  
 }
 
 /* Custom layout styling for top games played  */
