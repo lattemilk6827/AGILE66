@@ -1,51 +1,183 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Breathing Exercise</title>
+    <title>Memory Match Game</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
     body {
-             background-color: #04172a;
-             color: antiquewhite;
-         }
- </style>
+        background-color: #04172a;
+        color: antiquewhite;
+    }
+    .card {
+        cursor: pointer;
+        display: inline-block;
+        width: 150px;
+        height: 100px;
+        line-height: 100px;
+        border: 1px solid #ccc;
+        margin: 10px;
+        font-size: 18px;
+        text-align: center;
+        background-color: #fff;
+        color: #04172a;
+        transition: background-color 0.3s;
+    }
+    .matched {
+        visibility: hidden;
+    }
+    .selected {
+        background-color: #f8f9fa;
+        color: #04172a;
+    }
+    .match-display {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
 <body>
     <div class="container text-center mt-5">
-        <h1 class="mb-4">Breathing Exercise</h1>
-        <p class="lead">Follow the breathing instructions to relax.</p>
-        <div id="breathingExercise" class="mt-4">
-            <button class="btn btn-primary btn-lg mb-3" onclick="startBreathing()">Start Breathing Exercise</button>
-            <div id="instructions" class="mt-3 font-weight-bold" style="font-size: 24px;"></div>
+        <h1 class="mb-4">Memory Match Game</h1>
+        <h2 class="lead">Match the pairs to reveal mental health tips.</h2>
+        <div id="memoryGame" class="row justify-content-center">
+            <!-- Cards will be dynamically generated here -->
         </div>
-    </div>
-     <!-- Progress Bar -->
-     <div class="progress mt-5">
+        <p >Get to see all the matched tips at the end of the game</p>
+        <!-- Progress Bar -->
+    <div class="progress mt-5">
         <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
             data-gameid="<%= gameId %>" data-userid="<%= userName %>"></div>
     </div>
     <p id="time-remaining" class="mt-3">Time remaining: 15 minutes 0 seconds</p>
     <button onclick="window.location.href='/games'">Back to Games</button>
-</div>
+    </div>
+    
+
+    <div id="matchDisplay" class="match-display"></div>
+    
     <script src="/progressTracker/progress.js"></script>
     <script>
-        let steps = [
-            'Breathe in for 4 seconds',
-            'Hold for 4 seconds',
-            'Breathe out for 4 seconds',
-            'Hold for 4 seconds'
+        const cardsArray = [
+            { text: 'Take a deep', pair: 'breath', id: 1 },
+            { text: 'Stay', pair: 'hydrated', id: 2 },
+            { text: 'Take', pair: 'breaks', id: 3 },
+            { text: 'Exercise', pair: 'regularly', id: 4 },
+            { text: 'Get enough', pair: 'sleep', id: 5 },
+            { text: 'Talk to', pair: 'someone', id: 6 },
+            { text: 'Practice', pair: 'gratitude', id: 7 },
+            { text: 'Avoid negative', pair: 'self-talk', id: 8 },
+            { text: 'Stay', pair: 'organized', id: 9 },
+            { text: 'Set realistic', pair: 'goals', id: 10 },
+            { text: 'Seek professional', pair: 'help', id: 11 },
+            { text: 'Stay', pair: 'connected', id: 12 }
         ];
-        let stepIndex = 0;
-        function startBreathing() {
-            document.getElementById('instructions').innerText = steps[stepIndex];
-            setInterval(() => {
-                stepIndex = (stepIndex + 1) % steps.length;
-                document.getElementById('instructions').innerText = steps[stepIndex];
-            }, 4000);
+
+        let gameGrid = [];
+        cardsArray.forEach(item => {
+            gameGrid.push({ text: item.text, id: item.id });
+            gameGrid.push({ text: item.pair, id: item.id });
+        });
+        gameGrid = gameGrid.sort(() => 0.5 - Math.random());
+
+        let firstGuess = '';
+        let secondGuess = '';
+        let firstGuessId = '';
+        let secondGuessId = '';
+        let count = 0;
+        let previousTarget = null;
+        let delay = 1200;
+        let matches = 0;
+        let matchedPairs = [];
+
+        const game = document.getElementById('memoryGame');
+        const grid = document.createElement('div');
+        grid.setAttribute('class', 'grid');
+        game.appendChild(grid);
+
+        gameGrid.forEach(item => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.dataset.text = item.text;
+            card.dataset.id = item.id;
+            card.textContent = '';
+            grid.appendChild(card);
+        });
+
+        const match = () => {
+            const selected = document.querySelectorAll('.selected');
+            selected.forEach(card => {
+                card.classList.add('matched');
+            });
+            matches++;
+            matchedPairs.push(firstGuess + ' ' + secondGuess);
+            updateProgressBar();
+            if (matches === cardsArray.length) {
+                displayMatchedPairs();
+            }
+        };
+
+        const resetGuesses = () => {
+            firstGuess = '';
+            secondGuess = '';
+            firstGuessId = '';
+            secondGuessId = '';
+            count = 0;
+            previousTarget = null;
+            const selected = document.querySelectorAll('.selected');
+            selected.forEach(card => {
+                card.classList.remove('selected');
+                card.textContent = '';
+            });
+        };
+
+        grid.addEventListener('click', event => {
+            const clicked = event.target;
+            if (clicked.nodeName !== 'DIV' || clicked === previousTarget || clicked.classList.contains('selected') || clicked.classList.contains('matched')) {
+                return;
+            }
+            if (count < 2) {
+                count++;
+                if (count === 1) {
+                    firstGuess = clicked.dataset.text;
+                    firstGuessId = clicked.dataset.id;
+                    clicked.classList.add('selected');
+                    clicked.textContent = firstGuess;
+                } else {
+                    secondGuess = clicked.dataset.text;
+                    secondGuessId = clicked.dataset.id;
+                    clicked.classList.add('selected');
+                    clicked.textContent = secondGuess;
+                }
+                if (firstGuess && secondGuess) {
+                    if (firstGuessId === secondGuessId) {
+                        setTimeout(match, delay);
+                    }
+                    setTimeout(resetGuesses, delay);
+                }
+                previousTarget = clicked;
+            }
+        });
+
+        function updateProgressBar() {
+            const totalPairs = cardsArray.length;
+            const percentage = (matches / totalPairs) * 100;
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            if (matches === totalPairs) {
+                document.getElementById('time-remaining').innerText = 'Completed';
+            }
+        }
+
+        function displayMatchedPairs() {
+            const matchDisplay = document.getElementById('matchDisplay');
+            matchedPairs.forEach(pair => {
+                const pairElement = document.createElement('p');
+                pairElement.textContent = pair;
+                matchDisplay.appendChild(pairElement);
+            });
         }
     </script>
-
-   </body>
+</body>
 </html>

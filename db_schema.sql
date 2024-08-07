@@ -188,12 +188,12 @@ CREATE TABLE IF NOT EXISTS Games (
 
 -- Insert sample data into Games table
 INSERT OR REPLACE INTO Games (id, title, description, category, section, progress, user_id) VALUES 
-(1, 'Mind Quest', 'Solve various puzzles and riddles to sharpen your mind.', 'easy', 'mind', 0, 1),
-(2, 'Brain Galore', 'Challenge your brain with a variety of brain teasers.', 'easy', 'mind', 0, 1),
-(3, 'Mystery Solver', 'Unravel the mysteries by solving intermediate puzzles.', 'medium', 'mind', 0, 1),
-(4, 'Logic Master', 'Test your logical thinking with advanced puzzles.', 'medium', 'mind', 0, 1),
-(5, 'Puzzle Prodigy', 'Master the art of complex puzzles and riddles.', 'difficult', 'mind', 0, 1),
-(6, 'Mind Marathon', 'Endure and solve a marathon of challenging puzzles.', 'difficult', 'mind', 0, 1),
+(1, 'Mind Quest', 'Test your memory to sharpen your awareness', 'easy', 'mind', 0, 1),
+(2, 'Brain Galore', 'Unravel the mysteries by solving puzzles', 'easy', 'mind', 0, 1),
+(3, 'Mystery Solver', 'Challenge your Math brain', 'medium', 'mind', 0, 1),
+(4, 'Logic Master', 'Test your logical thinking with advanced puzzles', 'medium', 'mind', 0, 1),
+(5, 'Memory Mastery ', 'Master the art of memory', 'difficult', 'mind', 0, 1),
+(6, 'Reaction Marathon', 'Test your reflexes with unpredictable pace', 'difficult', 'mind', 0, 1),
 (7, 'Breath Exercise', 'Create beautiful art while relaxing.', 'easy', 'relaxation', 0, 1),
 (8, 'Yoga Pose', 'Enjoy coloring intricate designs to calm your mind.', 'easy', 'relaxation', 0, 1),
 (9, 'Colouring', 'Listen to soothing music and meditations.', 'medium', 'relaxation', 0, 1),
