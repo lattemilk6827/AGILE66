@@ -198,7 +198,6 @@
 
 
 /* Calls to Action Section */
-
 .call-to-action-item {
     position: relative;
     text-align: center;
@@ -210,15 +209,17 @@
     
 }
 
+/* ensure all images same width and height */
 .overlay-container img {
     width: 100%;
+    height:300px;
     border-radius: 10px;
     
 }
 
 .description {
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255,0.9);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
     position: absolute;

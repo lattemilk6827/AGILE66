@@ -67,12 +67,10 @@
     border-radius: 25px;
     cursor: pointer;
     margin: 5px;
+    width: 150px; /* Set a fixed width */
 }
-.nav-button img { 
-    margin-left: 5px; 
-    width: 20px; 
-    height: 20px; 
-}
+
+
 .nav-button.home { background-color: #db40d0; } /* Home button color */
 .nav-button.games { background-color: #4a4596; } /* Games button color */
 .nav-button.forum { background-color: #66bb6a; } /* Forum button color */

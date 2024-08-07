@@ -8,6 +8,10 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+            body {
+            background-color: #f8c990;
+            color: rgb(32, 5, 62);
+        }
         #coloringCanvas {
             border: 2px solid #343a40;
             border-radius: 10px;
@@ -19,23 +23,17 @@
             border: 2px solid #343a40;
             cursor: pointer;
         }
-        .color-button:hover {
-            border: 2px solid #007bff;
-        }
-        .color-palette {
-            margin-top: 20px;
-        }
-        .progress-bar-container {
-            margin-top: 50px;
-        }
+      
+    
     </style>
 </head>
 <body>
     <div class="container text-center mt-5">
-        <h1 class="mb-4">Your Very Own Colouring Book</h1>
-        <p class="lead">Draw and colour a picture to relax.</p>
-        <div id="coloringBook" class="mt-4">
-            <button class="btn btn-primary btn-lg mb-3" onclick="startColoring()">Start Coloring</button>
+        <h1 class="mb-4">Your Very Own Drawing Book</h1>
+        <p class="lead">Draw and colour a picture to relieve your stress</p>
+        <p class="lead">Play charades with your friends</p>
+        <div id="colouringBook" class="mt-4">
+            <button class="btn btn-primary btn-lg mb-3" onclick="startColoring()">Start Drawing</button>
             <div class="d-flex justify-content-center">
                 <canvas id="coloringCanvas" width="400" height="400" class="mb-3"></canvas>
             </div>
