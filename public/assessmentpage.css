@@ -1,8 +1,8 @@
 /* General body styling */
-body.main-home-page {
-    color: #333; /* Dark text color for readability */
-}
 
+.assessment-page{
+    background-color:#eee1ab; 
+}
 
 /* Assessment Header section styling */
 
