@@ -54,6 +54,22 @@ function fetchForumData(page, category, searchQuery, callback) {
 }
 
 
+function fetchLatestDiscussions(callback) {
+    const query = `
+        SELECT title, content, user_name, posted_on
+        FROM Forum_Discussions
+        JOIN Users ON Forum_Discussions.user_id = Users.id
+        ORDER BY posted_on DESC
+        LIMIT 3
+    `;
+
+    global.db.all(query, (err, posts) => {
+        if (err) return callback(err);
+        callback(null, posts);
+    });
+}
+
+
 // Route to display all forum entries with pagination and filtering
 router.get('/forum', requireAuth, (req, res) => {
     const page = parseInt(req.query.page) || 1;
@@ -65,18 +81,28 @@ router.get('/forum', requireAuth, (req, res) => {
             res.status(500).send('Error fetching forum data');
             return;
         }
-        const totalPages = Math.ceil(data.totalEntries / entriesPerPage);
-        res.render('forum', {
-            title: 'Forum',
-            forums: data.forums,
-            userName: req.session.userName || null,
-            currentPage: page,
-            totalPages: totalPages,
-            selectedCategory: category,
-            searchQuery: searchQuery  // Pass search query back to the template
+        // Fetch latest discussions here
+        fetchLatestDiscussions((err, posts) => {
+            if (err) {
+                res.status(500).send('Error fetching latest discussions');
+                return;
+            }
+            const totalPages = Math.ceil(data.totalEntries / entriesPerPage);
+            res.render('forum', {
+                title: 'Forum',
+                forums: data.forums,
+                userName: req.session.userName || null,
+                currentPage: page,
+                totalPages: totalPages,
+                selectedCategory: category,
+                searchQuery: searchQuery,
+                posts: posts
+            });
         });
     });
 });
+
+
 
 // Route to display all forum entries created by the logged-in user with pagination
 router.get('/myPosts', requireAuth, (req, res) => {
@@ -275,6 +301,25 @@ router.post('/forum/:id/comment', requireAuth, (req, res) => {
             return res.status(500).send('Error saving the comment');
         }
         res.redirect(`/forum/${forumId}`);
+    });
+});
+
+
+router.get('/latest-discussions', requireAuth, (req, res) => {
+    const query = `
+        SELECT ForumPosts.title, ForumPosts.content, Users.username, ForumPosts.posted_on
+        FROM ForumPosts
+        JOIN Users ON ForumPosts.user_id = Users.id
+        ORDER BY posted_on DESC
+        LIMIT 3
+    `;
+
+    global.db.all(query, (err, posts) => {
+        if (err) {
+            console.error('Error fetching latest discussions:', err);
+            return res.status(500).send('Internal Server Error');
+        }
+        res.json(posts);
     });
 });
 

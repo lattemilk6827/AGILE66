@@ -109,6 +109,24 @@ INSERT INTO Forum_Comments (forum_id, commenter_name, comment_text, comment_like
 (31, 'Hannah', 'Balancing gaming and mental health is important. Good insights.', 5, CURRENT_TIMESTAMP),
 (32, 'Ivy', 'Hobbies can definitely help with relaxation. Great suggestions.', 4, CURRENT_TIMESTAMP);
 
+
+CREATE TABLE IF NOT EXISTS Forum_Discussions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    posted_on DATETIME DEFAULT CURRENT_TIMESTAMP,
+    likes INTEGER DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+-- Dummy data for Forum_Discussions table
+INSERT INTO Forum_Discussions (user_id, title, content, posted_on, likes) VALUES 
+(1, 'First discussion', 'First discussion content', CURRENT_TIMESTAMP, 15),
+(1, 'Second discussion', 'Second discussion content', CURRENT_TIMESTAMP, 20),
+(1, 'Third discussion', 'Third discussion content', CURRENT_TIMESTAMP, 10);
+
+
 -- Likes
 CREATE TABLE IF NOT EXISTS Likes (
     user_id INTEGER,
