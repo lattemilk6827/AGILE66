@@ -66,9 +66,10 @@ body.games-page {
 /* Dropdown */
 #categoryDropdown {
     width: fit-content;
-    background-color: rgb(202, 149, 79);
+    background-color: rgb(237, 167, 96);
     color: rgb(255, 255, 255);
     font-weight: bolder;
+    font-family: monospace;
 }
 
 /* Games Brief */
@@ -98,11 +99,11 @@ body.games-page {
 }
 
 .gamesBrief h3 {
-    color: #2b5b34;
-    font-size: 2rem;
+    color: #5b2b33;
+    font-size: 2.5rem;
     margin: 0;
     letter-spacing: 0.2rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 2px rgba(203, 17, 17, 0.1);
     animation: textChange 5s ease infinite; /* Add text change animation */
 }
 
