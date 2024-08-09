@@ -211,10 +211,10 @@ body.assessment-page {
 
 
 .section-time p {
-    margin-top: 20%;
+    margin-top: 10%;
     color: #40450a;
     font-size: larger;
-    font-weight:900;
+    font-weight:600;
 }
 
 .canvas-wrapper {
