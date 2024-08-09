@@ -3,6 +3,7 @@
 <head>
     <title>Forum</title>
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/forum.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -13,12 +14,14 @@
 <!--header-->
 <%- include('../utils/header') %>
 <div class="header_forum">
-    <h1>THE FORUM</h1>
-    <h2>Your Mental Health Community</h2>
-    <p>A Safe Space for Your Mental Health</p>
-    <nav>
-        <button onclick="window.location.href='/forum'">ALL Posts</button>
-        <button onclick="window.location.href='/myPosts'">MY Posts</button>
+    <div class="title">
+        <h1 class="h1_title">THE FORUM</h1>
+        <h2 class="h2_title">Your Mental Health Community</h2>
+        <p class="p_title">A Safe Space for Your Mental Health</p>
+    </div>
+    <nav class="nav_bar">
+        <button onclick="window.location.href='/forum'" class="button_nav">ALL Posts</button>
+        <button onclick="window.location.href='/myPosts'" class="button_nav">MY Posts</button>
         <form action="/forum" method="get">
             <input type="text" name="search" placeholder="Search" value="<%= searchQuery %>" class="form-control">
             <button type="submit" class="btn btn-primary">🔍</button>
@@ -26,6 +29,7 @@
     </nav>
     <hr>
 </div>
+<div class="body_forum">
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center">
         <button class="btn btn-primary create-post-button" onclick="window.location.href='/newPost'">+ Create New Post</button>
@@ -101,7 +105,7 @@
 <div class="latest-discussions">
     <h4>CHECK OUT OUR LATEST DISCUSSIONS</h4>
 </div>
-
+</div>
 <!--footer-->
 <%- include('../utils/footer') %>
 <script>

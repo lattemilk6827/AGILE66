@@ -1,0 +1,138 @@
+.header_forum {
+    background-color: #ffe494;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #b29f67;
+}
+
+.title {
+    text-align: center;
+    padding: 40px 0px;
+}
+
+.h1_title {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 0;
+}
+
+.h2_title {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.p_title {
+    font-size: 1em;
+    color: #333;
+}
+
+.nav_bar {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button_nav {
+    background-color: #ffe494;
+    color: black;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: 1px solid #b29f67;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button_nav:hover {
+    background-color: #b29f67;
+    color: white;
+}
+
+.nav_bar form {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.form-control {
+    display: inline-block;
+    width: auto;
+    margin-right: 5px;
+}
+
+hr {
+    border: 2px solid black;
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* Container for the forum items */
+.list-group {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0;
+}
+
+/* Each forum item */
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 15px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for each forum item */
+.list-group-item:hover {
+    background-color: #e0e0e0;
+}
+
+/* Container for the article details (title and description) */
+.article-details {
+    flex-grow: 1;
+}
+
+/* Title of the article */
+.list-group-item h5 {
+    font-size: 1.25em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Subtitle or description of the article */
+.list-group-item p {
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 0;
+}
+
+/* Container for the icons (like, views, comments) */
+.article-icons {
+    display: flex;
+    align-items: center;
+}
+
+/* Styling for each icon */
+.article-icons i {
+    font-size: 1.25em;
+    margin-left: 15px;
+    cursor: pointer;
+    color: #888;
+}
+
+/* Change color on hover */
+.article-icons i:hover {
+    color: #f04e31;
+}
+
+/* Styling for like and comment count */
+.article-icons span {
+    margin-left: 5px;
+    font-size: 1em;
+    color: #555;
+}
+
+/* Small text for date */
+.list-group-item small {
+    color: #888;
+}
