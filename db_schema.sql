@@ -109,6 +109,24 @@ INSERT INTO Forum_Comments (forum_id, commenter_name, comment_text, comment_like
 (31, 'Hannah', 'Balancing gaming and mental health is important. Good insights.', 5, CURRENT_TIMESTAMP),
 (32, 'Ivy', 'Hobbies can definitely help with relaxation. Great suggestions.', 4, CURRENT_TIMESTAMP);
 
+
+CREATE TABLE IF NOT EXISTS Forum_Discussions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    posted_on DATETIME DEFAULT CURRENT_TIMESTAMP,
+    likes INTEGER DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+-- Dummy data for Forum_Discussions table
+INSERT INTO Forum_Discussions (user_id, title, content, posted_on, likes) VALUES 
+(1, 'First discussion', 'First discussion content', CURRENT_TIMESTAMP, 15),
+(1, 'Second discussion', 'Second discussion content', CURRENT_TIMESTAMP, 20),
+(1, 'Third discussion', 'Third discussion content', CURRENT_TIMESTAMP, 10);
+
+
 -- Likes
 CREATE TABLE IF NOT EXISTS Likes (
     user_id INTEGER,
@@ -194,12 +212,12 @@ INSERT OR REPLACE INTO Games (id, title, description, category, section, progres
 (4, 'Logic Master', 'Test your logical thinking with advanced puzzles', 'medium', 'mind', 0, 1),
 (5, 'Memory Mastery ', 'Master the art of memory', 'difficult', 'mind', 0, 1),
 (6, 'Reaction Marathon', 'Test your reflexes with unpredictable pace', 'difficult', 'mind', 0, 1),
-(7, 'Breath Exercise', 'Create beautiful art while relaxing.', 'easy', 'relaxation', 0, 1),
+(7, 'Breath Exercise', 'Practice techniques to calm your mind and reduce tension', 'easy', 'relaxation', 0, 1),
 (8, 'Yoga Pose', 'Enjoy coloring intricate designs to calm your mind.', 'easy', 'relaxation', 0, 1),
-(9, 'Colouring', 'Listen to soothing music and meditations.', 'medium', 'relaxation', 0, 1),
-(10, 'Mindful Gardern', 'Relax with calming sounds of nature.', 'medium', 'relaxation', 0, 1),
-(11, 'Nature Sounds', 'Experience deep relaxation techniques and exercises.', 'difficult', 'relaxation', 0, 1),
-(12, 'Cloud Punch', 'Master advanced relaxation and meditation practices.', 'difficult', 'relaxation', 0, 1),
+(9, 'Colouring', 'Play guess the drawing or rent out feelings by colouring', 'medium', 'relaxation', 0, 1),
+(10, 'Meditate Away', 'Relax with calming a aura that takes you to another dimension', 'medium', 'relaxation', 0, 1),
+(11, 'Nature Sounds', 'Experience deep relaxation techniques and exercises', 'difficult', 'relaxation', 0, 1),
+(12, 'Cloud Punch', 'Master advanced relaxation with your remaining brain cells', 'difficult', 'relaxation', 0, 1),
 (13, 'Math Fun', 'Learn and practice math with fun activities.', 'easy', 'educational', 0, 1),
 (14, 'Science Explorer', 'Explore basic scientific concepts through interactive activities.', 'easy', 'educational', 0, 1),
 (15, 'History Adventure', 'Discover historical events and figures in a fun way.', 'medium', 'educational', 0, 1),

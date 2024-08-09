@@ -7,10 +7,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <!-- React component scripts added to aid in pie chart rendering -->
+    <!-- https://react.dev/learn/editor-setup
+    https://legacy.reactjs.org/docs/cdn-links.html -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 </head>
 
-<body class="assessment-page">
+<body class="dashboard-page">
     <%- include('../utils/header') %>
 
     <div class="welcome-section">
@@ -73,9 +78,10 @@
                     <p id="educational-time">Educational Games: 0 minutes</p>
                 </div>
             </div>
+            <!-- Pie chart rendering -->
             <div class="col-md-6">
                 <div class="canvas-wrapper">
-                    <canvas id="totalTimeChart" width="150" height="150"></canvas>
+                    <div id="react-pie-chart"></div>
                 </div>
             </div>
         </div>
@@ -99,6 +105,7 @@
                     <% goalsArray.forEach((goal, index) => { %>
                         <li class="goal-item">
                             <span class="goal-text"><%= goal %></span>
+                            <!-- Allow deletion of updated goals from database  -->
                             <form action="/delete-goal" method="post" style="display:inline;">
                                 <input type="hidden" name="goalIndex" value="<%= index %>">
                                 <button type="submit" class="delete-goal-btn" title="Delete Goal">
@@ -115,36 +122,53 @@
     </div>
 
     <%- include('../utils/footer') %>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+         // Allow DOM to be fully loaded before executing script
+         document.addEventListener('DOMContentLoaded', function() {
             updateGameProgress();
-
+           // Utilising Vanilla JavaScript for Game Progress components
             function updateGameProgress() {
-                const games = document.querySelectorAll('.game');
-                const completedActivities = document.getElementById('completedActivities');
+                // Get all game elements
+                const games = document.querySelectorAll('.game'); 
+                // Get the completed activities container
+                const completedActivities = document.getElementById('completedActivities'); 
+                 // Get the achievements container
                 const achievementsSection = document.getElementById('achievements');
-                const gamesProgress = document.getElementById('gamesProgress');
+                // Get the games progress container
+                const gamesProgress = document.getElementById('gamesProgress'); 
+                //Initialises the total time for each category to 0
+                // Used to keep track of the total time spent on different categories of games
                 const totalTimes = {
                     mind: 0,
                     relaxation: 0,
                     educational: 0
                 };
 
-                games.forEach((game, index) => {
-                    const gameId = game.getAttribute('data-game-id');
-                    const gameSection = game.getAttribute('data-game-section');
-                    const userId = '<%= userName %>'; // Assuming userName is unique per user
-                    const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${gameId}_${userId}`)) || 0;
-                    const roundedElapsedMinutes = elapsedMinutes.toFixed(2);
-                    const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100);
+               // Loop through each game to update its progress
+               games.forEach((game) => {
+                    // Get game ID
+                    const gameId = game.getAttribute('data-game-id'); 
+                    // Get game section
+                    const gameSection = game.getAttribute('data-game-section'); 
+                     // UserName is unique per user
+                    const userId = '<%= userName %>';
+                    // Get elapsed minutes (Time spent)
+                    const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${gameId}_${userId}`)) || 0; 
+                    // Round off minutes up to 2 decimal places
+                    const roundedElapsedMinutes = elapsedMinutes.toFixed(2); 
+                    // Calculate time taken in minutes to show as progress percentage
+                    const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100); 
 
-                    // Add to total time
+
+                    // Adding elapsed minutes to the total time for the respective sections
                     if (totalTimes[gameSection] !== undefined) {
                         totalTimes[gameSection] += elapsedMinutes;
                     }
 
                     const progressBar = game.querySelector('.progress-bar');
                     if (progressBar) {
+                          // Update progress bar attributes and styles
                         progressBar.setAttribute('aria-valuenow', progressPercentage);
                         progressBar.style.width = `${progressPercentage}%`;
                         progressBar.textContent = `${progressPercentage.toFixed(2)}%`;
@@ -172,6 +196,7 @@
 
                     const gameMessageElem = game.querySelector('.game-message');
                     if (gameMessageElem) {
+                        // Update motivational messages based on progress
                         if (progressPercentage < 25) {
                             gameMessageElem.textContent = "Come on, don't give up!";
                         } else if (progressPercentage < 50) {
@@ -209,36 +234,38 @@
                     }
                 });
 
-                // Display total times
+                // Display total times for each section of activties
                 document.getElementById('mind-time').textContent = `Mind Games: ${totalTimes.mind.toFixed(2)} minutes`;
                 document.getElementById('relaxation-time').textContent = `Relaxation Games: ${totalTimes.relaxation.toFixed(2)} minutes`;
                 document.getElementById('educational-time').textContent = `Educational Games: ${totalTimes.educational.toFixed(2)} minutes`;
 
-                // Render the pie chart
-                renderPieChart(totalTimes);
+                // Render the pie chart with react component
+                ReactDOM.render(
+                    React.createElement(PieChartComponent, { data: totalTimes }),
+                    document.getElementById('react-pie-chart')
+                );
             }
+        });
 
-            function renderPieChart(totalTimes) {
-                const total = totalTimes.mind + totalTimes.relaxation + totalTimes.educational;
-
-                const ctx = document.getElementById('totalTimeChart').getContext('2d');
-                const data = {
-                    labels: [
-                        'Mind Games',
-                        'Relaxation Games',
-                        'Educational Games'
-                    ],
-                    datasets: [{
-                        label: 'Total Time Spent (minutes)',
-                        data: [totalTimes.mind.toFixed(2), totalTimes.relaxation.toFixed(2), totalTimes.educational.toFixed(2)],
-                        backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe'],
-                        hoverOffset: 4
-                    }]
-                };
-
-                const config = {
+        // Defining the React component
+        const { useState, useEffect } = React;
+        
+        function PieChartComponent({ data }) {
+            const chartRef = React.useRef(null);
+         // Use useEffect to initialise the Chart.js pie chart
+            useEffect(() => {
+                const ctx = chartRef.current.getContext('2d');
+                new Chart(ctx, {
                     type: 'pie',
-                    data: data,
+                    data: {
+                        labels: ['Mind Games', 'Relaxation Games', 'Educational Games'],
+                        datasets: [{
+                            label: 'Total Time Spent (minutes)',
+                            data: [data.mind.toFixed(2), data.relaxation.toFixed(2), data.educational.toFixed(2)],
+                            backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe'],
+                            hoverOffset: 4
+                        }]
+                    },
                     options: {
                         responsive: true,
                         plugins: {
@@ -254,49 +281,19 @@
                                     label: function(context) {
                                         const total = context.dataset.data.reduce((sum, value) => sum + parseFloat(value), 0);
                                         const percentage = ((context.raw / total) * 100).toFixed(2);
-                                        // To allow percentage data to show up in tooltip
                                         return `${context.label}: ${context.raw} minutes (${percentage}%)`;
                                     }
                                 }
                             }
                         }
                     }
-                };
-
-                new Chart(ctx, config);
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const deleteIcons = document.querySelectorAll('.delete-goal');
-
-            deleteIcons.forEach(icon => {
-                icon.addEventListener('click', function() {
-                    const goalIndex = this.getAttribute('data-index');
-
-                    if (confirm('Are you sure you want to delete this goal?')) {
-                        fetch('/delete-goal', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ goalIndex: goalIndex }),
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                location.reload(); // Refresh the page to show updated goals
-                            } else {
-                                alert('Failed to delete goal. Please try again.');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Failed to delete goal. Please try again.');
-                        });
-                    }
                 });
-            });
-        });
+            }, [data]);
+        
+            return (
+                React.createElement('canvas', { ref: chartRef, width: '150', height: '150' })
+            );
+        }
     </script>
 </body>
 </html>
