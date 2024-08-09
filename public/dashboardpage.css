@@ -123,14 +123,15 @@ body.assessment-page {
 /* Progress Bar Styling */
 .progress-bar-low {
     background-color: red !important;
+    
 }
 
 .progress-bar-medium {
-    background-color: yellow !important;
+    background-color: rgb(222, 168, 52) !important;
 }
 
 .progress-bar-high {
-    background-color: rgb(232, 227, 90) !important;
+    background-color: rgb(66, 99, 76) !important;
 }
 
 .progress-bar-very-high {
@@ -148,7 +149,7 @@ body.assessment-page {
 }
 
 .game {
-    background-color: #f7f7f7; /* Light gray background color for the game container */
+    background-color: #fbfdf6; /* Light gray background color for the game container */
     border: 1px solid #ddd; /* Add a border to the game container */
     padding: 1rem; /* Add some space around the game content */
     margin-bottom: 1rem; /* Add some space between the games */
@@ -160,7 +161,7 @@ body.assessment-page {
     font-size: 1.5rem;
     margin-bottom: 5px;
     font-family: 'SuperMilk';
-    color: #faffd1;
+    color: #8ef9e7;
     text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
     letter-spacing: 0.2em;
 }
@@ -177,6 +178,8 @@ body.assessment-page {
 
 .game-message {
     font-size: 0.9rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 700;
     color: #4e4e4e;
     text-align: right;
     animation: wave 2s infinite;
@@ -208,14 +211,15 @@ body.assessment-page {
 
 
 .section-time p {
-    margin-bottom: 10px;
-    color: #583131;
-    font-weight: bolder;
+    margin-top: 20%;
+    color: #40450a;
+    font-size: larger;
+    font-weight:900;
 }
 
 .canvas-wrapper {
-    width: 300px;
-    height: 300px;
+    width: 450px;
+    height: 450px;
     display: inline-block; /* to make the wrapper div inline */
 }
 
@@ -327,6 +331,6 @@ body.assessment-page {
     border: none;
     cursor: pointer;
     font-size: 16px;
-text-align: right;
+    text-align: right;
 }
 
