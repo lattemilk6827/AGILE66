@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Forum (
 
 -- Dummy Data for Forum Table
 INSERT INTO Forum (user_id, forum_title, forum_subtitle, forum_body, forum_likes, forum_publishedtimestamp, forum_category) VALUES 
-(1, 'Anxiety disorders are the most prevalent mental health issue in the United States, affecting millions of individuals every year. Despite its commonality, anxiety is often misunderstood and stigmatized, leading to many people suffering in silence. It is crucial to shed light on this condition to promote understanding, reduce stigma, and encourage those affected to seek help.\n\n
+(1, 'Understanding Anxiety', 'Common Symptoms and Causes','Anxiety disorders are the most prevalent mental health issue in the United States, affecting millions of individuals every year. Despite its commonality, anxiety is often misunderstood and stigmatized, leading to many people suffering in silence. It is crucial to shed light on this condition to promote understanding, reduce stigma, and encourage those affected to seek help.\n\n
     In this post, we will delve into the various symptoms, underlying causes, and available treatments for anxiety, aiming to provide a comprehensive overview of this complex and often debilitating condition.\n\n
     Anxiety manifests in a multitude of ways, and the symptoms can be highly individualized. However, there are several common symptoms that many people with anxiety experience, which can be broadly categorized into physical and psychological symptoms.\n\n
     Physical Symptoms:\n

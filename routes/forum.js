@@ -81,6 +81,9 @@ router.get('/forum', requireAuth, (req, res) => {
             res.status(500).send('Error fetching forum data');
             return;
         }
+    
+        console.log(data.forums); // Log the forums data to verify it's correct
+    
         // Fetch latest discussions here
         fetchLatestDiscussions((err, posts) => {
             if (err) {
