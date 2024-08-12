@@ -102,28 +102,18 @@
 
 <div class="latest-discussions">
     <h4>CHECK OUT OUR LATEST DISCUSSIONS</h4>
-    <div id="discussionsCarousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <% posts.forEach(function(post, index) { %>
-                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                    <div class="discussion-bubble">
-                        <h5><%= post.title %></h5>
-                        <p><%= post.content %></p>
-                        <footer>
-                            <small>Posted by <%= post.username %> on <%= new Date(post.posted_on).toLocaleDateString() %></small>
-                        </footer>
-                    </div>
+    <div class="discussion-bubbles">
+        <% posts.forEach(function(post) { %>
+            <a href="/forum/<%= post.forum_id %>" class="discussion-link">
+                <div class="discussion-bubble">
+                    <h5><%= post.title %></h5>
+                    <p><%= post.content %></p>
+                    <footer>
+                        <small>Posted by <%= post.username %> on <%= new Date(post.posted_on).toLocaleDateString() %></small>
+                    </footer>
                 </div>
-            <% }); %>
-        </div>
-        <a class="carousel-control-prev" href="#discussionsCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#discussionsCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+            </a>
+        <% }); %>
     </div>
 </div>
 

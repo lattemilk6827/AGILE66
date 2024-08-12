@@ -56,10 +56,11 @@ function fetchForumData(page, category, searchQuery, callback) {
 
 function fetchLatestDiscussions(callback) {
     const query = `
-        SELECT title, content, user_name, posted_on
-        FROM Forum_Discussions
-        JOIN Users ON Forum_Discussions.user_id = Users.id
-        ORDER BY posted_on DESC
+        SELECT Forum.forum_id, Forum.forum_title AS title, Forum_Comments.comment_text AS content, Users.user_name AS username, Forum_Comments.comment_timestamp AS posted_on
+        FROM Forum_Comments
+        JOIN Forum ON Forum_Comments.forum_id = Forum.forum_id
+        JOIN Users ON Forum.user_id = Users.id
+        ORDER BY Forum_Comments.comment_timestamp DESC
         LIMIT 3
     `;
 
@@ -68,8 +69,6 @@ function fetchLatestDiscussions(callback) {
         callback(null, posts);
     });
 }
-
-
 // Route to display all forum entries with pagination and filtering
 router.get('/forum', requireAuth, (req, res) => {
     const page = parseInt(req.query.page) || 1;
