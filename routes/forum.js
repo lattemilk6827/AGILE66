@@ -138,19 +138,30 @@ router.get('/myPosts', requireAuth, (req, res) => {
                 }
                 const totalEntries = result.count;
                 const totalPages = Math.ceil(totalEntries / entriesPerPage);
-                res.render('forum', {
-                    title: 'My Posts',
-                    forums: forums,
-                    userName: req.session.userName || null,
-                    currentPage: page,
-                    totalPages: totalPages,
-                    selectedCategory: '', // no category filtering for my posts
-                    searchQuery: ''  // pass an empty string for searchQuery
+
+                // Fetch latest discussions here
+                fetchLatestDiscussions((err, posts) => {
+                    if (err) {
+                        res.status(500).send('Error fetching latest discussions');
+                        return;
+                    }
+
+                    res.render('forum', {
+                        title: 'My Posts',
+                        forums: forums,
+                        userName: req.session.userName || null,
+                        currentPage: page,
+                        totalPages: totalPages,
+                        selectedCategory: '',
+                        searchQuery: '',
+                        posts: posts
+                    });
                 });
             });
         });
     });
 });
+
 
 
 // Retrieve data for a single forum post
