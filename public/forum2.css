@@ -1,6 +1,7 @@
 .header_forum {
     background-color: #ffe494;
     padding: 20px 0;
+    border-bottom: 2px solid #b29f67;
     text-align: center;
 }
 
@@ -28,17 +29,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background-color: #ffe494;
-    width: fit-content;    gap: 50px;
+    gap: 20px;
     padding: 10px 20px;
+    background-color: #ffe494;
+    width: fit-content;
     margin: 0 auto;
 }
 
 .button_nav {
     background-color: #ffe494;
     color: black;
-    padding: 10px 40px;
+    padding: 10px 20px;
     border: 2px solid #b29f67;
     font-weight: bold;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -50,69 +51,81 @@
     color: white;
 }
 
-.nav-hr {
+.search_form {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    width: 500px;
+    height: 50px;
+}
+
+.search_form .form-control {
+    width: 200px;
+    border: 2px solid #b29f67;
+}
+
+.search_form .btn-primary {
+    background-color: #007bff;
     border: none;
-    height: 2.5px;
-    width: 100px;
-    background-color: #271e4c; 
-    margin-top: 20px; 
-    margin-bottom: 20px; 
-    width: 80%; 
+    padding: 0 12px;
+    margin-left: 5px;
 }
 
 .body_forum {
-    background-color: white !important;
-    padding-top: 10px; /* Adds some padding around the content */
-
+    background-color: white;
 }
 
-.newpost_catsfilter {
-    padding-bottom: 20px;
-}
-
+/* Container for the forum items */
 .list-group {
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 800px;
     padding: 0;
 }
 
+/* Each forum item */
 .list-group-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 40px;
-    margin-bottom: 25px;
-    background-color: #ffd9e3 !important;
-    border: none;
+    padding: 20px;
+    margin-bottom: 15px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
 }
 
+/* Hover effect for each forum item */
 .list-group-item:hover {
-    background-color: #fac5d4
-     !important;
+    background-color: #e0e0e0b9;
 }
 
+/* Container for the article details (title and description) */
 .article-details {
     flex-grow: 1;
 }
 
+/* Title of the article */
 .list-group-item h5 {
     font-size: 1.25em;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
+/* Subtitle or description of the article */
 .list-group-item p {
     font-size: 0.95em;
     color: #555;
     margin-bottom: 0;
 }
 
+/* Container for the icons (like, views, comments) */
 .article-icons {
     display: flex;
     align-items: center;
 }
 
+/* Styling for each icon */
 .article-icons i {
     font-size: 1.25em;
     margin-left: 15px;
@@ -120,16 +133,19 @@
     color: #888;
 }
 
+/* Change color on hover */
 .article-icons i:hover {
     color: #f04e31;
 }
 
+/* Styling for like and comment count */
 .article-icons span {
     margin-left: 5px;
     font-size: 1em;
     color: #555;
 }
 
+/* Small text for date */
 .list-group-item small {
     color: #888;
 }
@@ -152,11 +168,11 @@
 }
 
 .pagination-wrapper .pagination li a {
-    color: #f09b1a;
+    color: #f09b1a; /* or your desired color */
     font-size: 24px;
     text-decoration: none;
     padding: 10px;
-    background-color: #feeabc;
+    background-color: #feeabc; /* background color for the circles */
     border-radius: 50%;
     display: inline-flex;
     justify-content: center;
@@ -165,36 +181,36 @@
 }
 
 .pagination-wrapper .pagination li a:hover {
-    background-color: #ffcf71;
-    color: #fff;
+    background-color: #ffcf71; /* lighter background on hover */
+    color: #fff; /* text color on hover */
 }
 
 .pagination-wrapper .pagination li.active a {
-    background-color: #f09b1a;
+    background-color: #f09b1a; /* active state background color */
     color: #fff;
 }
 
 .new-post {
-    background-color: #000;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 25px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    height: 40px;
-    line-height: 20px;
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    padding: 10px 20px; /* Padding inside the button */
+    border-radius: 25px; /* Rounded edges to make it oval-shaped */
+    border: none; /* Remove any default border */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color on hover */
+    height: 40px; /* Set a consistent height */
+    line-height: 20px; /* Align text vertically */
 }
 
 .new-post:hover {
-    background-color: #333;
+    background-color: #333; /* Slightly lighter black on hover */
 }
 
 .container-forum {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between; /* Space between button and dropdown */
+    align-items: center; /* Center them vertically */
 }
 
 .filter-dropdown select {
@@ -204,8 +220,8 @@
     border: 1px solid #ccc;
     background-color: #fff;
     cursor: pointer;
-    height: 40px;
-    box-sizing: border-box;
+    height: 40px; /* Set the same height as the button */
+    box-sizing: border-box; /* Ensure padding is included in the height */
 }
 
 .welcome-forum {
@@ -219,7 +235,7 @@
 }
 
 
-.latest-discussions { 
+.latest-discussions {
     text-align: center;
     margin: 50px 0;
 }
@@ -314,194 +330,4 @@
 .carousel-control-next-icon:after {
     border-color: white transparent transparent transparent;
     transform: rotate(-45deg);
-}
-
-/*FORUM VIEW*/
-.back_button {
-    background-color:#efd397;
-    color: black;
-    padding: 10px 40px;
-    border: 2px solid #b29f67;
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.back_button:hover {
-    background-color: #E1825A;
-    border-color:#E1825A;
-    color: white;
-}
-
-.header-view-forum {
-    background-color: #efd397;
-    padding: 20px 40px;
-    margin-bottom: 0;
-}
-
-.title-view-forum {
-    text-align:center;
-    padding: 20px 0;
-}
-
-.body-view-forum {
-    margin-top: 0;
-    padding-bottom: 20px;
-}
-
-.h1-view-forum {
-    font-size: 4em;
-    font-weight: bold;
-    margin: 0;
-}
-
-
-.h2-view-forum {
-    font-size: 1.8em;
-}
-
-.body-view-forum-text {
-    padding: 60px 40px;
-    font-size: 1.5em;
-    background-color: white;
-}
-
-.user-details {
-    font-size:1em;
-}
-
-/* Default state (unliked) */
-.forum_like button {
-    background-color: transparent;
-    border: none;
-    color: black;
-    font-size: 24px;
-    cursor: pointer;
-    margin-top:20px;
-}
-
-.forum_like button .fa-heart {
-    color: black;
-}
-
-/* Liked state */
-.forum_like button.liked .fa-heart {
-    color: red;
-}
-
-.comments-section {
-    background-color: #F4E2BA;
-    padding:40px 20px;
-}
-
-.comment-title1 {
-    font-size: 3.1em;
-    margin-bottom:20px;
-}
-
-.comment-title2 {
-    font-size: 1.8em;
-}
-
-.leaveComment {
-    background-color:#FAF1DE;
-    border-radius: 8px;
-    padding: 20px;
-    padding-top: 40px;
-    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
-    width: 60%;
-}
-
-.form-label {
-    font-weight: 700;
-}
-
-
-form input[type="text"], form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: 'Arial', sans-serif;
-    font-size: 14px;
-    color: #333;
-    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.submit_button {
-    background-color:#FAF1DE;
-    color:  #333;
-    padding: 10px 40px;
-    border: 2px solid #333;
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.submit_button:hover {
-    background-color: #E1825A;
-    border-color:#E1825A;
-    color: white;
-}
-
-.comments-view {
-    padding-top: 40px;
-    font-size:1.2em;
-}
-
-.comment-hr {
-    width: 80%;
-    margin-left: 0; 
-}
-
-/*FORUM CREATE*/
-
-.create-forum {
-    background-color: #F4E2BA !important;
-}
-
-.create-body {
-    padding:20px;
-}
-
-.create-button {
-    background-color: #F4E2BA;
-    color: black;
-    padding: 10px 40px;
-    border: 2px solid;
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    margin-top:20px;
-    margin-bottom:40px;
-
-}
-
-.create-button:hover {
-    background-color: #E1825A;
-    border-color:#E1825A;
-    color: white;
-}
-
-.form_container {
-    background-color: #FAF1DE;
-    border-radius: 8px;
-    padding: 20px;
-    padding-top: 40px;
-    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
-    width: 80%;
-}
-
-.submit_button_create {
-    background-color:#FAF1DE;
-    color:  #333;
-    padding: 10px 40px;
-    border: 2px solid #333;
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    margin-top:20px;
-}
-
-.submit_button_create:hover {
-    background-color: #E1825A;
-    border-color:#E1825A;
-    color: white;
 }

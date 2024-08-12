@@ -167,6 +167,12 @@ function fetchForumPost(forumId, callback) {
             callback(err);
             return;
         }
+
+        if (forum) {
+            // Replace newlines with <br> tags for proper HTML rendering
+            forum.forum_body = forum.forum_body.replace(/\n/g, '<br>');
+        }
+
         global.db.all(commentsQuery, [forumId], (err, comments) => {
             if (err) {
                 console.error('Error fetching comments:', err);
@@ -177,6 +183,7 @@ function fetchForumPost(forumId, callback) {
         });
     });
 }
+
 
 router.get('/forum/:id', requireAuth, (req, res) => {
     const forumId = req.params.id;

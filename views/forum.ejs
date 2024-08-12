@@ -24,15 +24,16 @@
         <button onclick="window.location.href='/myPosts'" class="button_nav">MY Posts</button>
         <form action="/forum" method="get">
             <input type="text" name="search" placeholder="Search" value="<%= searchQuery %>" class="form-control">
-            <button type="submit" class="btn btn-primary">🔍</button>
         </form>
     </nav>
-    <hr>
+    <hr class="nav-hr">
 </div>
 <div class="body_forum">
 <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center">
-        <button class="btn btn-primary create-post-button" onclick="window.location.href='/newPost'">+ Create New Post</button>
+    <div class="container-forum">
+        <div class="newpost_catsfilter">
+        <button class="new-post" onclick="window.location.href='/newPost'">+ Create New Post</button>
+    </div>
         <div class="filter-dropdown">
             <select class="form-control" onchange="filterCategory(this.value)">
                 <option value="" <%= selectedCategory === '' ? 'selected' : '' %>>All Categories</option>
@@ -71,29 +72,26 @@
         <% }); %>
     </div>
     <div class="mt-4">
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <% if (currentPage > 1) { %>
-                    <li class="page-item">
-                        <a class="page-link" href="/forum?page=<%= currentPage - 1 %>" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                <% } %>
-                <% for (let i = 1; i <= totalPages; i++) { %>
-                    <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-                        <a class="page-link" href="/forum?page=<%= i %>"><%= i %></a>
-                    </li>
-                <% } %>
-                <% if (currentPage < totalPages) { %>
-                    <li class="page-item">
-                        <a class="page-link" href="/forum?page=<%= currentPage + 1 %>" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                <% } %>
-            </ul>
-        </nav>
+        <div class="pagination-wrapper">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <% if (currentPage > 1) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="/forum?page=<%= currentPage - 1 %>" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    <% } %>
+                    <% if (currentPage < totalPages) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="/forum?page=<%= currentPage + 1 %>" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    <% } %>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
 

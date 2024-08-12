@@ -3,6 +3,7 @@
 <head>
     <title>Forum Post</title>
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/forum.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -11,79 +12,93 @@
 <body>
     <!--header-->
     <%- include('../utils/header') %>
-    <div class="container mt-5">
+    <div class="header-view-forum">
         <button onclick="window.location.href='/forum'" class="back_button">Back</button>
-        <h1><%= forum.forum_title %></h1>
-        <h2><%= forum.forum_subtitle %></h2>
-        <small>Published on: <%= forum.forum_publishedtimestamp %></small><br>
-        <small>by <%= forum.user_name %></small>
-        <hr>
-        <p><%= forum.forum_body %></p>
-        <div class="d-flex justify-content-between align-items-center mt-2">
-            <div class="forum_like">
-                <button id="like-button"><i class="fas fa-heart"></i> <span id="likes-count"><%= forum.forum_likes %></span></button>
+        <div class="title-view-forum">
+            <h1 class="h1-view-forum"><%= forum.forum_title %></h1>
+            <h2 class="h2-view-forum"><%= forum.forum_subtitle %></h2>
+            <small class="user-details">Published on: <%= forum.forum_publishedtimestamp %></small><br>
+            <small class="user-details">by <%= forum.user_name %></small>        
+        </div>
+        <hr class="nav-hr">
+    </div>
+    <div class="body-view-forum">
+        <div class="body-view-forum-text">
+            <p><%- forum.forum_body %></p>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="forum_like">
+                    <button id="like-button"><i class="fas fa-heart"></i> <span id="likes-count"><%= forum.forum_likes %></span></button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <h3>Comments</h3>
-    <div class="comments-section">
-        <h3>Leave a Comment</h3>
-            <form action="/forum/<%= forum.forum_id %>/comment" method="POST">
-                <div class="form-group">
-                    <label for="commenter_name">Name</label>
-                    <br>
-                    <input type="text" id="commenter_name" name="commenter_name" required>
-                </div>
-                <div class="form-group">
-                    <label for="comment_text">Comment</label>
-                    <br>
-                    <textarea rows="5" cols="60" id="comment_text" name="comment_text"  required></textarea>
-                </div>
-                <button type="submit" class="submit">Submit</button>
-            </form>
-        <% comments.forEach(comment => { %>
-            <div class="comment">
-                <p><strong><%= comment.commenter_name %>:</strong> <br>
-                    <small>Posted on: <%= comment.comment_timestamp %></small>
-                    <br><%= comment.comment_text %></p>
-
-                <hr>
+        <div class="comments-section">
+        <h3 class="comment-title1">Comments</h3>        
+            <div class="leaveComment">
+            <h3 class="comment-title2">Leave a Comment</h3>
+                <br>
+                <form action="/forum/<%= forum.forum_id %>/comment" method="POST">
+                    <div class="form-group">
+                        <label for="commenter_name" class="form-label">Name</label>
+                        <br>
+                        <input type="text" id="commenter_name" name="commenter_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment_text" class="form-label">Comment</label>
+                        <br>
+                        <textarea rows="8" cols="100" id="comment_text" name="comment_text"  required></textarea>
+                    </div>
+                    <button type="submit" class="submit_button">Submit</button>
+                </form>
             </div>
-        <% }); %>
+            <% comments.forEach(comment => { %>
+                <div class="comments-view">
+                    <hr class="comment-hr">
+                    <p class="commenter-name"><strong><%= comment.commenter_name %>:</strong> <br>
+                        <small class="commenter">Posted on: <%= comment.comment_timestamp %></small>
+                        <br><%= comment.comment_text %></p>
+                </div>
+            <% }); %>
+        </div>
     </div>
 
     <!--footer-->
     <%- include('../utils/footer') %>
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.getElementById('like-button').addEventListener('click', async () => {
-                const forumId = '<%= forum.forum_id %>';
-                try {
-                    const response = await fetch(`/forum/${forumId}/like`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    const result = await response.json();
-                    if (result.success) {
-                        const likesCountElement = document.getElementById('likes-count');
-                        let likesCount = parseInt(likesCountElement.textContent.trim());
-
-                        if (result.action === 'liked') {
-                            likesCount += 1;
-                        } else {
-                            likesCount -= 1;
-                        }
-
-                        likesCountElement.textContent = likesCount;
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('like-button').addEventListener('click', async () => {
+        const forumId = '<%= forum.forum_id %>';
+        try {
+            const response = await fetch(`/forum/${forumId}/like`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             });
-        });
+            const result = await response.json();
+            if (result.success) {
+                const likeButton = document.getElementById('like-button');
+                const likesCountElement = document.getElementById('likes-count');
+                let likesCount = parseInt(likesCountElement.textContent.trim());
+
+                if (result.action === 'liked') {
+                    likesCount += 1;
+                    likeButton.classList.add('liked');
+                } else {
+                    likesCount -= 1;
+                    likeButton.classList.remove('liked');
+                }
+
+                likesCountElement.textContent = likesCount;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+});
+
     </script>
+</div>
 </body>
+
 </html>
