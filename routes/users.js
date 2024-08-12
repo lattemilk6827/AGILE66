@@ -13,7 +13,13 @@ router.get("/", (req, res) => {
     });
 });
 
-
+// Render Privacy Policy Page
+router.get("/policy", (req, res) => {
+    res.render("policy.ejs", {
+        title: "Policy",
+        userName: req.session.userName || null // Pass the username to the template
+    });
+});
 
 // Render Assessment Page
 router.get("/assessment", (req, res) => {

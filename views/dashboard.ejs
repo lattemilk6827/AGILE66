@@ -13,6 +13,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <!-- calling pie chart coded script -->
+    <script src="/progressTracker/pieChart.js"></script>
+
 </head>
 
 <body class="dashboard-page">
@@ -81,7 +84,7 @@
             <!-- Pie chart rendering -->
             <div class="col-md-6">
                 <div class="canvas-wrapper">
-                    <div id="react-pie-chart"></div>
+                    <div id="reactPieChart"></div>
                 </div>
             </div>
         </div>
@@ -242,58 +245,10 @@
                 // Render the pie chart with react component
                 ReactDOM.render(
                     React.createElement(PieChartComponent, { data: totalTimes }),
-                    document.getElementById('react-pie-chart')
+                    document.getElementById('reactPieChart')
                 );
             }
         });
-
-        // Defining the React component
-        const { useState, useEffect } = React;
-        
-        function PieChartComponent({ data }) {
-            const chartRef = React.useRef(null);
-         // Use useEffect to initialise the Chart.js pie chart
-            useEffect(() => {
-                const ctx = chartRef.current.getContext('2d');
-                new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        labels: ['Mind Games', 'Relaxation Games', 'Educational Games'],
-                        datasets: [{
-                            label: 'Total Time Spent (minutes)',
-                            data: [data.mind.toFixed(2), data.relaxation.toFixed(2), data.educational.toFixed(2)],
-                            backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe'],
-                            hoverOffset: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            title: {
-                                display: true,
-                                text: 'Find Out Where You Spent The Most/Least Time'
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        const total = context.dataset.data.reduce((sum, value) => sum + parseFloat(value), 0);
-                                        const percentage = ((context.raw / total) * 100).toFixed(2);
-                                        return `${context.label}: ${context.raw} minutes (${percentage}%)`;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }, [data]);
-        
-            return (
-                React.createElement('canvas', { ref: chartRef, width: '150', height: '150' })
-            );
-        }
     </script>
 </body>
 </html>

@@ -293,7 +293,8 @@ body.games-page {
     font-size: 1.5rem;
     margin-bottom: 5px;
     font-family: 'SuperMilk';
-    color: #f0f7b5;
+    /* color: #f0f7b5; */
+    color: #f1c746;
     text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
     letter-spacing: 0.2em;
     text-align: center; /* Center the text */
