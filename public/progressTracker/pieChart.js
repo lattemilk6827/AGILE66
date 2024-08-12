@@ -22,8 +22,8 @@ function PieChartComponent({ data }) {
         // First argument ctx specifies the rendering context
         // Second argument is a configuration object that defines the type, data and options for the chart
         new Chart(ctx, {
-            // Defining the type of chart to be drawn, in our case is pie
-            type: 'pie',
+            // Defining the type of chart to be drawn -- donut
+            type: 'doughnut',
             data: {
                 // Labels are the categories that will appear as legend and tooltips
                 labels: ['Mind Games', 'Relaxation Games', 'Educational Games'],
