@@ -15,8 +15,8 @@
     <div class="header-view-forum">
         <button onclick="window.location.href='/forum'" class="back_button">Back</button>
         <div class="title-view-forum">
-            <h1 class="h1-view-forum"><%= forum.forum_title %></h1>
-            <h2 class="h2-view-forum"><%= forum.forum_subtitle %></h2>
+            <h1 class="h1-view-forum" style="font-family: 'Yaelah';"><%= forum.forum_title %></h1>
+            <h2 class="h2-view-forum" style="font-family: 'Yaelah';"><%= forum.forum_subtitle %></h2>
             <small class="user-details">Published on: <%= forum.forum_publishedtimestamp %></small><br>
             <small class="user-details">by <%= forum.user_name %></small>        
         </div>
@@ -33,9 +33,9 @@
         </div>
 
         <div class="comments-section">
-        <h3 class="comment-title1">Comments</h3>        
+        <h3 class="comment-title1" style="font-family: 'Yaelah';">Comments</h3>        
             <div class="leaveComment">
-            <h3 class="comment-title2">Leave a Comment</h3>
+            <h3 class="comment-title2" style="font-family: 'Yaelah';">Leave a Comment</h3>
                 <br>
                 <form action="/forum/<%= forum.forum_id %>/comment" method="POST">
                     <div class="form-group">

@@ -22,6 +22,7 @@
 .p_title {
     font-size: 0.8em;
     color: #333;
+    font-family: 'Yaelah';
 }
 
 .nav_bar {
@@ -33,6 +34,7 @@
     width: fit-content;    gap: 50px;
     padding: 10px 20px;
     margin: 0 auto;
+    font-family: 'Yaelah';
 }
 
 .button_nav {
@@ -68,6 +70,7 @@
 
 .newpost_catsfilter {
     padding-bottom: 20px;
+    font-family: 'Yaelah';
 }
 
 .list-group {
@@ -97,12 +100,15 @@
 }
 
 .list-group-item h5 {
-    font-size: 1.25em;
+    font-family: 'Yaelah';
+    font-size: 1.45em;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #000;
 }
 
 .list-group-item p {
+    font-family: 'Yaelah';
     font-size: 0.95em;
     color: #555;
     margin-bottom: 0;
@@ -216,6 +222,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     max-width: 1000px;
     margin: 0 auto;
+    font-family: 'Yaelah';
 }
 
 
@@ -225,6 +232,7 @@
 }
 
 .latest-discussions h4 {
+    font-family: 'Komigo3D';
     font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 30px;
@@ -232,6 +240,7 @@
 }
 
 .discussion-bubbles {
+    font-family: 'Yaelah';
     display: flex;
     justify-content: space-around;
     gap: 20px;
@@ -286,11 +295,19 @@
 .title-view-forum {
     text-align:center;
     padding: 20px 0;
+    font-family: 'Yaelah';
 }
 
 .body-view-forum {
-    margin-top: 0;
+    margin: 20px auto; /* Centers the content horizontally */
     padding-bottom: 20px;
+    font-family: 'Yaelah';
+    border: 2px solid #ccc; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding inside the border */
+    background-color: #f9f9f9; /* Background color */
+    width: 70%; /* Sets the width to half the page */
+    font-weight: normal; /* Removes bold effect from the text */
 }
 
 .h1-view-forum {
@@ -306,8 +323,8 @@
 
 .body-view-forum-text {
     padding: 60px 40px;
-    font-size: 1.5em;
-    background-color: white;
+    font-size: 1.2em;
+    color: #4d4d4d;
 }
 
 .user-details {
@@ -336,15 +353,18 @@
 .comments-section {
     background-color: #F4E2BA;
     padding:40px 20px;
+    font-family: 'Yaelah';
 }
 
 .comment-title1 {
-    font-size: 3.1em;
+    font-size: 2.1em;
     margin-bottom:20px;
+
 }
 
 .comment-title2 {
     font-size: 1.8em;
+
 }
 
 .leaveComment {
@@ -433,6 +453,7 @@ form input[type="text"], form textarea {
     padding-top: 40px;
     box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
     width: 80%;
+    font-family: 'Yaelah';
 }
 
 .submit_button_create {
