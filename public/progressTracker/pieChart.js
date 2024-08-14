@@ -66,7 +66,7 @@ function PieChartComponent({ data }) {
                     
                     // Tooltip plugin provides interactivity and shows additional data on hover
                     tooltip: {
-                        // Customize the tooltips by using callbacks
+                        // Customising tooltips by using callbacks
                         callbacks: {
                             // Callback customises the content of the tooltips
                             label: function(context) {
