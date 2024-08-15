@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS achievements (
 
 -- Insert sample data into the achievements table
 INSERT INTO achievements (user_id, name, description, badgeImage) VALUES 
-(1, 'Completed Mind Quest', 'Completed the Mind Quest game', '/images/rewards/image1.png'),
+(1, 'Completed Mind Quest', 'Completed the Mind Quest game', '/images/reward1.png'),
 (1, 'Completed Brain Galore', 'Completed the Brain Galore game', '/images/rewards/image2.png'),
 (1, 'Completed Mystery Solver', 'Completed the Mystery Solver game', '/images/rewards/image3.png'),
 (1, 'Completed Logic Master', 'Completed the Logic Master game', '/images/rewards/image4.png'),
@@ -246,12 +246,12 @@ INSERT OR REPLACE INTO Games (id, title, description, category, section, progres
 (10, 'Meditate Away', 'Relax with calming a aura that takes you to another dimension', 'medium', 'relaxation', 0, 1),
 (11, 'Nature Sounds', 'Experience deep relaxation techniques and exercises', 'difficult', 'relaxation', 0, 1),
 (12, 'Cloud Punch', 'Master advanced relaxation with your remaining brain cells', 'difficult', 'relaxation', 0, 1),
-(13, 'Math Fun', 'Learn and practice math with fun activities.', 'easy', 'educational', 0, 1),
-(14, 'Science Explorer', 'Explore basic scientific concepts through interactive activities.', 'easy', 'educational', 0, 1),
-(15, 'History Adventure', 'Discover historical events and figures in a fun way.', 'medium', 'educational', 0, 1),
-(16, 'Geography Quest', 'Learn about different countries and their cultures.', 'medium', 'educational', 0, 1),
-(17, 'Math Challenges', 'Take on challenging math problems and puzzles.', 'difficult', 'educational', 0, 1),
-(18, 'Science Mastery', 'Master advanced scientific concepts and experiments.', 'difficult', 'educational', 0, 1);
+(13, 'Calm The Brain', 'Learn how to control your brain', 'easy', 'educational', 0, 1),
+(14, 'Peace of Mind', 'Explore basic mind concepts through activities', 'easy', 'educational', 0, 1),
+(15, 'History Stress', 'Discover historical events and cope in a fun way', 'medium', 'educational', 0, 1),
+(16, 'Emotions Quest', 'Learn about different feelings and their outcome', 'medium', 'educational', 0, 1),
+(17, 'Tough Times', 'Take on challenging scenarios and how to overcome them ', 'difficult', 'educational', 0, 1),
+(18, 'Brain Challenges', 'Take on challenging math problems and puzzles', 'difficult', 'educational', 0, 1);
 
 -- Save time progress for games to show in progress bars
 CREATE TABLE IF NOT EXISTS game_progress (
