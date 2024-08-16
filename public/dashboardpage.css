@@ -66,19 +66,18 @@ body.assessment-page {
 }
 
 .badge {
-    background-color: #fff;
+    background-color: #2f0c0c;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 1rem;
     margin: 0.5rem;
-    width: 150px;
-    text-align: center;
+    width:fit-content;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .badge img {
-    width: 100px;
-    height: auto;
+    width: 270px;
+    height: fit-content;
 }
 
 .badge p {

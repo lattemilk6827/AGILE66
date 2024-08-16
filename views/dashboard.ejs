@@ -33,15 +33,9 @@
 
     <div class="achievements-section">
         <h2 class="section-header" style="font-family: 'Yaelah';">Achievements</h2>
-        <div class="badges" id="achievements">
-            <% achievements.forEach(achievement => { %>
-                <div class="badge">
-                    <img src="<%= achievement.badgeImage %>" alt="Completed <%= achievement.name %>">
-                    <p>Completed <%= achievement.name %></p>
-                </div>
-            <% }) %>
-        </div>
+        <div class="badges" id="achievements"></div>
     </div>
+    
 
     <div class="progress-section">
         <h2 class="section-header" style="font-family: 'Yaelah';">Games Progress</h2>
@@ -125,61 +119,73 @@
     </div>
 
     <%- include('../utils/footer') %>
-    
-    <script>
-         // Allow DOM to be fully loaded before executing script
-         document.addEventListener('DOMContentLoaded', function() {
-            updateGameProgress();
-           // Utilising Vanilla JavaScript for Game Progress components
-            function updateGameProgress() {
-                // Get all game elements
+            <script>
+        // Allow DOM to be fully loaded before executing script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch the rewards JSON file and then update the game progress
+            fetch('/rewards.json')  
+                .then(response => response.json())  
+                .then(data => {
+                    // Extracting the array of reward images from JSON
+                    const rewardImages = data.rewards; 
+
+                    // Function to get a random reward image from the JSON data
+                    function getRandomRewardImage() {
+                        return rewardImages[Math.floor(Math.random() * rewardImages.length)];
+                    }
+
+                    // Call the function to update the game progress, passing in the random image function
+                    updateGameProgress(getRandomRewardImage);
+                });
+
+            // Function to update the game progress based on elapsed time and user interaction
+            function updateGameProgress(getRandomRewardImage) {
+                // Select all game elements on the page
                 const games = document.querySelectorAll('.game'); 
-                // Get the completed activities container
+                // Get the container for completed activities
                 const completedActivities = document.getElementById('completedActivities'); 
-                 // Get the achievements container
+                // Get the container for achievement badges
                 const achievementsSection = document.getElementById('achievements');
-                // Get the games progress container
-                const gamesProgress = document.getElementById('gamesProgress'); 
-                //Initialises the total time for each category to 0
-                // Used to keep track of the total time spent on different categories of games
+
+                // Object to store the total time spent on each game category
                 const totalTimes = {
                     mind: 0,
                     relaxation: 0,
                     educational: 0
                 };
 
-               // Loop through each game to update its progress
-               games.forEach((game) => {
-                    // Get game ID
+                // Loop through each game to update its progress and manage UI elements
+                games.forEach((game) => {
+                    // Get the unique game ID
                     const gameId = game.getAttribute('data-game-id'); 
-                    // Get game section
+                    // Get the game section (category) it belongs to (e.g., mind, relaxation, educational)
                     const gameSection = game.getAttribute('data-game-section'); 
-                     // UserName is unique per user
+                    // Unique user identifier passed from the server-side template
                     const userId = '<%= userName %>';
-                    // Get elapsed minutes (Time spent)
+                    // Retrieve the elapsed minutes for this game and user from localStorage
                     const elapsedMinutes = parseFloat(localStorage.getItem(`elapsedMinutes_${gameId}_${userId}`)) || 0; 
-                    // Round off minutes up to 2 decimal places
+                    // Round the elapsed minutes to 2 decimal places
                     const roundedElapsedMinutes = elapsedMinutes.toFixed(2); 
-                    // Calculate time taken in minutes to show as progress percentage
-                    const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100); 
+                    // Calculate the progress percentage (based on 15 minutes for full completion)
+                    const progressPercentage = Math.min((elapsedMinutes / 15) * 100, 100);
 
-
-                    // Adding elapsed minutes to the total time for the respective sections
+                    // Add the elapsed minutes to the total time for the respective game section
                     if (totalTimes[gameSection] !== undefined) {
                         totalTimes[gameSection] += elapsedMinutes;
                     }
 
+                    // Update the progress bar for the game
                     const progressBar = game.querySelector('.progress-bar');
                     if (progressBar) {
-                          // Update progress bar attributes and styles
+                        // Set the progress bar width and text content based on progress percentage
                         progressBar.setAttribute('aria-valuenow', progressPercentage);
                         progressBar.style.width = `${progressPercentage}%`;
                         progressBar.textContent = `${progressPercentage.toFixed(2)}%`;
 
-                        // Remove existing colour classes to set custom colour classes 
+                        // Remove any existing progress bar color classes to avoid overlap for custom colour classes
                         progressBar.classList.remove('progress-bar-low', 'progress-bar-medium', 'progress-bar-high', 'progress-bar-very-high', 'progress-bar-completed');
 
-                        // Add colour class based on progress percentage
+                        // Adding colour class based on progress percentage for visual indication based on user progress on games
                         if (progressPercentage < 25) {
                             progressBar.classList.add('progress-bar-low');
                         } else if (progressPercentage < 50) {
@@ -191,15 +197,16 @@
                         }
                     }
 
+                    // Update the status text  time taken and completion status for the game
                     const elapsedTimeElem = game.querySelector('.game-status');
                     if (elapsedTimeElem) {
                         const statusText = progressPercentage >= 100 ? 'Completed' : `${progressPercentage.toFixed(2)}% Completed`;
                         elapsedTimeElem.textContent = `Elapsed Time: ${roundedElapsedMinutes} minutes | Status: ${statusText}`;
                     }
 
+                    // Update the motivational message based on progress percentage
                     const gameMessageElem = game.querySelector('.game-message');
                     if (gameMessageElem) {
-                        // Update motivational messages based on progress
                         if (progressPercentage < 25) {
                             gameMessageElem.textContent = "Come on, don't give up!";
                         } else if (progressPercentage < 50) {
@@ -213,42 +220,51 @@
                         }
                     }
 
-                    // Move games with 100% progress to the completed section
+                    // If the game is fully completed (100% progress)
                     if (progressPercentage === 100) {
-                        // Remove game details except for the title
+                        // Clone the game element and remove the progress and details sections
                         const completedGame = game.cloneNode(true);
                         completedGame.querySelector('.progress').remove();
                         completedGame.querySelector('.game-details').remove();
-
+                        // Move the completed game to the completed activities section
                         completedActivities.appendChild(completedGame);
+                        // Remove the game from the main list
                         game.remove();
 
-                        // Add achievement badges from server side
+                        // Get a random reward image using the function passed in from the JSON data
+                        const randomImage = getRandomRewardImage(); 
+
+                        // Get the title of the completed game
+                        const gameTitle = completedGame.querySelector('.game-title').innerText;
+
+                        // Create a new reward for the achievement
                         const badge = document.createElement('div');
                         badge.classList.add('badge');
                         badge.innerHTML = `
-                            <img src="${completedGame.querySelector('.game-title').innerText}">
-                            <p>Completed ${completedGame.querySelector('.game-title').innerText}</p>
+                            <img src="${randomImage}" alt="Reward for ${gameTitle}">
                         `;
+                        // Add the badge to the achievements section
                         achievementsSection.appendChild(badge);
                     } else if (progressPercentage === 0) {
-                        // Hide games with 0% progress
+                        // Hide games with 0% progress from the list
                         game.style.display = 'none';
                     }
                 });
 
-                // Display total times for each section of activties
+                // Update the total time spent on each game section
                 document.getElementById('mind-time').textContent = `Mind Games: ${totalTimes.mind.toFixed(2)} minutes`;
                 document.getElementById('relaxation-time').textContent = `Relaxation Games: ${totalTimes.relaxation.toFixed(2)} minutes`;
                 document.getElementById('educational-time').textContent = `Educational Games: ${totalTimes.educational.toFixed(2)} minutes`;
 
-                // Render the pie chart with react component
+                // Render the pie chart with React component
                 ReactDOM.render(
                     React.createElement(PieChartComponent, { data: totalTimes }),
                     document.getElementById('reactPieChart')
                 );
             }
         });
-    </script>
+
+     </script>
+    
 </body>
 </html>
