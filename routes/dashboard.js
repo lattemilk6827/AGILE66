@@ -5,7 +5,6 @@ const router = express.Router();
 const { requireAuth } = require('./authenticate');
 const bcrypt = require('bcrypt');
 
-
 // Route to display the dashboard
 router.get("/dashboard", requireAuth, (req, res) => {
     const userId = req.session.userId;
@@ -17,7 +16,6 @@ router.get("/dashboard", requireAuth, (req, res) => {
         LEFT JOIN game_progress gp ON g.id = gp.game_id AND gp.user_id = ?
     `;
 
-    const achievementsQuery = `SELECT * FROM achievements WHERE user_id = ?`;
     const goalsQuery = `SELECT goals_text FROM goals WHERE user_id = ?`;
 
     global.db.all(query, [userId], (err, games) => {
@@ -26,24 +24,16 @@ router.get("/dashboard", requireAuth, (req, res) => {
             return res.status(500).send("Internal Server Error");
         }
 
-        global.db.all(achievementsQuery, [userId], (err, achievements) => {
+        global.db.get(goalsQuery, [userId], (err, goal) => {
             if (err) {
-                console.error("Database error fetching achievements:", err);
+                console.error("Database error fetching goals:", err);
                 return res.status(500).send("Internal Server Error");
             }
 
-            global.db.get(goalsQuery, [userId], (err, goal) => {
-                if (err) {
-                    console.error("Database error fetching goals:", err);
-                    return res.status(500).send("Internal Server Error");
-                }
-
-                res.render("dashboard", {
-                    userName: req.session.userName,
-                    games: games,
-                    achievements: achievements,
-                    goalsText: goal ? goal.goals_text : ''
-                });
+            res.render("dashboard", {
+                userName: req.session.userName,
+                games: games,
+                goalsText: goal ? goal.goals_text : ''
             });
         });
     });
