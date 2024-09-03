@@ -2,16 +2,22 @@
 <html>
 <head>
     <title>Forum Post</title>
+    <!-- Linking main CSS for consistent styling -->
     <link rel="stylesheet" href="/main.css">
+    <!-- Additional forum-specific CSS for page-specific styles -->
     <link rel="stylesheet" href="/forumpage.css">
+    <!-- Bootstrap CSS for responsive and modern styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- jQuery and Bootstrap's JavaScript for interactive elements and responsiveness -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 <body>
     <!--header-->
     <%- include('../utils/header') %>
+    <!-- Header for viewing individual forum posts -->
     <div class="header-view-forum">
         <button onclick="window.location.href='/forum'" class="back_button">Back</button>
         <div class="title-view-forum">
@@ -22,6 +28,7 @@
         </div>
         <hr class="nav-hr">
     </div>
+    <!-- Main content of the forum post including the post body and interaction buttons -->
     <div class="body-view-forum">
         <div class="body-view-forum-text">
             <p id="forum-body" style="white-space: pre-wrap;"><%= forum.forum_body %></p>
@@ -32,11 +39,13 @@
             </div>
         </div>
 
+        <!-- Section for comments on the post -->
         <div class="comments-section">
         <h3 class="comment-title1" style="font-family: 'Yaelah';">Comments</h3>        
             <div class="leaveComment">
             <h3 class="comment-title2" style="font-family: 'Yaelah';">Leave a Comment</h3>
                 <br>
+                <!-- Form to submit new comments -->
                 <form action="/forum/<%= forum.forum_id %>/comment" method="POST">
                     <div class="form-group">
                         <label for="commenter_name" class="form-label">Name</label>
@@ -51,6 +60,7 @@
                     <button type="submit" class="submit_button">Submit</button>
                 </form>
             </div>
+            <!-- Displaying existing comments -->
             <% comments.forEach(comment => { %>
                 <div class="comments-view">
                     <hr class="comment-hr">
@@ -64,45 +74,58 @@
 
     <!--footer-->
     <%- include('../utils/footer') %>
+
+    <!-- JavaScript for dynamic elements such as the like button and form submission -->
     <script>
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('like-button').addEventListener('click', async () => {
-        const forumId = '<%= forum.forum_id %>';
-        try {
-            const response = await fetch(`/forum/${forumId}/like`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
+        // JavaScript for handling the like button interaction
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('like-button').addEventListener('click', async () => {
+                const forumId = '<%= forum.forum_id %>';
+                // Try-Catch block to handle potential errors
+                try {
+                    // POST request to the server to handle the like action
+                    const response = await fetch(`/forum/${forumId}/like`, {
+                        method: 'POST',
+                        headers: {
+                            // Setting content type as JSON for the request
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    // Parsing the JSON response from the server
+                    const result = await response.json();
+                    if (result.success) {
+                        const likeButton = document.getElementById('like-button');
+                        const likesCountElement = document.getElementById('likes-count');
+                        let likesCount = parseInt(likesCountElement.textContent.trim());
+
+                        // Updating the likes count and button style
+                        if (result.action === 'liked') {
+                            likesCount += 1;
+                            likeButton.classList.add('liked');
+                        } else {
+                            likesCount -= 1;
+                            likeButton.classList.remove('liked');
+                        }
+
+                        likesCountElement.textContent = likesCount;
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
                 }
             });
-            const result = await response.json();
-            if (result.success) {
-                const likeButton = document.getElementById('like-button');
-                const likesCountElement = document.getElementById('likes-count');
-                let likesCount = parseInt(likesCountElement.textContent.trim());
+        });
 
-                if (result.action === 'liked') {
-                    likesCount += 1;
-                    likeButton.classList.add('liked');
-                } else {
-                    likesCount -= 1;
-                    likeButton.classList.remove('liked');
-                }
-
-                likesCountElement.textContent = likesCount;
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-        const forumBodyElement = document.getElementById('forum-body');
-        const forumBodyContent = forumBodyElement.textContent;
-        const formattedContent = forumBodyContent.replace(/\n/g, '<br>');
-        forumBodyElement.innerHTML = formattedContent;
-    });
+        // Replacing new lines with <br> for proper spacing in HTML
+        document.addEventListener('DOMContentLoaded', () => {
+                // Identifying the forum body element by its ID
+                const forumBodyElement = document.getElementById('forum-body');
+                // Retrieving the text content of the forum body
+                const forumBodyContent = forumBodyElement.textContent;
+                // Replacing newline characters with HTML line breaks for proper formatting     
+                const formattedContent = forumBodyContent.replace(/\n/g, '<br>');
+                // Updating the forum body's HTML to include formatted text
+                forumBodyElement.innerHTML = formattedContent;
+            });
     </script>
 </div>
 </body>

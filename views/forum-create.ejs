@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Forum</title>
+    <title>Forum Post</title>
+    <!-- Linking main CSS for consistent styling -->
     <link rel="stylesheet" href="/main.css">
+    <!-- Additional forum-specific CSS for page-specific styles -->
     <link rel="stylesheet" href="/forumpage.css">
+    <!-- Bootstrap CSS for responsive and modern styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- jQuery and Bootstrap's JavaScript for interactive elements and responsiveness -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 <body class="main-home-page create-forum">
 
 <!--header-->
-<!--header-->
 <%- include('../utils/header') %>
 
+<!-- Main content section for creating a new forum post -->
 <div class="create-body">
+<!-- Button to navigate back to the main forum page -->
 <button onclick="window.location.href='/forum'" class="create-button">Back</button>
 
+<!-- Form for submitting a new forum post -->
 <form action="/newPost" method="post">
     <div class="form_container">
         <h1 style="font-family: 'Yaelah';">Create a New Forum Post</h1>
+        <!-- Error handling: display errors if form validations fail -->
         <% if (errors && errors.length > 0) { %>
             <div class="alert alert-danger">
                 <ul>
@@ -30,6 +38,7 @@
                 </ul>
             </div>
         <% } %>
+        <!-- Form fields for post title, subtitle, body, and category -->
         <label for="forum_title" class="form-label">Title:</label>
         <br>
         <input type="text" id="forum_title" name="forum_title" value="<%= formData ? formData.forum_title : '' %>">
@@ -48,6 +57,7 @@
         <label for="forum_category" class="form-label">Category:</label>
         <br>
         <select id="forum_category" name="forum_category">
+            <!-- Dropdown for selecting post category with predefined options -->
             <option value="General Discussion" <%= formData && formData.forum_category === 'General Discussion' ? 'selected' : '' %>>General Discussion</option>
             <option value="Gaming and Hobbies" <%= formData && formData.forum_category === 'Feedback' ? 'selected' : '' %>>Feedback</option>    
             <option value="Announcements" <%= formData && formData.forum_category === 'Announcements' ? 'selected' : '' %>>Announcements</option>
@@ -69,6 +79,7 @@
         </select>
         <br>
             
+    <!-- Submit button for the form -->
     <button type="submit" class="submit_button_create">Post</button>
     </div>
     <br>
