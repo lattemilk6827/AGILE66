@@ -5,37 +5,44 @@
     <!-- Link to styles in main.css in the public folder  -->
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/gamespage.css">
+
     <!-- Link to the Bootstrap CSS for styling the page -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
     crossorigin="anonymous">
    
-    <!-- Bootstrap JavaScript libraries -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
-    
+    <!-- Bootstrap JavaScript libraries for enabling interactivity such as carousels -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+        crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
+        crossorigin="anonymous">
+    </script>
 </head>
 
 <body class="games-page">
-    <!-- Include the header -->
+    <!-- Include the header section -->
     <%- include('../utils/header') %>
     
     <div class="headerSection">
+        <!-- Main title of the games page -->
         <h1>THE GAMES <br> FUN FOR YOUR MIND</h1>
-         <button class="btn btn-primary" onclick="location.href='/dashboard'">Login to view your dashboard</button>
+        <!-- Button to navigate to the dashboard, only accessible after login -->
+        <button class="btn btn-primary" onclick="location.href='/dashboard'">Login to view your dashboard</button>
     </div>
 
     <div class="gamescontainer">
-    <!-- The links below are taken from online sources to redirect to the top games played on public websites. -->
+        <!-- Section displaying top games of the month -->
         <h2 class="custom-header">Top Games Of The Month</h2>
         <div class="row">
+            <!-- Each column represents a game, linked to an external website -->
             <div class="col-md-3">
                 <div class="cardTop">
                     <a href="http://www.depressionquest.com/" target="_blank">
                         <img src="images/topgame1.png" class="card-img-top" alt="Game 1">
                     </a>
-                    
                 </div>
             </div>
             <div class="col-md-3">
@@ -43,7 +50,6 @@
                     <a href="https://hiddenfolks.com/" target="_blank">
                         <img src="images/topgame2.png" class="card-img-top" alt="Game 2">
                     </a>
-                    
                 </div>
             </div>
             <div class="col-md-3">
@@ -51,18 +57,15 @@
                     <a href=" https://kidshelpline.com.au/sites/default/files/thinkingbraingame/index.html" target="_blank">
                         <img src="images/topgame3.png" class="card-img-top" alt="Game 3">
                     </a>
-                    
                 </div>
             </div>
-            
-           
         </div>
-   
-  
 
+        <!-- Section for recommended games based on user assessments -->
         <div class="container mt-4">
             <h1 class="custom-header">Recommended Games Based on Your Assessment</h1>
             <div class="row">
+                <!-- Check if games are available; if not, prompt the user to complete an assessment -->
                 <% if (games && games.length > 0) { %>
                     <% games.forEach(function(game) { %>
                         <div class="col-md-4">
@@ -71,25 +74,25 @@
                                     <h5 class="card-title"><%= game.title %></h5>
                                     <p class="card-text" style="font-family: 'Yaelah';"><%= game.description %></p>
                                     <a href="/games/play/<%= game.id %>" class="btn btn-primary" style="font-family: 'Yaelah', cursive;">Play Now</a>
-                                  
                                 </div>
                             </div>
                         </div>
                     <% }); %>
                 <% } else { %>
-                    <p class="text-center w-100">No games are currently recommended.Complete our assesmment to find out what suits you best.</p>
+                    <p class="text-center w-100">No games are currently recommended. Complete our assessment to find out what suits you best.</p>
                 <% } %>
             </div>
         </div>
-       
-        <!-- Top 3 players' profile images to appear on podium  -->
+
+        <!-- Section to display top 3 players' profile images on a podium -->
         <div class="podium-container">
             <h2 class="custom-header">Top Players Of The Month</h2>
             <div class="podium">
+                <!-- Podium positions (2nd, 1st, and 3rd) with corresponding profile images -->
                 <div class="podium-item second-place">
                     <div class="star">
                         <i class="fas fa-star"></i>
-                        <img src="/images/login.png" alt="Player 1">
+                        <img src="/images/login.png" alt="Player 2">
                     </div>
                     <div class="podium-number">2</div>
                 </div>
@@ -103,13 +106,14 @@
                 <div class="podium-item third-place">
                     <div class="star">
                         <i class="fas fa-star"></i>
-                        <img src="/images/login.png" alt="Player 1">
+                        <img src="/images/login.png" alt="Player 3">
                     </div>
                     <div class="podium-number">3</div>
                 </div>
             </div>
         </div>
         
+        <!-- Section providing a brief description of the games available on the site -->
         <div class="gamesBrief">
             <h3 style="font-family: 'Komigo3D', cursive;">TRY OUR GAMES TO TEST YOUR TINY BRAINS</h3>
             <p class="gamesDescription">
@@ -118,6 +122,7 @@
             <img src="/images/cute-header-image.png" alt="Mental Health" class="img-fluid">
         </div>
 
+        <!-- Dropdown menu to filter games by category -->
         <div class="text-center my-4" style="font-family: 'Komigo3D', cursive;">
             <select id="categoryDropdown" class="form-control" onchange="filterGamesByCategory()">
                 <option value="all">All Categories</option>
@@ -127,16 +132,16 @@
             </select>
         </div>
 
+        <!-- Sections for different game categories, each containing a Bootstrap carousel -->
         <div id="gamesSections">
+            <!-- Mind Games Carousel -->
             <h2 class="game-header">Mind Games</h2>
-            <!-- These classes initialise the carousel and enable the sliding animation -->
             <div id="mindGamesCarousel" class="carousel slide" data-ride="carousel">
-                <!-- This class wraps the carousel items -->
+                <!-- Wrapper for carousel items -->
                 <div class="carousel-inner" style="font-family: 'Yaelah';">
-                    <!-- Carousel items -->
+                    <!-- Carousel items will be dynamically loaded here -->
                 </div>
-
-                <!-- These classes are used to create the navigation controls, allowing us to move between carousel items -->
+                <!-- Controls for navigating between carousel items -->
                 <a class="carousel-control-prev" href="#mindGamesCarousel" role="button" data-slide="prev">
                     <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
                 </a>
@@ -145,10 +150,11 @@
                 </a>
             </div>
 
+            <!-- Relaxation Games Carousel -->
             <h2 class="game-header">Relaxation Games</h2>
             <div id="relaxationGamesCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" style="font-family: 'Yaelah';">
-                    <!-- Carousel items -->
+                    <!-- Carousel items will be dynamically loaded here -->
                 </div>
                 <a class="carousel-control-prev" href="#relaxationGamesCarousel" role="button" data-slide="prev">
                     <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
@@ -158,10 +164,11 @@
                 </a>
             </div>
 
+            <!-- Educational Games Carousel -->
             <h2 class="game-header">Educational Games</h2>
             <div id="educationalGamesCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" style="font-family: 'Yaelah';">
-                    <!-- Carousel items -->
+                    <!-- Carousel items will be dynamically loaded here -->
                 </div>
                 <a class="carousel-control-prev" href="#educationalGamesCarousel" role="button" data-slide="prev">
                     <i class="fas fa-chevron-left carousel-control-prev-icon" aria-hidden="true"></i>
@@ -173,18 +180,23 @@
         </div>
     </div>
 
-    <!-- Include the footer -->
+    <!-- Include the footer section -->
     <%- include('../utils/footer') %>
+
+    <!-- JavaScript to dynamically load and filter games based on category -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Load all games by default when the page is loaded
             loadGames('all');
 
+            // Add event listener to the category dropdown for filtering games
             document.getElementById('categoryDropdown').addEventListener('change', function() {
                 const selectedCategory = this.value;
-                loadGames(selectedCategory);
+                loadGames(selectedCategory); // Load games based on selected category
             });
         });
 
+        // Function to load games based on the selected category
         function loadGames(category) {
             fetch(`/games/category/${category}`)
                 .then(response => response.json())
@@ -192,11 +204,11 @@
                     const sections = ['mind', 'relaxation', 'educational'];
                     sections.forEach(section => {
                         const gamesContainer = document.querySelector(`#${section}GamesCarousel .carousel-inner`);
-                        gamesContainer.innerHTML = '';
+                        gamesContainer.innerHTML = ''; // Clear existing games in the carousel
                         let row = null;
                         let filteredGames = data.filter(game => game.section === section && game.id <= 18);
 
-                        let gamesToShow = [...filteredGames, ...filteredGames];
+                        let gamesToShow = [...filteredGames, ...filteredGames]; // Duplicate games for carousel display
 
                         gamesToShow.forEach((game, index) => {
                             if (index % 4 === 0) {
@@ -205,7 +217,7 @@
                                 let carouselItem = document.createElement('div');
                                 carouselItem.className = 'carousel-item';
                                 if (index === 0) {
-                                    carouselItem.classList.add('active');
+                                    carouselItem.classList.add('active'); // Make the first item active
                                 }
                                 carouselItem.appendChild(row);
                                 gamesContainer.appendChild(carouselItem);
@@ -230,7 +242,7 @@
                                 </div>
                             </div>
                         `;
-                            row.appendChild(col);
+                            row.appendChild(col); // Append each game card to the row
                         });
                     });
                 })
@@ -238,8 +250,5 @@
         }
         
     </script>
-    
-    
-    
 </body>
 </html>

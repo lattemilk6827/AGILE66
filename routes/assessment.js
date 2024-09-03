@@ -1,10 +1,16 @@
+// Import the Express framework
 const express = require('express');
+// Create a new router instance
 const router = express.Router();
-// Import custom authentication middleware
+// Import custom authentication middleware from the 'authenticate' module
 const { requireAuth } = require('./authenticate');
 
-
-// Function to determine mental health level based on score
+/**
+ * Function to determine the mental health level based on the total score.
+ * 
+ * score - The total numerical score from the assessment.
+ * category
+ */
 function determineLevel(score) {
     if (score <= 5) {
         return 'Low';
@@ -17,9 +23,15 @@ function determineLevel(score) {
     }
 }
 
-// Function to convert textual response to numerical value
+/**
+ * Function to convert a textual response to its corresponding numerical value.
+ * This mapping is used to quantify the user's responses for scoring.
+ * 
+ *The textual response from the assessment (e.g., 'Never', 'Sometimes').
+ * The numerical value corresponding to the response.
+ */
 function mapResponseToValue(response) {
-    console.log("Mapping response: ", response);  // Debugging line
+    console.log("Mapping response: ", response);  // Debugging line to log the response being mapped
     switch(response) {
         case 'Not at all':
             return 0;
@@ -34,11 +46,17 @@ function mapResponseToValue(response) {
         case 'Always':
             return 5;
         default:
+            // If the response does not match any case, put default to 0
             return 0;
     }
 }
 
-// Function to generate description based on level
+/**
+ * Function to generate a descriptive message based on the determined mental health level.
+ * 
+ * The mental health level category (e.g., 'Low', 'Moderate').
+ * A descriptive message corresponding to the level.
+ */
 function getDescription(level) {
     switch(level) {
         case 'Low':
@@ -50,67 +68,94 @@ function getDescription(level) {
         case 'Very High':
             return 'Your child is showing signs of severe emotional or behavioral distress, such as suicidal thoughts, self-harm, or extreme behavioral outbursts. They need immediate support and intervention to ensure their safety and well-being.';
         default:
+            // Return an empty string if the level doesn't match any case
             return '';
     }
 }
 
-
-// Route to handle questionnaire submission
-router.post('/submit-assessment',requireAuth, express.json(), (req, res) => {
-    // const userId = req.user ? req.user.id : 1; // Assuming you have user authentication, default to 1 for testing
+/**
+ * Route to handle the submission of an assessment questionnaire.
+ * 
+ * Endpoint: POST /submit-assessment
+ * Middleware:
+ *  - requireAuth: Ensures that only authenticated users can submit assessments.
+ *  - express.json(): Parses incoming JSON requests and makes the data available in req.body.
+ */
+router.post('/submit-assessment', requireAuth, express.json(), (req, res) => {
+    // Retrieve the user ID from the session. Assumes that user authentication sets req.session.userId
     const userId = req.session.userId; 
 
+    // Destructure the questionnaire responses from the request body
     const { q1, q2, q3, q4, q5 } = req.body;
 
-    console.log("Received data:", req.body);  // Debugging line
+    console.log("Received data:", req.body);  // Debugging line to log the received data
 
-    // Convert responses to numerical values
+    // Convert each textual response to its numerical value
     const q1Value = mapResponseToValue(q1);
     const q2Value = mapResponseToValue(q2);
     const q3Value = mapResponseToValue(q3);
     const q4Value = mapResponseToValue(q4);
     const q5Value = mapResponseToValue(q5);
 
-    console.log("Received values: ", q1Value, q2Value, q3Value, q4Value, q5Value);  // Debugging line
+    console.log("Received values: ", q1Value, q2Value, q3Value, q4Value, q5Value);  // Debugging line to log numerical values
 
-    // Calculate score
+    // Calculate the total score by summing the numerical values of all questions
     const score = q1Value + q2Value + q3Value + q4Value + q5Value;
+    // Determine the mental health level based on the total score
     const level = determineLevel(score);
+    // Get the descriptive message based on the determined level
     const description = getDescription(level);
+    // Capture the current time in ISO format to record when the assessment was created
     const createdAt = new Date().toISOString(); // Save the current time in UTC
 
-    console.log("Calculated score: ", score);  // Debugging line
-    console.log("Determined level: ", level);  // Debugging line
-    console.log("Generated description: ", description);  // Debugging line
+    console.log("Calculated score: ", score);  // Debugging line to log the total score
+    console.log("Determined level: ", level);  // Debugging line to log the mental health level
+    console.log("Generated description: ", description);  // Debugging line to log the description
 
-    // Insert assessment into the database
+    // Prepare the SQL statement to insert the assessment data into the 'assessments' table
     const stmt = db.prepare("INSERT INTO assessments (userId, q1, q2, q3, q4, q5, score, level, description, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    
+    // Execute the SQL statement with the provided values
     stmt.run(userId, q1Value, q2Value, q3Value, q4Value, q5Value, score, level, description, createdAt, function(err) {
         if (err) {
+            // Log the error message to the console
             console.error(err.message);
+            // Respond with a 500 Internal Server Error status and an error message
             res.status(500).json({ error: 'Failed to submit assessment' });
             return;
         }
+        // Log the ID of the newly inserted assessment for debugging
         console.log("Assessment submitted with ID: ", this.lastID); // Debugging line
+        // Respond with a success message and the assessment details
         res.json({ message: 'Assessment submitted successfully', score, level, description, createdAt });
     });
 });
 
-// Route to retrieve the latest and past results
-router.get('/assessments',requireAuth, (req, res) => {
-    // const userId = req.user ? req.user.id : 1; // Assuming you have user authentication, default to 1 for testing
+/**
+ * Route to retrieve all assessments for the authenticated user.
+ * 
+ * Endpoint: GET /assessments
+ * Middleware:
+ *  - requireAuth: Ensures that only authenticated users can retrieve assessments.
+ */
+router.get('/assessments', requireAuth, (req, res) => {
+    // Retrieve the user ID from the session
     const userId = req.session.userId; 
 
+    // Execute a SQL query to select all assessments for the user, ordered by creation date descending
     db.all("SELECT * FROM assessments WHERE userId = ? ORDER BY createdAt DESC", [userId], (err, rows) => {
         if (err) {
+            // Log the error message to the console
             console.error("Error fetching assessments:", err.message);
+            // Respond with a 500 Internal Server Error status and an error message
             res.status(500).json({ error: 'Failed to retrieve assessments' });
             return;
         }
-        console.log("Fetched assessments: ", rows); // Debugging line
+        console.log("Fetched assessments: ", rows); // Debugging line to log the retrieved assessments
+        // Respond with the retrieved assessments as a JSON array
         res.json(rows);
     });
 });
 
-
+// Export the router so it can be used in other parts of the application
 module.exports = router;

@@ -1,8 +1,7 @@
 const express = require("express");
 // Create a new instance of the express router
 const router = express.Router();
-// Import express validator for error message validation
-const { check, validationResult } = require('express-validator');
+
 
 
 // Render Main Home Page
