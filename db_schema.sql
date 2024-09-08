@@ -10,6 +10,9 @@ CREATE TABLE IF NOT EXISTS Users (
     password TEXT NOT NULL
 );
 
+-- Insert sample data into Users table
+INSERT OR IGNORE INTO Users (id, user_name, email, password) VALUES (1, 'John Doe', 'john.doe@example.com', 'password123');
+
 -- Forums Table
 CREATE TABLE IF NOT EXISTS Forum (
     forum_id INTEGER PRIMARY KEY AUTOINCREMENT,
